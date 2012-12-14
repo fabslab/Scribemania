@@ -1,0 +1,30 @@
+doctype 5
+
+html
+
+  head
+
+    title Scribemania
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="//use.typekit.net/nzx0ybl.js")
+    script try{Typekit.load();}catch(e){}
+
+  body
+
+    header
+      h1 
+        a(href="/") Scribemania
+
+    nav
+      ul
+        li: a(href='#') Latest
+        li: a(href='#') Genres
+        li: a(href='#') Groups
+        li: a(href='#') About
+
+    block content
+
+    script(src='/javascripts/json2-min.js')
+    script(src='/javascripts/jquery-1.8.2.min.js')
+    script(src='/javascripts/underscore.min.js')
+    script(src='/javascripts/backbone-min.js')
