@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "3.0.x",
@@ -11,5 +11,11 @@
     "stylus": "*",
     "nib": "*",
     "riak": "1.0.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-stylus": "~0.5.0"
   }
 }

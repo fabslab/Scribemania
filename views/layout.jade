@@ -5,26 +5,29 @@ html
   head
 
     title Scribemania
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/styles/style.css')
     script(src="//use.typekit.net/nzx0ybl.js")
     script try{Typekit.load();}catch(e){}
 
   body
 
     header
-      h1 
-        a(href="/") Scribemania
+      .page
+        h1
+            a(href="/") Scribemania
 
-    nav
-      ul
-        li: a(href='#') Latest
-        li: a(href='#') Genres
-        li: a(href='#') Groups
-        li: a(href='#') About
+    .page
 
-    block content
+      nav
+        ul
+          li.selected: a(href='#') Latest
+          li: a(href='#') Genres
+          li: a(href='#') Groups
+          li: a(href='#') About
 
-    script(src='/javascripts/json2-min.js')
-    script(src='/javascripts/jquery-1.8.2.min.js')
-    script(src='/javascripts/underscore.min.js')
-    script(src='/javascripts/backbone-min.js')
+      block content
+
+    script(src='/scripts/vendor/json2.min.js')
+    script(src='/scripts/vendor/jquery-1.9.1.min.js')
+    script(src='/scripts/vendor/underscore.min.js')
+    script(src='/scripts/vendor/backbone.min.js')

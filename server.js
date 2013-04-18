@@ -22,12 +22,7 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
-app.use(stylus.middleware({
-    src: __dirname + '/public',
-    compile: function(str, path) {
-      return stylus(str).set('filename', path).set('compress', true).use(nib());
-    }
-  }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only settings

@@ -4,11 +4,13 @@ global-reset()
 
 html5-reset()
 
-$navWidth = 15%
+$pageWidth = 1080px
+$navWidth = 140px
 $navBGGradient = 0
 $scribemaniaGreen = #296e28
 $storyBG = #F4F9F6
 $headerBG = #1c1c1c
+$storyFont = museo, "Lucida Grande", Helvetica, Arial, sans-serif
 
 @font-face 
   font-family: 'Gibson-Regular'
@@ -21,50 +23,61 @@ $headerBG = #1c1c1c
 
 html
   font-size: 62.5%
+
 body
-  font-size: 14px
-  font: 1.4rem museo, "Lucida Grande", Helvetica, Arial, sans-serif
-a
-  color: black
+  font-size: 16px
+  font: 1.5rem $storyFont
+
 header
-  a
-    color: $scribemaniaGreen
   font-size: 28px
-  text-align: center
   background: $headerBG
   background: linear-gradient(top, lighten($headerBG, 5%), black);
   padding: 10px 0
+  a
+    color: $scribemaniaGreen
+
+.page
+  max-width: $pageWidth
+  margin: 0 auto
+  position: relative
+
+ header h1
+  margin-left: 40px
+
 nav
   font-size: 18px
   font: 1.8rem raleway
   text-transform: uppercase
-  text-shadow: 0 1px 0 rgba(#536056)
-  position: fixed
-  top: 53px
-  left: 0
+  position: absolute
+  top: 0
   bottom: 0
+  left: 0
   width: $navWidth
-  min-width: 90px
-  text-align: center
-  border-right: 1px solid #E3E3E3
-  overflow: hidden
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1)
-  background: linear-gradient(left, white, $storyBG);
-
   li
     list-style: none
-    padding: 10px
-    border-bottom: 1px solid #E3E3E3
+    padding: 10px  10px 10px 30px
+    &:first-child
+      margin-top: 10px
+    &:last-child
+      margin-bottom: 10px
+    &.selected
+      background-color: $storyBG
+      border-radius: 40px
+      a:hover
+        color: black
+        cursor: default
 
 #content
-  margin: 0 $navWidth
+  margin-left: $navWidth + 10px
   padding: 20px
   textarea
-    padding: 0 auto
+    font: 1.4rem $storyFont
+    box-sizing: border-box
+    padding: 7px
     margin-top: 20px
-    width: 99%
-    height: 80px
-    border-radius: 2px
+    width: 100%
+    border-radius: 4px
+
 .story
   background: $storyBG
   padding: 20px
@@ -74,6 +87,7 @@ a
   text-decoration: none
   &:hover
     color: lighten($scribemaniaGreen, 5%)
+
 h2
   font-family: raleway
   text-align: center
@@ -81,5 +95,9 @@ h2
   padding-bottom: 15px
   font-size: 24px
   font-size: 2.4rem
+
 em
   font-style: italic
+
+.typekit-badge
+  display: none !important
