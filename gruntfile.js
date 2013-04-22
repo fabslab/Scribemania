@@ -7,6 +7,7 @@ module.exports = function(grunt) {
       files: ['gruntfile.js', 'public/scripts/*.js', '!public/scripts/lib/**'],
       options: {
         // options here to override JSHint defaults
+        eqnull: true
       }
     },
     stylus: {

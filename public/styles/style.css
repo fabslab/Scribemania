@@ -7,7 +7,7 @@ a img{border:none}
 @font-face{font-family:'Gibson-Regular';src:url("../fonts/Gibson-Regular.eot");src:url("../fonts/Gibson-Regular.eot?#iefix") format('embedded-opentype'),url("../fonts/Gibson-Regular.woff") format('woff'),url("../fonts/Gibson-Regular.ttf") format('truetype');font-weight:normal;font-style:normal}
 html{font-size:62.5%}
 body{font-size:16px;font:1.5rem museo,"Lucida Grande",Helvetica,Arial,sans-serif}
-header{font-size:28px;background:#1c1c1c;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #272727), color-stop(1, #000));background:-webkit-linear-gradient(top, #272727 0%, #000 100%);background:-moz-linear-gradient(top, #272727 0%, #000 100%);background:-o-linear-gradient(top, #272727 0%, #000 100%);background:-ms-linear-gradient(top, #272727 0%, #000 100%);background:linear-gradient(top, #272727 0%, #000 100%);padding:10px 0;}
+header{font-size:28px;background:#1c1c1c;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #272727), color-stop(1, #000));background:-webkit-linear-gradient(top, #272727 0%, #000 100%);background:-moz-linear-gradient(top, #272727 0%, #000 100%);background:-o-linear-gradient(top, #272727 0%, #000 100%);background:-ms-linear-gradient(top, #272727 0%, #000 100%);background:linear-gradient(top, #272727 0%, #000 100%);padding:10px 0;margin-bottom:20px;}
 header a{color:#296e28}
 .page{max-width:1080px;margin:0 auto;position:relative}
 header h1{margin-left:40px}
@@ -17,11 +17,13 @@ nav li:first-child{margin-top:10px}
 nav li:last-child{margin-bottom:10px}
 nav li.selected{background-color:#f4f9f6;-webkit-border-radius:40px;border-radius:40px;}
 nav li.selected a:hover{color:#000;cursor:default}
-#content{margin-left:150px;padding:20px;}
-#content textarea{font:1.4rem museo,"Lucida Grande",Helvetica,Arial,sans-serif;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:7px;margin-top:20px;width:100%;-webkit-border-radius:4px;border-radius:4px}
-.story{background:#f4f9f6;padding:20px;-webkit-border-radius:10px;border-radius:10px}
+#content{margin-left:140px;padding:20px}
+.story{background:#f4f9f6;padding:20px;-webkit-border-radius:10px;border-radius:10px;}
+.story p{margin-bottom:5px}
+.story textarea{font:1.4rem museo,"Lucida Grande",Helvetica,Arial,sans-serif;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:7px;margin-top:10px;width:100%;-webkit-border-radius:4px;border-radius:4px;display:none}
+.story .enter-hint{font-size:11px;font-size:1.1rem;font-style:italic;display:none}
 a{text-decoration:none;}
 a:hover{color:#2e7b2d}
-h2{font-family:raleway;text-align:center;color:#153714;padding-bottom:15px;font-size:24px;font-size:2.4rem}
+#content h2{font-family:raleway;text-align:center;color:#153714;padding-bottom:15px;padding-right:80px;font-size:24px;font-size:2.4rem}
 em{font-style:italic}
 .typekit-badge{display:none !important}

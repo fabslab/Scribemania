@@ -33,6 +33,7 @@ header
   background: $headerBG
   background: linear-gradient(top, lighten($headerBG, 5%), black);
   padding: 10px 0
+  margin-bottom: 20px
   a
     color: $scribemaniaGreen
 
@@ -68,31 +69,40 @@ nav
         cursor: default
 
 #content
-  margin-left: $navWidth + 10px
+  margin-left: $navWidth
   padding: 20px
-  textarea
-    font: 1.4rem $storyFont
-    box-sizing: border-box
-    padding: 7px
-    margin-top: 20px
-    width: 100%
-    border-radius: 4px
 
 .story
   background: $storyBG
   padding: 20px
   border-radius: 10px
+  p
+    margin-bottom: 5px
+  textarea
+    font: 1.4rem $storyFont
+    box-sizing: border-box
+    padding: 7px
+    margin-top: 10px
+    width: 100%
+    border-radius: 4px
+    display: none
+  .enter-hint
+    font-size: 11px
+    font-size: 1.1rem
+    font-style: italic
+    display: none
 
 a
   text-decoration: none
   &:hover
     color: lighten($scribemaniaGreen, 5%)
 
-h2
+#content h2
   font-family: raleway
   text-align: center
   color: darken($scribemaniaGreen, 50%)
   padding-bottom: 15px
+  padding-right: 80px
   font-size: 24px
   font-size: 2.4rem
 
