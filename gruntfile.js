@@ -4,10 +4,11 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     jshint: {
-      files: ['gruntfile.js', 'public/scripts/*.js', '!public/scripts/lib/**'],
+      files: ['gruntfile.js', 'server.js', 'public/scripts/*.js', 'routes/*.js', 'sockets/*.js'],
       options: {
         // options here to override JSHint defaults
-        eqnull: true
+        eqnull: true,
+        laxcomma: true
       }
     },
     stylus: {
@@ -33,11 +34,16 @@ module.exports = function(grunt) {
         files: [stylesDirectory + '/*.styl'],
         tasks: ['stylus']
       }
+    },
+    exec: {
+      "wrap-commonjs": {
+        command: 'r.js -convert public/scripts public/scripts'
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-stylus');
-
+  grunt.loadNpmTasks('grunt-exec');
 };

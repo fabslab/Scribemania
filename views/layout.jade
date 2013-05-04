@@ -13,22 +13,16 @@ html
 
     header
       .page
-        h1
-            a(href="/") Scribemania
+        h1: a(href="/") Scribemania
+        .navicons
+            a(href="/") Home
 
     .page
 
       nav
         ul
-          li.selected: a(href='#') Latest
-          li: a(href='#') Genres
-          li: a(href='#') Groups
-          li: a(href='#') About
+          li: a(href='#') Add New Story
 
       block content
 
-    script(src='/scripts/vendor/json2.min.js')
-    script(src='/scripts/vendor/jquery-1.9.1.min.js')
-    script(src='/scripts/vendor/underscore.min.js')
-    script(src='/scripts/vendor/backbone.min.js')
-    script(src='/scripts/main.js')
+    script(data-main="/scripts/loader", src="/vendor/requirejs.min.js")

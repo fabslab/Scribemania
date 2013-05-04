@@ -5,14 +5,14 @@ global-reset()
 html5-reset()
 
 $pageWidth = 1080px
-$navWidth = 140px
+$navWidth = 100px
 $navBGGradient = 0
 $scribemaniaGreen = #296e28
 $storyBG = #F4F9F6
 $headerBG = #1c1c1c
 $storyFont = museo, "Lucida Grande", Helvetica, Arial, sans-serif
 
-@font-face 
+@font-face
   font-family: 'Gibson-Regular'
   src: url('../fonts/Gibson-Regular.eot')
   src: url('../fonts/Gibson-Regular.eot?#iefix') format('embedded-opentype'),
@@ -27,6 +27,7 @@ html
 body
   font-size: 16px
   font: 1.5rem $storyFont
+  background: linear-gradient(top, #fff, #F7F7F7) fixed;
 
 header
   font-size: 28px
@@ -36,6 +37,13 @@ header
   margin-bottom: 20px
   a
     color: $scribemaniaGreen
+  h1, .navicons
+    display: inline-block
+  .navicons
+    float: right
+    margin-right: 40px
+    a
+      padding-left: 10px
 
 .page
   max-width: $pageWidth
@@ -48,6 +56,7 @@ header
 nav
   font-size: 18px
   font: 1.8rem raleway
+  text-align: center
   text-transform: uppercase
   position: absolute
   top: 0
@@ -56,26 +65,27 @@ nav
   width: $navWidth
   li
     list-style: none
-    padding: 10px  10px 10px 30px
+    padding: 5px 0 5px 10px
     &:first-child
       margin-top: 10px
     &:last-child
       margin-bottom: 10px
-    &.selected
-      background-color: $storyBG
-      border-radius: 40px
-      a:hover
-        color: black
-        cursor: default
 
 #content
   margin-left: $navWidth
-  padding: 20px
+  padding: 10px
 
 .story
   background: $storyBG
   padding: 20px
   border-radius: 10px
+  h2
+    font-family: raleway
+    text-align: center
+    color: darken($scribemaniaGreen, 50%)
+    padding-bottom: 15px
+    font-size: 22px
+    font-size: 2.2rem
   p
     margin-bottom: 5px
   textarea
@@ -84,6 +94,8 @@ nav
     padding: 7px
     margin-top: 10px
     width: 100%
+    max-width: 100%
+    min-height: 80px
     border-radius: 4px
     display: none
   .enter-hint
@@ -94,17 +106,9 @@ nav
 
 a
   text-decoration: none
+  color: black
   &:hover
     color: lighten($scribemaniaGreen, 5%)
-
-#content h2
-  font-family: raleway
-  text-align: center
-  color: darken($scribemaniaGreen, 50%)
-  padding-bottom: 15px
-  padding-right: 80px
-  font-size: 24px
-  font-size: 2.4rem
 
 em
   font-style: italic
