@@ -1,1 +1,1 @@
-## Write together in real-time.
+# Watch your stories unfold together.

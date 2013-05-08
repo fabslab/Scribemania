@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     jshint: {
-      files: ['gruntfile.js', 'server.js', 'public/scripts/*.js', 'routes/*.js', 'sockets/*.js'],
+      files: ['gruntfile.js', 'server.js', 'public/scripts/*.js', 'routes/*.js', 'sockets/*.js, schemas/*.js'],
       options: {
         // options here to override JSHint defaults
         eqnull: true,
@@ -46,4 +46,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-exec');
+  grunt.registerTask('predeploy', ['stylus', 'exec:wrap-commonjs']);
 };
