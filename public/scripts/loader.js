@@ -5,4 +5,4 @@ requirejs.config({
   }
 });
 
-require(["main"]);
+require(['main']);

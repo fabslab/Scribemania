@@ -14,15 +14,16 @@ html
     header
       .page
         h1: a(href="/") Scribemania
-        .navicons
-            a(href="/") Home
+        span.user: a(href="/account") [User]
 
     .page
 
       nav
         ul
-          li: a(href='#') Add New Story
+          li: a(href='/new') New Story
+          li: a(href='/latest') Latest Stories
 
-      block content
+      #content
+        block content
 
     script(data-main="/scripts/loader", src="/vendor/requirejs.min.js")

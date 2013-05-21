@@ -25,21 +25,48 @@ html
   font-size: 62.5%
 
 body
-  font-size: 16px
+  font-size: 15px
   font: 1.5rem $storyFont
   background: linear-gradient(top, #fff, #F7F7F7) fixed;
 
+a
+  text-decoration: none
+  color: black
+  &:hover
+    color: lighten($scribemaniaGreen, 5%)
+
+button
+  background-color: lighten($scribemaniaGreen, 75%)
+  border: 2px solid darken($scribemaniaGreen, 33%)
+  border-width: 0.2rem;
+  box-shadow: inset 1px -1px 1px lighten($scribemaniaGreen, 33%)
+  padding: 4px 10px
+  border-radius: 5px
+  font-size: 14px
+  font: 1.4rem $storyFont
+  transition: background-color 0.2s, box-shadow 0.2s
+  &:hover
+    background-color: lighten($scribemaniaGreen, 66%)
+    transition: background-color 0.2s
+  &:active
+    box-shadow: none
+    transition: box-shadow 0.2s
+
+
 header
   font-size: 28px
+  font-size: 2.8rem
   background: $headerBG
   background: linear-gradient(top, lighten($headerBG, 5%), black);
   padding: 10px 0
   margin-bottom: 20px
   a
     color: $scribemaniaGreen
-  h1, .navicons
+  h1, .user
     display: inline-block
-  .navicons
+  .user
+    font-size: 24px
+    font-size: 2.4rem
     float: right
     margin-right: 40px
     a
@@ -75,43 +102,68 @@ nav
   margin-left: $navWidth
   padding: 10px
 
-.story
+section
+  position: relative
   background: $storyBG
+  margin-top: 40px
   padding: 20px
   border-radius: 10px
+  overflow: auto
   h2
     font-family: raleway
-    text-align: center
-    color: darken($scribemaniaGreen, 50%)
     padding-bottom: 15px
     font-size: 22px
     font-size: 2.2rem
+  a
+    color: lighten($scribemaniaGreen, 5%)
   p
     margin-bottom: 5px
-  textarea
+  button
+    float: right
+    margin-top: 10px
+  textarea, input
+    font-size: 14px
     font: 1.4rem $storyFont
     box-sizing: border-box
-    padding: 7px
-    margin-top: 10px
+    border-radius: 4px
     width: 100%
+    padding: 5px
+    border: 1px solid #babdc3
+    border-width: 0.1rem
+    outline: none
+  textarea
     max-width: 100%
     min-height: 80px
-    border-radius: 4px
+
+section:first-child
+  margin-top: 0
+
+section.story
+  textarea
+    margin-top: 10px
     display: none
+  .started-by
+    position: absolute
+    top: 10px
+    top: 1rem
+    right: 2%
+    font-size: 12px
+    font-size: 1.2rem
+    font-style: italic
   .enter-hint
     font-size: 11px
     font-size: 1.1rem
     font-style: italic
     display: none
 
-a
-  text-decoration: none
-  color: black
-  &:hover
-    color: lighten($scribemaniaGreen, 5%)
+label, input, textarea
+  display: block
 
-em
-  font-style: italic
+label
+  margin-bottom: 5px
+
+input
+  margin-bottom: 10px
 
 .typekit-badge
   display: none !important

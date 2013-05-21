@@ -1,0 +1,21 @@
+extends layout
+block content
+
+  each story in stories
+
+    section.story(data-story-id="#{story._id}")
+      h2 #{story.title}
+      if story.paragraphs[0].author
+        .started-by started by #{story.paragraphs[0].author}
+
+
+      each paragraph in story.paragraphs
+        p #{paragraph.text}
+
+      textarea(spellcheck="true")
+      span.enter-hint Hit shift + enter to add your paragraph
+
+
+  if stories.length < 1
+    section
+      h2 No stories yet. Time to <a href="/new">write</a> some!
