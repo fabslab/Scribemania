@@ -2,7 +2,8 @@ Story
 
   title: '',
   paragraphs: [],
-  _id: ObjectId
+  _id: ObjectId,
+  createdDate: ISODate
 
 
 Paragraph

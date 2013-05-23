@@ -17,7 +17,6 @@ function addStory(req, res) {
   console.log(req.readable);
   var paragraph = {
     author: 'Fabien',
-    createdDate: new Date(),
     text: req.body.paragraph
   };
   var story = {
