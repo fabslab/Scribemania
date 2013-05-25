@@ -5,7 +5,7 @@ global-reset()
 html5-reset()
 
 $pageWidth = 1080px
-$navWidth = 100px
+$navWidth = 80px
 $navBGGradient = 0
 $scribemaniaGreen = #296e28
 $storyBG = #F4F9F6
@@ -90,13 +90,13 @@ nav
   bottom: 0
   left: 0
   width: $navWidth
+  ul
+    margin-left: 5px
   li
     list-style: none
-    padding: 5px 0 5px 10px
-    &:first-child
-      margin-top: 10px
-    &:last-child
-      margin-bottom: 10px
+    padding: 5px 0 10px 0
+  [class^="icon-"]
+    margin-bottom: 5px
 
 #content
   margin-left: $navWidth
@@ -141,6 +141,7 @@ section:first-child
 section.story
   textarea
     margin-top: 10px
+    margin-bottom: 5px
     display: none
   .started-by
     position: absolute
@@ -150,11 +151,16 @@ section.story
     font-size: 12px
     font-size: 1.2rem
     font-style: italic
-  .enter-hint
+  .enter-hints
+    color: $scribemaniaGreen
     font-size: 11px
     font-size: 1.1rem
     font-style: italic
-    display: none
+    .start-writing
+      margin-top: 25px
+    .add-paragraph
+      display: none
+
 
 label, input, textarea
   display: block

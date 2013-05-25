@@ -3,6 +3,7 @@ Story
   title: '',
   paragraphs: [],
   _id: ObjectId,
+  creator: ''
   createdDate: ISODate
 
 

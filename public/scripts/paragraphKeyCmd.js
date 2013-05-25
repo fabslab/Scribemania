@@ -15,8 +15,9 @@ module.exports = function addParagraph(event) {
 
   // when both are held down together append the user's paragraph to the story
   if (keysDown['16'] && keysDown['13']) {
-    event.stopPropagation();
     event.preventDefault();
+
+    if (!this.value.trim()) return;
 
     // get the story id using the data-story-id attribute of the story container div
     // use .attr() rather than .data() because we don't want to try to convert it - it's always a string

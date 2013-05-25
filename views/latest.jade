@@ -13,7 +13,11 @@ block content
         p #{paragraph.text}
 
       textarea(spellcheck="true")
-      span.enter-hint Hit shift + enter to add your paragraph
+      .enter-hints
+        .start-writing.
+          <i class="icon-pencil"></i> Hit enter to start writing
+        .add-paragraph.
+          <i class="icon-pencil"></i> Hit shift + enter to add your paragraph
 
 
   if stories.length < 1

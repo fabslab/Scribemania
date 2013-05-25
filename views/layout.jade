@@ -5,6 +5,7 @@ html
   head
 
     title Scribemania
+    link(rel='stylesheet', href='/vendor/custom-font-awesome/fontawesome.css')
     link(rel='stylesheet', href='/styles/style.css')
     script(src="//use.typekit.net/nzx0ybl.js")
     script try{Typekit.load();}catch(e){}
@@ -14,14 +15,17 @@ html
     header
       .page
         h1: a(href="/") Scribemania
-        span.user: a(href="/account") [User]
+        span.user: a(href="/account").
+         [User] <i class="icon-user"></i>
 
     .page
 
       nav
         ul
-          li: a(href='/new') New Story
-          li: a(href='/latest') Latest Stories
+          li: a(href='/latest').
+            <i class="icon-bolt icon-2x"></i>Latest
+          li: a(href='/new').
+              <i class="icon-edit icon-2x"></i>New
 
       #content
         block content
