@@ -6,7 +6,9 @@ block content
     section.story(data-story-id="#{story._id}")
       h2 #{story.title}
       if story.paragraphs[0].author
-        .started-by started by #{story.paragraphs[0].author}
+        .started-by started by
+          span.username &nbsp;
+            a(href="/users/#{story.creator}") #{story.creator}
 
 
       each paragraph in story.paragraphs

@@ -33,7 +33,8 @@ section textarea,section input{font-size:14px;font:1.4rem museo,"Lucida Grande",
 section textarea{max-width:100%;min-height:80px}
 section:first-child{margin-top:0}
 section.story textarea{margin-top:10px;margin-bottom:5px;display:none}
-section.story .started-by{position:absolute;top:10px;top:1rem;right:2%;font-size:12px;font-size:1.2rem;font-style:italic}
+section.story .started-by{color:#6e284c;filter:"alpha(opacity=0.5)";opacity:.5;filter:alpha(opacity=50);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";position:absolute;top:10px;top:1rem;right:2%;font-size:12px;font-size:1.2rem;font-style:italic;}
+section.story .started-by .username{color:#000}
 section.story .enter-hints{color:#296e28;font-size:11px;font-size:1.1rem;font-style:italic;}
 section.story .enter-hints .start-writing{margin-top:25px}
 section.story .enter-hints .add-paragraph{display:none}

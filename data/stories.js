@@ -11,16 +11,16 @@ module.exports = function(db) {
   }
 
   function add(story, cb) {
-    var now = new Date();
 
     story._id = stories.id();
-    story.createdDate = now;
     story.paragraphs[0].storyId = story._id;
-    story.paragraphs[0].createdDate = now;
+    story.createdDate = story.paragraphs[0].createdDate = new Date();
+    story.creator = story.paragraphs[0].author = '[User]';
 
     stories.insert(story)
       .success(cb)
       .error(console.warn);
+
   }
 
   function addParagraph(storyId, paragraph, cb) {

@@ -16,7 +16,6 @@ function newStoryForm(req, res) {
 function addStory(req, res) {
   console.log(req.readable);
   var paragraph = {
-    author: 'Fabien',
     text: req.body.paragraph
   };
   var story = {
