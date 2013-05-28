@@ -1,7 +1,7 @@
-var storiesAccess;
+var stories;
 
 module.exports = function(params) {
-  storiesAccess = require('../data/stories.js')(params.db);
+  stories = require('../data/stories.js')(params.db);
   var app = params.app;
 
   // home page is currently the same as the latest stories page
@@ -11,7 +11,7 @@ module.exports = function(params) {
 };
 
 function latest(req, res) {
-  storiesAccess.getAll(function(docs) {
+  stories.getAll(function(docs) {
     res.render('latest', { stories: docs });
   });
 }

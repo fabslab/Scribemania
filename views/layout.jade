@@ -15,19 +15,21 @@ html
     header
       .page
         h1: a(href="/") Scribemania
-        span.user: a(href="/account").
-         [User] <i class="icon-user"></i>
+        span.user: a(href="/login").
+         Log In <i class="icon-user"></i>
 
     .page
 
       nav
         ul
+          li: a(href='/new').
+                <i class="icon-edit icon-2x"></i>New
           li: a(href='/latest').
             <i class="icon-bolt icon-2x"></i>Latest
-          li: a(href='/new').
-              <i class="icon-edit icon-2x"></i>New
+          li: a(href='/genres').
+                <i class="icon-tags icon-2x"></i>Genres
+          li: a(href='/groups').
+                  <i class="icon-group icon-2x"></i>Groups
 
       #content
         block content
-
-    script(data-main="/scripts/loader", src="/vendor/requirejs.min.js")

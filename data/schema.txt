@@ -5,6 +5,7 @@ Story
   _id: ObjectId,
   creator: ''
   createdDate: ISODate
+  genres: []
 
 
 Paragraph

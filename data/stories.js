@@ -10,6 +10,14 @@ module.exports = function(db) {
 
   }
 
+  function get(id, cb) {
+
+    stories.findById(id)
+      .success(cb)
+      .error(console.warn);
+
+  }
+
   function add(story, cb) {
 
     story._id = stories.id();
@@ -31,10 +39,27 @@ module.exports = function(db) {
 
   }
 
+  function valid(story) {
+    var isValid = false;
+    // TODO: implement logic for validation
+    isValid = !!story.title.trim();
+    return isValid;
+  }
+
+  function validParagraph(paragraph) {
+    var isValid = false;
+    // TODO: implement logic for validation
+    isValid = !!paragraph.text.trim();
+    return isValid;
+  }
+
   return {
     getAll: getAll,
+    get: get,
     add: add,
-    addParagraph: addParagraph
+    addParagraph: addParagraph,
+    valid: valid,
+    validParagraph: validParagraph
   };
 
 };

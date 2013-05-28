@@ -1,12 +1,13 @@
-var storiesAccess;
+var stories;
 
 module.exports = function(params) {
-  storiesAccess = require('../data/stories.js')(params.db);
+
+  stories = require('../data/stories.js')(params.db);
   var app = params.app;
 
   app.get('/new', newStoryForm);
-
   app.post('/new', addStory);
+
 };
 
 function newStoryForm(req, res) {
@@ -14,16 +15,18 @@ function newStoryForm(req, res) {
 }
 
 function addStory(req, res) {
-  console.log(req.readable);
-  var paragraph = {
-    text: req.body.paragraph
-  };
+
   var story = {
     title: req.body.title,
-    paragraphs: [paragraph]
+    paragraphs: [{
+      text: req.body.paragraph
+    }]
   };
 
-  storiesAccess.add(story, function(doc) {
+  stories.add(story, function(doc) {
+    // TODO: broadcast the story (as a volatile socket message) to the Latest page and create an indicator on the page
+    // of how many new stories have been added since user loaded them (like Twitter)
     res.redirect('/');
   });
+
 }

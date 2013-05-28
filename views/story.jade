@@ -1,0 +1,24 @@
+extends layout
+block content
+
+  section.story(data-story-id="#{story._id}")
+    h2 #{story.title}
+    .started-info started by
+      span.started-name &nbsp;
+        a(href="/users/#{story.creator}") #{story.creator}
+      .started-time
+        span(data-livestamp="#{story.createdDate.toISOString()}")
+
+
+    each paragraph in story.paragraphs
+      p #{paragraph.text}
+
+    textarea(spellcheck="true")
+    .enter-hints
+      .start-writing.
+        <i class="icon-pencil"></i> Click the story to start writing
+      .add-paragraph.
+        <i class="icon-pencil"></i> Hit shift + enter to add your paragraph
+
+
+  script(data-main="/scripts/story-loader", src="/vendor/requirejs.min.js")

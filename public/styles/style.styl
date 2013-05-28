@@ -7,7 +7,7 @@ html5-reset()
 $pageWidth = 1080px
 $navWidth = 80px
 $navBGGradient = 0
-$scribemaniaGreen = #296e28
+$scribemaniaGreen = #2e7b2d
 $storyBG = #F4F9F6
 $headerBG = #1c1c1c
 $storyFont = museo, "Lucida Grande", Helvetica, Arial, sans-serif
@@ -32,8 +32,29 @@ body
 a
   text-decoration: none
   color: black
+  transition: color 0.5s
   &:hover
-    color: lighten($scribemaniaGreen, 5%)
+    color: $scribemaniaGreen
+    transition: color 0.2s
+
+header
+  font-size: 28px
+  font-size: 2.8rem
+  background: $headerBG
+  background: linear-gradient(top, lighten($headerBG, 5%), black);
+  padding: 10px 0
+  margin-bottom: 20px
+  a
+    color: $scribemaniaGreen
+  h1, .user
+    display: inline-block
+    a:hover
+      color: lighten($scribemaniaGreen, 10%)
+  .user
+    font-size: 24px
+    font-size: 2.4rem
+    float: right
+    margin-right: 40px
 
 button
   background-color: lighten($scribemaniaGreen, 75%)
@@ -51,26 +72,6 @@ button
   &:active
     box-shadow: none
     transition: box-shadow 0.2s
-
-
-header
-  font-size: 28px
-  font-size: 2.8rem
-  background: $headerBG
-  background: linear-gradient(top, lighten($headerBG, 5%), black);
-  padding: 10px 0
-  margin-bottom: 20px
-  a
-    color: $scribemaniaGreen
-  h1, .user
-    display: inline-block
-  .user
-    font-size: 24px
-    font-size: 2.4rem
-    float: right
-    margin-right: 40px
-    a
-      padding-left: 10px
 
 .page
   max-width: $pageWidth
@@ -99,7 +100,7 @@ nav
     margin-bottom: 5px
 
 #content
-  margin-left: $navWidth
+  margin-left: sum($navWidth 10)
   padding: 10px
 
 section
@@ -115,7 +116,7 @@ section
     font-size: 22px
     font-size: 2.2rem
   a
-    color: lighten($scribemaniaGreen, 5%)
+    color: $scribemaniaGreen
   p
     margin-bottom: 5px
   button
@@ -143,10 +144,12 @@ section.story
     margin-top: 10px
     margin-bottom: 5px
     display: none
-  .started-by
+  .started-info
+    text-align: right
+    padding-right: 2px
     color: #6E284C
-    filter: "alpha(opacity=0.5)"
-    opacity: 0.5
+    filter: "alpha(opacity=0.7)"
+    opacity: 0.7
     position: absolute
     top: 10px
     top: 1rem
@@ -154,9 +157,9 @@ section.story
     font-size: 12px
     font-size: 1.2rem
     font-style: italic
-    .username
+    .started-name
       color: black
-  .enter-hints
+  .enter-hints, .read-more
     color: $scribemaniaGreen
     font-size: 11px
     font-size: 1.1rem
@@ -165,6 +168,8 @@ section.story
       margin-top: 25px
     .add-paragraph
       display: none
+  .read-more
+    margin-top: 15px
 
 
 label, input, textarea

@@ -7,23 +7,23 @@ a img{border:none}
 @font-face{font-family:'Gibson-Regular';src:url("../fonts/Gibson-Regular.eot");src:url("../fonts/Gibson-Regular.eot?#iefix") format('embedded-opentype'),url("../fonts/Gibson-Regular.woff") format('woff'),url("../fonts/Gibson-Regular.ttf") format('truetype');font-weight:normal;font-style:normal}
 html{font-size:62.5%}
 body{font-size:15px;font:1.5rem museo,"Lucida Grande",Helvetica,Arial,sans-serif;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #f7f7f7)) fixed;background:-webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed;background:-moz-linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed;background:-o-linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed;background:-ms-linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed;background:linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed}
-a{text-decoration:none;color:#000;}
-a:hover{color:#2e7b2d}
-button{background-color:#bee7bd;border:2px solid #1b4a1b;border-width:.2rem;-webkit-box-shadow:inset 1px -1px 1px #50bf4e;box-shadow:inset 1px -1px 1px #50bf4e;padding:4px 10px;-webkit-border-radius:5px;border-radius:5px;font-size:14px;font:1.4rem museo,"Lucida Grande",Helvetica,Arial,sans-serif;-webkit-transition:background-color .2s, box-shadow .2s;-moz-transition:background-color .2s, box-shadow .2s;-o-transition:background-color .2s, box-shadow .2s;-ms-transition:background-color .2s, box-shadow .2s;transition:background-color .2s,box-shadow .2s;}
-button:hover{background-color:#a6dea5;-webkit-transition:background-color .2s;-moz-transition:background-color .2s;-o-transition:background-color .2s;-ms-transition:background-color .2s;transition:background-color .2s}
-button:active{-webkit-box-shadow:none;box-shadow:none;-webkit-transition:box-shadow .2s;-moz-transition:box-shadow .2s;-o-transition:box-shadow .2s;-ms-transition:box-shadow .2s;transition:box-shadow .2s}
+a{text-decoration:none;color:#000;-webkit-transition:color .5s;-moz-transition:color .5s;-o-transition:color .5s;-ms-transition:color .5s;transition:color .5s;}
+a:hover{color:#2e7b2d;-webkit-transition:color .2s;-moz-transition:color .2s;-o-transition:color .2s;-ms-transition:color .2s;transition:color .2s}
 header{font-size:28px;font-size:2.8rem;background:#1c1c1c;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #272727), color-stop(1, #000));background:-webkit-linear-gradient(top, #272727 0%, #000 100%);background:-moz-linear-gradient(top, #272727 0%, #000 100%);background:-o-linear-gradient(top, #272727 0%, #000 100%);background:-ms-linear-gradient(top, #272727 0%, #000 100%);background:linear-gradient(top, #272727 0%, #000 100%);padding:10px 0;margin-bottom:20px;}
-header a{color:#296e28}
-header h1,header .user{display:inline-block}
-header .user{font-size:24px;font-size:2.4rem;float:right;margin-right:40px;}
-header .user a{padding-left:10px}
+header a{color:#2e7b2d}
+header h1,header .user{display:inline-block;}
+header h1 a:hover,header .user a:hover{color:#379436}
+header .user{font-size:24px;font-size:2.4rem;float:right;margin-right:40px}
+button{background-color:#c1e8c0;border:2px solid #1f521e;border-width:.2rem;-webkit-box-shadow:inset 1px -1px 1px #59c257;box-shadow:inset 1px -1px 1px #59c257;padding:4px 10px;-webkit-border-radius:5px;border-radius:5px;font-size:14px;font:1.4rem museo,"Lucida Grande",Helvetica,Arial,sans-serif;-webkit-transition:background-color .2s, box-shadow .2s;-moz-transition:background-color .2s, box-shadow .2s;-o-transition:background-color .2s, box-shadow .2s;-ms-transition:background-color .2s, box-shadow .2s;transition:background-color .2s,box-shadow .2s;}
+button:hover{background-color:#abe0aa;-webkit-transition:background-color .2s;-moz-transition:background-color .2s;-o-transition:background-color .2s;-ms-transition:background-color .2s;transition:background-color .2s}
+button:active{-webkit-box-shadow:none;box-shadow:none;-webkit-transition:box-shadow .2s;-moz-transition:box-shadow .2s;-o-transition:box-shadow .2s;-ms-transition:box-shadow .2s;transition:box-shadow .2s}
 .page{max-width:1080px;margin:0 auto;position:relative}
 header h1{margin-left:40px}
 nav{font-size:18px;font:1.8rem raleway;text-align:center;text-transform:uppercase;position:absolute;top:0;bottom:0;left:0;width:80px;}
 nav ul{margin-left:5px}
 nav li{list-style:none;padding:5px 0 10px 0}
 nav [class^="icon-"]{margin-bottom:5px}
-#content{margin-left:80px;padding:10px}
+#content{margin-left:90px;padding:10px}
 section{position:relative;background:#f4f9f6;margin-top:40px;padding:20px;-webkit-border-radius:10px;border-radius:10px;overflow:auto;}
 section h2{font-family:raleway;padding-bottom:15px;font-size:22px;font-size:2.2rem}
 section a{color:#2e7b2d}
@@ -33,11 +33,12 @@ section textarea,section input{font-size:14px;font:1.4rem museo,"Lucida Grande",
 section textarea{max-width:100%;min-height:80px}
 section:first-child{margin-top:0}
 section.story textarea{margin-top:10px;margin-bottom:5px;display:none}
-section.story .started-by{color:#6e284c;filter:"alpha(opacity=0.5)";opacity:.5;filter:alpha(opacity=50);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";position:absolute;top:10px;top:1rem;right:2%;font-size:12px;font-size:1.2rem;font-style:italic;}
-section.story .started-by .username{color:#000}
-section.story .enter-hints{color:#296e28;font-size:11px;font-size:1.1rem;font-style:italic;}
-section.story .enter-hints .start-writing{margin-top:25px}
-section.story .enter-hints .add-paragraph{display:none}
+section.story .started-info{text-align:right;padding-right:2px;color:#6e284c;filter:"alpha(opacity=0.7)";opacity:.7;filter:alpha(opacity=70);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";position:absolute;top:10px;top:1rem;right:2%;font-size:12px;font-size:1.2rem;font-style:italic;}
+section.story .started-info .started-name{color:#000}
+section.story .enter-hints,section.story .read-more{color:#2e7b2d;font-size:11px;font-size:1.1rem;font-style:italic;}
+section.story .enter-hints .start-writing,section.story .read-more .start-writing{margin-top:25px}
+section.story .enter-hints .add-paragraph,section.story .read-more .add-paragraph{display:none}
+section.story .read-more{margin-top:15px}
 label,input,textarea{display:block}
 label{margin-bottom:5px}
 input{margin-bottom:10px}
