@@ -8,7 +8,6 @@ module.exports = function(params) {
 };
 
 function story(req, res) {
-  console.log(req.params.id);
   var objectIdRegExp = new RegExp("^[0-9a-fA-F]{24}$");
   if (!objectIdRegExp.test(req.params.id)) res.send("");
 

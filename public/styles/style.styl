@@ -57,6 +57,7 @@ header
     margin-right: 40px
 
 button
+  cursor: pointer
   background-color: lighten($scribemaniaGreen, 75%)
   border: 2px solid darken($scribemaniaGreen, 33%)
   border-width: 0.2rem;
@@ -66,10 +67,10 @@ button
   font-size: 14px
   font: 1.4rem $storyFont
   transition: background-color 0.2s, box-shadow 0.2s
-  &:hover
+  &:hover, &:focus
     background-color: lighten($scribemaniaGreen, 66%)
     transition: background-color 0.2s
-  &:active
+  &:active, &:focus
     box-shadow: none
     transition: box-shadow 0.2s
 
@@ -178,7 +179,7 @@ label, input, textarea
 label
   margin-bottom: 5px
 
-input
+.add-story input, .add-story textarea
   margin-bottom: 10px
 
 .typekit-badge

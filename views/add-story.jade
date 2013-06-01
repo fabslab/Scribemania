@@ -3,11 +3,14 @@ block content
 
   form(action="/new", method="POST")
 
-    section
+    section.add-story
       label(for="story-title") Title
       input#story-title(name="title", type="text")
 
       label(for="story-starter") Opening paragraph
       textarea#story-starter(name="paragraph", spellcheck="true")
+
+      label(for="story-genres") Intended Genres
+      input#story-genres(name="genres", placeholder="Eg: adventure, fantasy, drama", type="text")
 
       button.submit-new(type="submit") Add Story

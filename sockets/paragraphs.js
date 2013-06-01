@@ -5,18 +5,15 @@ module.exports = function(params) {
   var io = params.socketIo;
 
   io.sockets.on('connection', function(socket) {
-
     socket.on('add.paragraph', function(paragraph) {
       if (!stories.validParagraph(paragraph)) {
         socket.emit('invalid.paragraph');
       }
-      console.log(paragraph.text);
       stories.addParagraph(paragraph.storyId, paragraph, function() {
-        socket.broadcast.emit('broadcast.paragraph', paragraph);
+        // once added to db send paragraph to all other users to update their views of the story
+        socket.broadcast.emit(paragraph.storyId, paragraph);
       });
-
     });
-
   });
 
 };

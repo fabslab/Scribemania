@@ -14,9 +14,9 @@ header a{color:#2e7b2d}
 header h1,header .user{display:inline-block;}
 header h1 a:hover,header .user a:hover{color:#379436}
 header .user{font-size:24px;font-size:2.4rem;float:right;margin-right:40px}
-button{background-color:#c1e8c0;border:2px solid #1f521e;border-width:.2rem;-webkit-box-shadow:inset 1px -1px 1px #59c257;box-shadow:inset 1px -1px 1px #59c257;padding:4px 10px;-webkit-border-radius:5px;border-radius:5px;font-size:14px;font:1.4rem museo,"Lucida Grande",Helvetica,Arial,sans-serif;-webkit-transition:background-color .2s, box-shadow .2s;-moz-transition:background-color .2s, box-shadow .2s;-o-transition:background-color .2s, box-shadow .2s;-ms-transition:background-color .2s, box-shadow .2s;transition:background-color .2s,box-shadow .2s;}
-button:hover{background-color:#abe0aa;-webkit-transition:background-color .2s;-moz-transition:background-color .2s;-o-transition:background-color .2s;-ms-transition:background-color .2s;transition:background-color .2s}
-button:active{-webkit-box-shadow:none;box-shadow:none;-webkit-transition:box-shadow .2s;-moz-transition:box-shadow .2s;-o-transition:box-shadow .2s;-ms-transition:box-shadow .2s;transition:box-shadow .2s}
+button{cursor:pointer;background-color:#c1e8c0;border:2px solid #1f521e;border-width:.2rem;-webkit-box-shadow:inset 1px -1px 1px #59c257;box-shadow:inset 1px -1px 1px #59c257;padding:4px 10px;-webkit-border-radius:5px;border-radius:5px;font-size:14px;font:1.4rem museo,"Lucida Grande",Helvetica,Arial,sans-serif;-webkit-transition:background-color .2s, box-shadow .2s;-moz-transition:background-color .2s, box-shadow .2s;-o-transition:background-color .2s, box-shadow .2s;-ms-transition:background-color .2s, box-shadow .2s;transition:background-color .2s,box-shadow .2s;}
+button:hover,button:focus{background-color:#abe0aa;-webkit-transition:background-color .2s;-moz-transition:background-color .2s;-o-transition:background-color .2s;-ms-transition:background-color .2s;transition:background-color .2s}
+button:active,button:focus{-webkit-box-shadow:none;box-shadow:none;-webkit-transition:box-shadow .2s;-moz-transition:box-shadow .2s;-o-transition:box-shadow .2s;-ms-transition:box-shadow .2s;transition:box-shadow .2s}
 .page{max-width:1080px;margin:0 auto;position:relative}
 header h1{margin-left:40px}
 nav{font-size:18px;font:1.8rem raleway;text-align:center;text-transform:uppercase;position:absolute;top:0;bottom:0;left:0;width:80px;}
@@ -41,5 +41,5 @@ section.story .enter-hints .add-paragraph,section.story .read-more .add-paragrap
 section.story .read-more{margin-top:15px}
 label,input,textarea{display:block}
 label{margin-bottom:5px}
-input{margin-bottom:10px}
+.add-story input,.add-story textarea{margin-bottom:10px}
 .typekit-badge{display:none !important}
