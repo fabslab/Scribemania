@@ -4,7 +4,6 @@ ol,ul{list-style:none}
 table{border-collapse:separate;border-spacing:0;vertical-align:middle}
 caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}
 a img{border:none}
-@font-face{font-family:'Gibson-Regular';src:url("../fonts/Gibson-Regular.eot");src:url("../fonts/Gibson-Regular.eot?#iefix") format('embedded-opentype'),url("../fonts/Gibson-Regular.woff") format('woff'),url("../fonts/Gibson-Regular.ttf") format('truetype');font-weight:normal;font-style:normal}
 html{font-size:62.5%}
 body{font-size:15px;font:1.5rem museo,"Lucida Grande",Helvetica,Arial,sans-serif;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #f7f7f7)) fixed;background:-webkit-linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed;background:-moz-linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed;background:-o-linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed;background:-ms-linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed;background:linear-gradient(top, #fff 0%, #f7f7f7 100%) fixed}
 a{text-decoration:none;color:#000;-webkit-transition:color .5s;-moz-transition:color .5s;-o-transition:color .5s;-ms-transition:color .5s;transition:color .5s;}
