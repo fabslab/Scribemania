@@ -11,7 +11,7 @@ module.exports = function(params) {
 };
 
 function latest(req, res) {
-  stories.getAll(function(docs) {
+  stories.get(function(docs) {
     res.render('latest', { stories: docs });
   });
 }

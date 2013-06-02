@@ -11,7 +11,7 @@ function story(req, res) {
   var objectIdRegExp = new RegExp("^[0-9a-fA-F]{24}$");
   if (!objectIdRegExp.test(req.params.id)) res.send("");
 
-  stories.get(req.params.id, function(doc) {
+  stories.getById(req.params.id, function(doc) {
     res.render('story', { story: doc });
   });
 }

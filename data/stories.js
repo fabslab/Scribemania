@@ -2,24 +2,23 @@ module.exports = function(db) {
 
   var stories = db.get('stories');
 
-  function getAll(cb) {
-
-    stories.find({}, {"sort": [['createdDate','desc']]})
+  function get(limit, cb) {
+    if (typeof limit != 'number') {
+      cb = limit;
+      limit = 50;
+    }
+    stories.find({}, {"limit": limit, "sort": [['createdDate','desc']]})
       .success(cb)
       .error(console.warn);
-
   }
 
-  function get(id, cb) {
-
+  function getById(id, cb) {
     stories.findById(id)
       .success(cb)
       .error(console.warn);
-
   }
 
   function add(story, cb) {
-
     story._id = stories.id();
     story.paragraphs[0].storyId = story._id;
     story.createdDate = story.paragraphs[0].createdDate = new Date();
@@ -28,15 +27,12 @@ module.exports = function(db) {
     stories.insert(story)
       .success(cb)
       .error(console.warn);
-
   }
 
   function addParagraph(storyId, paragraph, cb) {
-
     stories.updateById(storyId, { '$push': { paragraphs: paragraph } })
       .success(cb)
       .error(console.warn);
-
   }
 
   function valid(story) {
@@ -54,8 +50,8 @@ module.exports = function(db) {
   }
 
   return {
-    getAll: getAll,
     get: get,
+    getById: getById,
     add: add,
     addParagraph: addParagraph,
     valid: valid,
