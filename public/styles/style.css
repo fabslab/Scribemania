@@ -40,5 +40,6 @@ section.story .enter-hints .add-paragraph,section.story .read-more .add-paragrap
 section.story .read-more{margin-top:15px}
 label,input,textarea{display:block}
 label{margin-bottom:5px}
-.add-story input,.add-story textarea{margin-bottom:10px}
+.add-story input,.add-story textarea{margin-bottom:10px;-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;-ms-transition:all .3s ease-in-out;transition:all .3s ease-in-out;}
+.add-story input:focus,.add-story textarea:focus{-webkit-box-shadow:0 0 1px 1px #379436;box-shadow:0 0 1px 1px #379436;-webkit-transition:all .2s ease-out;-moz-transition:all .2s ease-out;-o-transition:all .2s ease-out;-ms-transition:all .2s ease-out;transition:all .2s ease-out}
 .typekit-badge{display:none !important}

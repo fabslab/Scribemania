@@ -172,6 +172,10 @@ label
 
 .add-story input, .add-story textarea
   margin-bottom: 10px
+  transition: all .3s ease-in-out;
+  &:focus
+    box-shadow: 0 0 1px 1px lighten($scribemaniaGreen, 10%);
+    transition: all .2s ease-out;
 
 .typekit-badge
   display: none !important

@@ -17,7 +17,7 @@ function newStoryForm(req, res) {
 }
 
 function addStory(req, res) {
-  var genres = req.body.split(/,\s*/).map(function(genre) { return genre.toLowerCase(); });
+  var genres = req.body.genres.split(/,\s*/).map(function(genre) { return genre.toLowerCase(); });
   var paragraphText = req.body.paragraph;
 
   var story = {
