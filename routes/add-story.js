@@ -17,11 +17,15 @@ function newStoryForm(req, res) {
 }
 
 function addStory(req, res) {
+  var genres = req.body.split(/,\s*/).map(function(genre) { return genre.toLowerCase(); });
+  var paragraphText = req.body.paragraph;
+
   var story = {
     title: req.body.title,
     paragraphs: [{
-      text: req.body.paragraph
-    }]
+      text: paragraphText
+    }],
+    genres: genres
   };
 
   stories.add(story, function(doc) {

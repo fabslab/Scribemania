@@ -4,6 +4,8 @@ var $ = require('jquery')
   , io = require('socketio')
   , socket = io.connect();
 
+require('../common/pad-bottom')();
+
 // initialize live timestamps
 require('livestamp');
 
