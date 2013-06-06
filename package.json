@@ -7,24 +7,24 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "~3.0.6",
-    "jade": "~0.30.0",
-    "socket.io": "~0.9.14",
+    "express": "~3.2.6",
+    "jade": "~0.31.1",
     "monk": "~0.7.1",
-    "nconf": "~0.6.7"
+    "nconf": "~0.6.7",
+    "socket.io": "~0.9.14"
   },
   "devDependencies": {
-    "stylus": "~0.32.1",
-    "nib": "~0.9.1",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.4.3",
     "grunt-contrib-watch": "~0.3.1",
     "grunt-contrib-stylus": "~0.5.0",
     "grunt-exec": "~0.4.0",
-    "requirejs": "~2.1.6"
+    "nib": "~0.9.1",
+    "requirejs": "~2.1.6",
+    "stylus": "~0.32.1"
   },
   "subdomain": "scribemania",
   "engines": {
-    "node": "0.8.x"
+    "node": "*"
   }
 }

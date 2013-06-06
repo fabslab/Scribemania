@@ -22,7 +22,8 @@ module.exports = function(grunt) {
           'include css': true
         },
         files: {
-          'public/styles/style.css': stylesDirectory + '/*.styl'
+          'public/styles/style.css': stylesDirectory + '/style.styl',
+          'public/styles/reset.css': stylesDirectory + '/reset.styl'
         }
       }
     },

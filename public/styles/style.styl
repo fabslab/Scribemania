@@ -1,16 +1,13 @@
 @import "nib"
 
-global-reset()
-
-html5-reset()
-
 $pageWidth = 1080px
 $navWidth = 80px
 $navBGGradient = 0
 $scribemaniaGreen = #2e7b2d
+$scribemaniaComplement = #6E284C
 $storyBG = #F4F9F6
 $headerBG = #1c1c1c
-$storyFont = museo, "Lucida Grande", Helvetica, Arial, sans-serif
+$storyFont = museo, 'Helvetica Neue', Arial, sans-serif
 
 html
   font-size: 62.5%
@@ -18,21 +15,21 @@ html
 body
   font-size: 15px
   font: 1.5rem $storyFont
-  background: linear-gradient(top, #fff, #F7F7F7) fixed;
+  background: linear-gradient(top, #fff, #F7F7F7) fixed
 
 a
   text-decoration: none
   color: black
-  transition: color 0.5s
+  transition: color 0.4s
   &:hover
     color: $scribemaniaGreen
-    transition: color 0.2s
+    transition: color 0.1s
 
 header
   font-size: 28px
   font-size: 2.8rem
   background: $headerBG
-  background: linear-gradient(top, lighten($headerBG, 5%), black);
+  background: linear-gradient(top, lighten($headerBG, 5%), black)
   padding: 10px 0
   margin-bottom: 20px
   a
@@ -62,6 +59,7 @@ button
     background-color: lighten($scribemaniaGreen, 66%)
     transition: background-color 0.2s
   &:active, &:focus
+    outline: none
     box-shadow: none
     transition: box-shadow 0.2s
 
@@ -75,7 +73,8 @@ button
 
 nav
   font-size: 18px
-  font: 1.8rem raleway
+  font: 1.8rem raleway, sans-serif
+  font-weight: 100
   text-align: center
   text-transform: uppercase
   position: absolute
@@ -87,13 +86,20 @@ nav
     margin-left: 5px
   li
     list-style: none
-    padding: 5px 0 10px 0
+    padding: 10px 0 15px 0
   [class^="icon-"]
     margin-bottom: 5px
 
 #content
   margin-left: sum($navWidth 10)
   padding: 10px
+
+h2
+  font-family: raleway, sans-serif
+  font-weight: 100
+  padding-bottom: 15px
+  font-size: 22px
+  font-size: 2.2rem
 
 section
   position: relative
@@ -102,11 +108,6 @@ section
   padding: 20px
   border-radius: 10px
   overflow: auto
-  h2
-    font-family: raleway
-    padding-bottom: 15px
-    font-size: 22px
-    font-size: 2.2rem
   a
     color: $scribemaniaGreen
   p
@@ -139,7 +140,7 @@ section.story
   .started-info
     text-align: right
     padding-right: 2px
-    color: #6E284C
+    color: $scribemaniaComplement
     filter: "alpha(opacity=0.7)"
     opacity: 0.7
     position: absolute
@@ -170,12 +171,16 @@ label, input, textarea
 label
   margin-bottom: 5px
 
-.add-story input, .add-story textarea
+input, .add-story textarea
   margin-bottom: 10px
-  transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out
   &:focus
-    box-shadow: 0 0 1px 1px lighten($scribemaniaGreen, 10%);
-    transition: all .2s ease-out;
+    border: 1px solid lighten($scribemaniaGreen, 5%)
+    box-shadow: 0 0 1px 1px lighten($scribemaniaGreen, 10%)
+    transition: all .2s ease-out
+
+.genres
+  text-align: center
 
 .typekit-badge
   display: none !important

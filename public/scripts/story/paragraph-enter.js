@@ -32,14 +32,14 @@ module.exports = function createParagraphEnterHandler(socket) {
       $(this.nextSibling).children('.add-paragraph').fadeOut('fast');
       // dismiss and empty the input box while appending the text to the story
       $(this).fadeOut('fast', function() {
-        var newParagraph = document.createElement('p');
-        var $newParagraph = $(newParagraph);
-        newParagraph.appendChild(document.createTextNode(this.value));
+        $('<p>' + this.value + '</p>')
+          .hide()
+          .insertBefore(this)
+          .fadeIn('fast')
+          .siblings('.enter-hints')
+          .children('.start-writing')
+          .fadeIn('fast');
         this.value = '';
-        $newParagraph.hide();
-        this.parentNode.insertBefore(newParagraph, this);
-        $newParagraph.fadeIn('fast');
-        $newParagraph.next().children('.add-paragraph').fadeIn('fast');
       });
     }
 
