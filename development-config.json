@@ -1,5 +1,6 @@
 {
   "mongodb": {
     "connectionString": "localhost/scribemania"
-  }
+  },
+  "cookieSecret": "secret"
 }

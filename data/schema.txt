@@ -14,3 +14,10 @@ Paragraph
   createdDate: ISODate,
   storyId: ObjectId,
   text: ''
+
+
+User
+
+  name:
+  password:
+  email:

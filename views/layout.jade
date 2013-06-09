@@ -12,15 +12,13 @@ html
     |<!--[if lt IE 9]>
     |  <script src="/vendor/html5shiv-printshiv.js"></script>
     |<![endif]-->
-    script(src="//use.typekit.net/sow4qhi.js")
-    script try{Typekit.load();}catch(e){}
 
   body
 
     header
       .page
         h1: a(href="/") Scribemania
-        span.user: a(href="/login").
+        span.user: a#login(href="/login").
          Log In <i class="icon-user"></i>
 
     .page

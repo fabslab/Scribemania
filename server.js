@@ -3,7 +3,8 @@ var express = require('express')
   , fs = require('fs')
   , path = require('path')
   , nconf = require('nconf')
-  , socketio = require('socket.io');
+  , socketio = require('socket.io')
+  , passport = require('passport');
 
 var routesPath = './routes/'
   , socketListenersPath = './sockets/'
@@ -16,22 +17,32 @@ nconf.argv()
      .env()
      .file({ file: app.settings.env + '-config.json' });
 
+// connect to database
 var db = require('monk')(nconf.get('mongodb:connectionString'));
 
 
 // settings and handlers for all environments
+
 app.set('port', process.env.PORT || 3000);
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
+
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
+
+app.use(express.cookieParser(nconf.get('cookieSecret')));
 app.use(express.session());
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(app.router);
+
 // paths for static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'socket.io')));
+app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
+
 
 // environment specific settings
 var envHandlers = {
@@ -54,8 +65,12 @@ var io = socketio.listen(server);
 var params = {
   app: app,
   db: db,
-  socketIo: io
+  socketIo: io,
+  passport: passport
 };
+
+// set up authentication
+require('./authentication.js')(params);
 
 // Load files that define routes
 // This way we can add new route files without any additional setup

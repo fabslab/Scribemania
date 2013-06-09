@@ -1,6 +1,6 @@
 {
   "name": "scribemania",
-  "version": "0.0.1-21",
+  "version": "0.0.1-22",
   "private": true,
   "scripts": {
     "predeploy": "grunt predeploy",
@@ -11,7 +11,10 @@
     "jade": "~0.31.1",
     "monk": "~0.7.1",
     "nconf": "~0.6.7",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6"
+    "passport-openid": "~0.3.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

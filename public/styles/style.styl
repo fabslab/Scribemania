@@ -1,5 +1,19 @@
 @import "nib"
 
+@font-face
+  font-family: Museo300Regular
+  src: url('/fonts/Museo300-RegularWeb.eot')
+  src: url('/fonts/Museo300-RegularWeb.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/Museo300-RegularWeb.woff') format('woff')
+
+@font-face
+  font-family: 'Raleway'
+  src: url('/fonts/raleway_thin-webfont.eot')
+  src: url('/fonts/raleway_thin-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/raleway_thin-webfont.woff') format('woff'),
+       url('/fonts/raleway_thin-webfont.ttf') format('truetype'),
+       url('/fonts/raleway_thin-webfont.svg#raleway-thin') format('svg')
+
 $pageWidth = 1080px
 $navWidth = 80px
 $navBGGradient = 0
@@ -7,7 +21,8 @@ $scribemaniaGreen = #2e7b2d
 $scribemaniaComplement = #6E284C
 $storyBG = #F4F9F6
 $headerBG = #1c1c1c
-$storyFont = museo, 'Helvetica Neue', Arial, sans-serif
+$storyFont = Museo300Regular, 'Helvetica Neue', 'Helvetica', Arial, sans-serif
+$titleFont = Raleway, 'Helvetica Neue', 'Helvetica', Arial, sans-serif
 
 html
   font-size: 62.5%
@@ -48,7 +63,7 @@ button
   cursor: pointer
   background-color: lighten($scribemaniaGreen, 75%)
   border: 2px solid darken($scribemaniaGreen, 33%)
-  border-width: 0.2rem;
+  border-width: 0.2rem
   box-shadow: inset 1px -1px 1px lighten($scribemaniaGreen, 33%)
   padding: 4px 10px
   border-radius: 5px
@@ -73,7 +88,7 @@ button
 
 nav
   font-size: 18px
-  font: 1.8rem raleway, sans-serif
+  font: 1.8rem $titleFont
   font-weight: 100
   text-align: center
   text-transform: uppercase
@@ -95,11 +110,10 @@ nav
   padding: 10px
 
 h2
-  font-family: raleway, sans-serif
+  font-size: 22px
+  font: 2.2rem $titleFont
   font-weight: 100
   padding-bottom: 15px
-  font-size: 22px
-  font-size: 2.2rem
 
 section
   position: relative
