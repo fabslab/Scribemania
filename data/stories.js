@@ -2,37 +2,37 @@ module.exports = function(db) {
 
   var stories = db.get('stories');
 
-  function get(limit, cb) {
+  function get(limit, callback) {
     if (typeof limit != 'number') {
-      cb = limit;
+      callback = limit;
       limit = 50;
     }
-    stories.find({}, {"limit": limit, "sort": [['createdDate','desc']]})
-      .success(cb)
-      .error(console.warn);
+    stories.find({}, { limit: limit, sort: [['createdDate','desc']] })
+      .error(console.warn)
+      .success(callback);
   }
 
-  function getById(id, cb) {
+  function getById(id, callback) {
     stories.findById(id)
-      .success(cb)
-      .error(console.warn);
+      .error(console.warn)
+      .success(callback);
   }
 
-  function add(story, cb) {
+  function add(story, callback) {
     story._id = stories.id();
     story.paragraphs[0].storyId = story._id;
     story.createdDate = story.paragraphs[0].createdDate = new Date();
     story.creator = story.paragraphs[0].author = '[User]';
 
     stories.insert(story)
-      .success(cb)
-      .error(console.warn);
+      .error(console.warn)
+      .success(callback);
   }
 
-  function addParagraph(storyId, paragraph, cb) {
+  function addParagraph(storyId, paragraph, callback) {
     stories.updateById(storyId, { '$push': { paragraphs: paragraph } })
-      .success(cb)
-      .error(console.warn);
+      .error(console.warn)
+      .success(callback);
   }
 
   function valid(story) {

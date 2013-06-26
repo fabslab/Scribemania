@@ -7,7 +7,6 @@ html
     title Scribemania
     link(rel='stylesheet', href='/styles/reset.css')
     link(rel='stylesheet', href='/vendor/custom-font-awesome/fontawesome.css')
-    link(rel='stylesheet', href='/vendor/chosen/chosen.css')
     link(rel='stylesheet', href='/styles/style.css')
     |<!--[if lt IE 9]>
     |  <script src="/vendor/html5shiv-printshiv.js"></script>
@@ -26,12 +25,12 @@ html
       nav
         ul
           li: a(href='/new').
-                <i class="icon-edit icon-2x"></i>Start
+                <i class="icon-edit icon-2x"></i>New
           li: a(href='/latest').
             <i class="icon-bolt icon-2x"></i>Latest
           li: a(href='/genres').
                 <i class="icon-tags icon-2x"></i>Genres
-          li: a(href='/groups').
+          //li: a(href='/groups').
                 <i class="icon-group icon-2x"></i>Groups
 
       #content

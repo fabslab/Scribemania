@@ -1,0 +1,23 @@
+{
+  "immed": true,
+  "newcap": true,
+  "noarg": true,
+  "quotmark": true,
+  "trailing": true,
+  "undef": true,
+  "unused": "vars",
+
+  "boss": true,
+  "eqnull": true,
+  "expr": true,
+  "laxcomma": true,
+  "smarttabs": true,
+
+  "browser": true,
+  "node": true,
+  "devel": false,
+  "globals": {
+    "define": true,
+    "requirejs": true
+  }
+}

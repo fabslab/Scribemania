@@ -38,7 +38,7 @@ a
   transition: color 0.4s
   &:hover
     color: $scribemaniaGreen
-    transition: color 0.1s
+    transition: color 0.2s
 
 header
   font-size: 28px
@@ -48,11 +48,11 @@ header
   padding: 10px 0
   margin-bottom: 20px
   a
-    color: $scribemaniaGreen
+    color: lighten($scribemaniaGreen, 10%)
   h1, .user
     display: inline-block
     a:hover
-      color: lighten($scribemaniaGreen, 10%)
+      color: lighten($scribemaniaGreen, 20%)
   .user
     font-size: 24px
     font-size: 2.4rem
@@ -66,6 +66,8 @@ button
   border-width: 0.2rem
   box-shadow: inset 1px -1px 1px lighten($scribemaniaGreen, 33%)
   padding: 4px 10px
+  min-width: 90px
+  width: 10%
   border-radius: 5px
   font-size: 14px
   font: 1.4rem $storyFont
@@ -107,6 +109,7 @@ nav
 
 #content
   margin-left: sum($navWidth 10)
+  margin-right: 10px
   padding: 10px
 
 h2
@@ -122,6 +125,7 @@ section
   padding: 20px
   border-radius: 10px
   overflow: auto
+  box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.4) inset
   a
     color: $scribemaniaGreen
   p
@@ -181,20 +185,33 @@ section.story
 
 label, input, textarea
   display: block
+  &.user-warning
+    border-color: $scribemaniaComplement
+    color: $scribemaniaComplement
+    box-shadow: 0 0 1px 1px lighten($scribemaniaComplement, 10%)
+  &.user-error
+    transition: none
+    border-color: #a00000
+    color: #a00000
+    box-shadow: 0 0 1px 1px rgba(#a00000, 0.5)
 
 label
   margin-bottom: 5px
 
 input, .add-story textarea
   margin-bottom: 10px
-  transition: all .3s ease-in-out
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.075)
+  transition: background-color .3s ease-in-out, box-shadow .3s ease-in-out, border .3s ease-in-out
   &:focus
+    color: black
     border: 1px solid lighten($scribemaniaGreen, 5%)
-    box-shadow: 0 0 1px 1px lighten($scribemaniaGreen, 10%)
-    transition: all .2s ease-out
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075), 0 0 1px 1px rgba(lighten($scribemaniaGreen, 10%), 0.5)
+    background-color: darken(white, 2%)
+    transition: background-color .3s ease-out, box-shadow .3s ease-out, border .3s ease-out
 
-.genres
-  text-align: center
+.signup-link
+  display: inline-block
+  margin-top: 20px
 
 .typekit-badge
   display: none !important

@@ -4,12 +4,10 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     jshint: {
-      files: ['gruntfile.js', 'server.js', 'public/scripts/**/*.js', 'routes/*.js', 'sockets/*.js, schemas/*.js',
+      files: ['gruntfile.js', 'server.js', 'authentication.js', 'public/scripts/**/*.js', 'routes/*.js', 'sockets/*.js, schemas/*.js',
              'data/*.js'],
       options: {
-        // options here to override JSHint defaults
-        eqnull: true,
-        laxcomma: true
+        jshintrc: '.jshintrc'
       }
     },
     stylus: {

@@ -1,0 +1,23 @@
+extends layout
+block content
+
+  form#signup-form(action="/signup", method="POST")
+
+    section.signup
+      label(for="username") Username
+      input#username(name="username", required, type="text")
+
+      label(for="email") Email
+      input#email(name="email", placeholder="you@domain.com", type="email")
+
+      label(for="password") Password
+      input#password(name="password", required, type="password")
+
+      label(for="password-repeat") Repeat Password
+      input#password-repeat(name="password-repeat", required, type="password")
+
+      button(type="submit") Sign Up
+
+      a.signup-link(href="/login") Already signed up?
+
+  script(data-main="/scripts/signup/loader", src="/vendor/requirejs.min.js")

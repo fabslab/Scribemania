@@ -1,8 +1,8 @@
 Story
 
-  title: '',
-  paragraphs: [],
-  _id: ObjectId,
+  title: ''
+  paragraphs: []
+  _id: ObjectId
   creator: ''
   createdDate: ISODate
   genres: ['','']
@@ -10,14 +10,16 @@ Story
 
 Paragraph
 
-  author: '',
-  createdDate: ISODate,
-  storyId: ObjectId,
+  author: ''
+  createdDate: ISODate
+  storyId: ObjectId
   text: ''
 
 
 User
 
-  name:
-  password:
-  email:
+  username: ''
+  password: ''
+  email: ''
+  salt: ''
+  _id: ObjectId

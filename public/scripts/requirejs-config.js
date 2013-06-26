@@ -4,12 +4,11 @@ requirejs.config({
     socketio: '/socket.io/socket.io.js',
     moment: '/vendor/moment',
     livestamp: '/vendor/livestamp',
-    chosen: '/vendor/chosen/chosen.jquery'
+    zxcvbn: '/vendor/zxcvbn'
   },
   shim: {
-    chosen: {
-      deps: ['jquery'],
-      exports: 'Chosen'
+    zxcvbn: {
+      exports: 'zxcvbn'
     }
   }
 });

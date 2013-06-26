@@ -7,7 +7,7 @@ module.exports = function(params) {
   io.sockets.on('connection', function(socket) {
     socket.on('add.paragraph', function(paragraph) {
       if (!stories.validParagraph(paragraph)) {
-        socket.emit('invalid.paragraph');
+        socket.emit({ error: 'Invalid paragraph.' });
       }
       stories.addParagraph(paragraph.storyId, paragraph, function() {
         // once added to db send paragraph to all other users to update their views of the story

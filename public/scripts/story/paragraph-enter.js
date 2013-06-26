@@ -1,5 +1,7 @@
 define(function (require, exports, module) {
 
+var $ = require('jquery');
+
 var keysDown = {
   16: false, // shift key
   13: false  // enter key
