@@ -22,7 +22,6 @@ module.exports = function(db) {
     story._id = stories.id();
     story.paragraphs[0].storyId = story._id;
     story.createdDate = story.paragraphs[0].createdDate = new Date();
-    story.creator = story.paragraphs[0].author = '[User]';
 
     stories.insert(story)
       .error(console.warn)

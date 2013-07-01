@@ -11,7 +11,8 @@ module.exports = function(params) {
 };
 
 function newStoryForm(req, res) {
-  res.render('new');
+  if (!req.user) res.redirect('/login');
+  else res.render('new');
 }
 
 function addStory(req, res) {
@@ -20,8 +21,10 @@ function addStory(req, res) {
 
   var story = {
     title: req.body.title,
+    creator: req.user.username,
     paragraphs: [{
-      text: paragraphText
+      text: paragraphText,
+      author: req.user.username
     }],
     genres: genres
   };

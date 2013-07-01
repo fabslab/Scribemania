@@ -1,0 +1,72 @@
+#content
+  margin-left: sum($navWidth 10)
+  margin-right: 10px
+  padding: 10px
+
+section
+  position: relative
+  background: $storyBG
+  margin-top: 40px
+  padding: 20px
+  border-radius: 10px
+  overflow: auto
+  box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.4) inset
+  border: 1px solid rgba($scribemaniaGreen, 0.1)
+  border-width: 0.1rem
+  a
+    color: $scribemaniaGreen
+  p
+    margin-bottom: 5px
+  button
+    float: right
+    margin-top: 10px
+  textarea, input
+    font-size: 14px
+    font: 1.4rem $storyFont
+    box-sizing: border-box
+    border-radius: 4px
+    width: 100%
+    padding: 5px
+    border: 1px solid #babdc3
+    border-width: 0.1rem
+    outline: none
+  textarea
+    max-width: 100%
+    min-height: 80px
+
+section:first-child
+  margin-top: 0
+
+section.story
+  textarea
+    margin-top: 10px
+    margin-bottom: 5px
+    display: none
+  .started-info
+    text-align: right
+    padding-right: 2px
+    color: $scribemaniaComplement
+    filter: "alpha(opacity=0.7)"
+    opacity: 0.7
+    position: absolute
+    top: 15px
+    top: 1.5rem
+    right: 2%
+    font-size: 12px
+    font-size: 1.2rem
+    font-style: italic
+    .started-name
+      color: black
+  .enter-hints, .read-more
+    color: $scribemaniaGreen
+    font-size: 11px
+    font-size: 1.1rem
+    font-style: italic
+    .start-writing
+      margin-top: 25px
+    .add-paragraph
+      display: none
+  .read-more
+    margin-top: 15px
+  &:last-of-type
+    margin-bottom: 100px

@@ -4,8 +4,9 @@ var express = require('express')
   , path = require('path')
   , nconf = require('nconf')
   , socketio = require('socket.io')
+  , alerts = require('connect-alerts')
   , passport = require('passport')
-  , passwordUtils = require('./authentication/passwords.js');
+  , passwordUtils = require('./authentication/passwordUtils.js');
 
 var routesPath = './routes/'
   , socketListenersPath = './sockets/';
@@ -47,7 +48,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passwordUtils.verifyAuthentication);
 
+app.use(alerts({
+  template: __dirname + './views/alert.jade',
+  engine: 'jade'
+}));
+
 app.use(app.router);
+
+
 
 // environment specific settings
 var envHandlers = {

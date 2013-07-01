@@ -4,7 +4,7 @@ block content
   form#login-form(action="/login", method="POST")
 
     section.login
-      label(for="username") Username
+      label(for="username") Name or Email
       input#username(name="username", required, autocomplete="on", type="text")
 
       label(for="password") Password
@@ -13,3 +13,5 @@ block content
       button(type="submit") Log In
 
       a.signup-link(href="/signup") Need to sign up?
+
+  script(data-main="/scripts/login/loader", src="/vendor/requirejs.min.js")

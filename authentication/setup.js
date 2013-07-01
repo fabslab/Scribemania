@@ -1,5 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy
-  , passwordUtils = require('./passwords.js');
+  , passwordUtils = require('./passwordUtils.js');
 
 module.exports = function(params) {
   var passport = params.passport
@@ -10,7 +10,10 @@ module.exports = function(params) {
 
   var localStrategy = new LocalStrategy({ passReqToCallback: true }, function(req, identifier, password, done) {
     users.authenticateLogin(identifier, password, function(err, user, authenticator) {
-      if (!user) return done(err, false, { message: 'Login failed.' });
+      if (!user) {
+        req.alert('Login failed.', 'error');
+        return done(err, false);
+      }
       // retain authenticator (derived key) here to save into cookie session
       // and check upon subsequent access
       req.session.authenticator = authenticator;
@@ -22,6 +25,7 @@ module.exports = function(params) {
 
   // serialize user to and from session
   passport.serializeUser(function(user, done) {
+
     done(null, { name: user.username });
   });
 

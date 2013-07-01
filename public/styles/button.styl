@@ -1,0 +1,20 @@
+button
+  cursor: pointer
+  background-color: lighten($scribemaniaGreen, 75%)
+  border: 2px solid darken($scribemaniaGreen, 33%)
+  border-width: 0.2rem
+  box-shadow: inset 1px -1px 1px lighten($scribemaniaGreen, 33%)
+  padding: 4px 10px
+  min-width: 90px
+  width: 10%
+  border-radius: 5px
+  font-size: 14px
+  font: 1.4rem $storyFont
+  transition: background-color 0.2s, box-shadow 0.2s
+  &:hover, &:focus
+    background-color: lighten($scribemaniaGreen, 66%)
+    transition: background-color 0.2s
+  &:active, &:focus
+    outline: none
+    box-shadow: none
+    transition: box-shadow 0.2s

@@ -1,0 +1,7 @@
+- var alerts = getAlerts();
+if alerts.length > 0
+  #alerts
+    each alert in alerts
+      div(class='alert alert-' + alert.type)!= alert.msg
+        a.close(href="#", title="Dismiss") &times;
+    - deleteAlerts();

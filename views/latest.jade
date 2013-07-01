@@ -9,7 +9,7 @@ block content
         span.started-name &nbsp;
           a(href="/users/#{story.creator}") #{story.creator}
         .started-time
-          span(data-livestamp="#{story.createdDate.toISOString()}")
+          time(data-livestamp="#{story.createdDate.toISOString()}")
 
       p #{story.paragraphs[0].text}
       p.read-more

@@ -1,0 +1,53 @@
+@import "nib"
+
+@import "fonts"
+
+$pageWidth = 1080px
+$navWidth = 80px
+$navBGGradient = 0
+$scribemaniaGreen = #2e7b2d
+$scribemaniaComplement = #6E284C
+$storyBG = #F4F9F6
+$headerBG = #1C1C1C
+$storyFont = Museo300Regular, 'Helvetica Neue', 'Helvetica', Arial, sans-serif
+$titleFont = Raleway, 'Helvetica Neue', 'Helvetica', Arial, sans-serif
+
+html
+  font-size: 62.5%
+
+body
+  font-size: 15px
+  font: 1.5rem $storyFont
+  background: linear-gradient(top, #fff, #F7F7F7) fixed
+
+a
+  text-decoration: none
+  color: black
+  transition: color 0.4s
+  &:hover
+    color: $scribemaniaGreen
+    transition: color 0.2s
+
+.page
+  max-width: $pageWidth
+  margin: 0 auto
+  position: relative
+
+@import "header"
+
+@import "button"
+
+@import "nav"
+
+@import "content"
+
+@import "inputs"
+
+@import "alerts"
+
+.signup-link
+  display: inline-block
+  margin-top: 20px
+
+.typekit-badge
+  display: none !important

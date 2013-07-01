@@ -1,4 +1,6 @@
-define(function (require, exports, module) {var $ = require('jquery');
+define(function (require, exports, module) {
+require('../common/alerts');
+var $ = require('jquery');
 var zxcvbn = require('zxcvbn');
 
 $(function signupFormValidation() {
