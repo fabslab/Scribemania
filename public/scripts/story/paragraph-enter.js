@@ -28,7 +28,7 @@ module.exports = function createParagraphEnterHandler(socket) {
       var storyId = $(this.parentNode).attr('data-story-id');
 
       // send paragraph to server
-      socket.emit('add.paragraph', { author: '[User]', dateCreated: new Date(), storyId: storyId, text: this.value });
+      socket.emit('add.paragraph', { dateCreated: new Date(), storyId: storyId, text: this.value });
 
       // hide the key command hint for entering text for story
       $(this.nextSibling).children('.add-paragraph').fadeOut('fast');

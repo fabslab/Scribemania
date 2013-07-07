@@ -4,12 +4,8 @@ block content
   each story in stories
 
     section.story(data-story-id="#{story._id}")
+      include storyStartedInfo
       h2 #{story.title}
-      .started-info started by
-        span.started-name &nbsp;
-          a(href="/users/#{story.creator}") #{story.creator}
-        .started-time
-          time(data-livestamp="#{story.createdDate.toISOString()}")
 
       p #{story.paragraphs[0].text}
       p.read-more
@@ -18,7 +14,7 @@ block content
 
   if stories.length < 1
     section
-      h2 No stories yet. Time to <a href="/new">write</a> some!
+      h2 No stories here yet. Time to <a href="/new">write</a> some!
 
 
   script(data-main="/scripts/latest/loader", src="/vendor/requirejs.min.js")

@@ -45,7 +45,7 @@ function createUser(req, res, next) {
     email: email
   };
 
-  users.add(user, function(err, addedUser, authenticator) {
+  users.add(user, function(err, addedUser, derivedKey) {
     if (err) {
       // Mongo error code 11000 is for duplicate key - indexes are defined on username and email
       if (err.code === 11000) {
@@ -60,7 +60,7 @@ function createUser(req, res, next) {
       if (loginErr) return next(loginErr);
       // retain authenticator (derived key) here to save into cookie session
       // and check upon subsequent access
-      req.session.authenticator = authenticator.toString('hex');
+      req.session.authenticator = derivedKey.toString('hex');
       return res.redirect('/');
     });
   });

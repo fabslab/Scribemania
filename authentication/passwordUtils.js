@@ -27,22 +27,8 @@ function createSalt() {
   return crypto.randomBytes(128).toString('base64');
 }
 
-// Connect middleware to verify a logged-in user's authenticity
-function verifyAuthentication(req, res, next) {
-  var user = req.user;
-  if (!user) return next();
-  if (user.password === createHashDigest(req.session.authenticator)) {
-    res.locals.username = user.username;
-    return next();
-  }
-  req.logOut();
-  req.session = null;
-  res.redirect('/login');
-}
-
 module.exports = {
   deriveKey: deriveKey,
   createHashDigest: createHashDigest,
-  createSalt: createSalt,
-  verifyAuthentication: verifyAuthentication
-}
+  createSalt: createSalt
+};

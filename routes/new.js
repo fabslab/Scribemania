@@ -1,10 +1,8 @@
-var stories
-  , io;
+var stories;
 
 module.exports = function(params) {
-  stories = require('../data/stories.js')(params.db);
-  io = params.socketIo;
   var app = params.app;
+  stories = require('../data/stories.js')(params.db);
 
   app.get('/new', newStoryForm);
   app.post('/new', addStory);

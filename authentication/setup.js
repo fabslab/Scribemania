@@ -1,9 +1,8 @@
-var LocalStrategy = require('passport-local').Strategy
-  , passwordUtils = require('./passwordUtils.js');
+var LocalStrategy = require('passport-local').Strategy;
+var passwordUtils = require('./passwordUtils.js');
 
-module.exports = function(params) {
-  var passport = params.passport
-    , users = require('../data/users.js')(params.db);
+module.exports = function(app, db, passport) {
+  var users = require('../data/users.js')(db);
 
   // authentication strategy -
   // function provided to strategy constructor is called on POST /login (when passport.authenticate() called)
@@ -25,7 +24,6 @@ module.exports = function(params) {
 
   // serialize user to and from session
   passport.serializeUser(function(user, done) {
-
     done(null, { name: user.username });
   });
 
@@ -33,6 +31,19 @@ module.exports = function(params) {
     users.get(sessionUser.name, function(err, user) {
       done(err, user);
     });
+  });
+
+  // Connect middleware to verify a logged-in user's authenticity
+  app.use(function verifyAuthentication(req, res, next) {
+    var user = req.user;
+    if (!user) return next();
+    if (passwordUtils.createHashDigest(req.session.authenticator) === user.password) {
+      res.locals.username = user.username;
+      return next();
+    }
+    req.logOut();
+    req.session = null;
+    res.redirect('/login');
   });
 
 };

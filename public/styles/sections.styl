@@ -11,12 +11,12 @@ section
   border-radius: 10px
   overflow: auto
   box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.4) inset
-  border: 1px solid rgba($scribemaniaGreen, 0.1)
+  border: 1px solid rgba(120, 120, 120, 0.1)
   border-width: 0.1rem
   a
     color: $scribemaniaGreen
   p
-    margin-bottom: 5px
+    margin-bottom: 7px
   button
     float: right
     margin-top: 10px
@@ -39,19 +39,16 @@ section:first-child
 
 section.story
   textarea
-    margin-top: 10px
+    margin-top: 20px
     margin-bottom: 5px
     display: none
   .started-info
+    float: right
     text-align: right
     padding-right: 2px
     color: $scribemaniaComplement
     filter: "alpha(opacity=0.7)"
     opacity: 0.7
-    position: absolute
-    top: 15px
-    top: 1.5rem
-    right: 2%
     font-size: 12px
     font-size: 1.2rem
     font-style: italic
@@ -62,8 +59,9 @@ section.story
     font-size: 11px
     font-size: 1.1rem
     font-style: italic
-    .start-writing
+    .start-writing, .login-hint
       margin-top: 25px
+      display: none
     .add-paragraph
       display: none
   .read-more

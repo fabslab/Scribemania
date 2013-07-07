@@ -2,23 +2,17 @@ extends layout
 block content
 
   section.story(data-story-id="#{story._id}")
+    include storyStartedInfo
     h2 #{story.title}
-    .started-info started by
-      span.started-name &nbsp;
-        a(href="/users/#{story.creator}") #{story.creator}
-      .started-time
-        span(data-livestamp="#{story.createdDate.toISOString()}")
-
 
     each paragraph in story.paragraphs
       p #{paragraph.text}
 
-    textarea(spellcheck="true")
+    textarea#paragraph-input(spellcheck="true")
     .enter-hints
-      .start-writing.
-        <i class="icon-pencil"></i> Click the story to start writing
-      .add-paragraph.
-        <i class="icon-pencil"></i> Hit shift + enter to add your paragraph
+      .start-writing <i class="icon-pencil"></i> Click the story to start writing
+      .add-paragraph <i class="icon-pencil"></i> Hit shift + enter to add your paragraph
+      .login-hint: a(href="/login") <i class="icon-user"></i> Log in to join in!
 
 
   script(data-main="/scripts/story/loader", src="/vendor/requirejs.min.js")

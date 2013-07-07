@@ -16,8 +16,10 @@ module.exports = function(db) {
 
   function getById(id, callback) {
     users.findById(id)
-    .error(console.warn)
-    .success(callback);
+    .complete(function(err, foundUser) {
+      if (err) console.warn(err);
+      callback(err, foundUser);
+    });
   }
 
   // authenticate a user given a username and plaintext password
@@ -36,8 +38,7 @@ module.exports = function(db) {
         if (passwordUtils.createHashDigest(derivedKey) === user.password) {
           // successfully matched user's credentials, return user
           callback(null, user, derivedKey);
-        }
-        else {
+        } else {
           // incorrect password supplied for the user
           callback();
         }

@@ -1,0 +1,5 @@
+.started-info started by
+  span.started-name &nbsp;
+    a(href="/users/#{story.creator}") #{story.creator}
+  .started-time
+    span(data-livestamp="#{story.createdDate.toISOString()}")

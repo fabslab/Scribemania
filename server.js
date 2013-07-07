@@ -2,21 +2,19 @@ var express = require('express')
   , http = require('http')
   , fs = require('fs')
   , path = require('path')
-  , nconf = require('nconf')
   , socketio = require('socket.io')
   , alerts = require('connect-alerts')
   , passport = require('passport')
-  , passwordUtils = require('./authentication/passwordUtils.js');
+  , nconf = require('./configuration/init.js');
 
-var routesPath = './routes/'
-  , socketListenersPath = './sockets/';
+// constants for paths
+var routesPath = path.join(__dirname, 'routes')
+  , socketsPath = path.join(__dirname, 'sockets');
 
+// run socket.io and Express servers on the same port
 var app = express();
-
-// read in configuration
-nconf.argv()
-     .env()
-     .file({ file: app.settings.env + '-config.json' });
+var server = http.createServer(app);
+var io = socketio.listen(server);
 
 // connect to database
 var db = require('monk')(nconf.get('mongodb:connectionString'));
@@ -24,16 +22,16 @@ var db = require('monk')(nconf.get('mongodb:connectionString'));
 require('./data/indexes.js')(db);
 
 
-// settings and handlers for all environments
+// middleware for all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.compress());
 
-// paths for static files
+// serve static files
+app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'socket.io')));
-app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 
 app.use(express.bodyParser());
 app.use(express.methodOverride());
@@ -41,23 +39,22 @@ app.use(express.methodOverride());
 // set up session support using cookies
 app.use(express.cookieParser());
 app.use(express.cookieSession({
-  key: 'scribe.sess',
+  key: nconf.get('sessionKey'),
   secret: nconf.get('macKey')
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(passwordUtils.verifyAuthentication);
+// set up passport authentication module
+require('./authentication/setup.js')(app, db, passport);
 
 app.use(alerts({
-  template: __dirname + './views/alert.jade',
+  template: path.join(__dirname, 'views/alert.jade'),
   engine: 'jade'
 }));
 
 app.use(app.router);
 
-
-
-// environment specific settings
+// environment specific middleware
 var envHandlers = {
   development: function() {
     app.use(express.logger('dev'));
@@ -68,33 +65,26 @@ var envHandlers = {
 envHandlers[app.settings.env]();
 
 
-// Run socket.io and Express servers on the same port
-var server = http.createServer(app);
-var io = socketio.listen(server);
-
-
-// object to collect together references to variables
-// and pass them across different application files
-var params = {
+var routesParams = {
   app: app,
   db: db,
-  socketIo: io,
-  passport: passport
+  passport: passport,
+  socketIo: io
 };
 
-// set up Passport authentication module
-require('./authentication/setup.js')(params);
-
-// Load files that define routes
-// This way we can add new route files without any additional setup
+// load files that define routes
+// this way we can add new route files without any additional setup
 fs.readdirSync(routesPath).forEach(function(fileName) {
-  require(routesPath + fileName)(params);
+  require(path.join(routesPath, fileName))(routesParams);
 });
 
-// Load files that attach event handlers for socket events
-fs.readdirSync(socketListenersPath).forEach(function(fileName) {
-  require(socketListenersPath + fileName)(params);
+
+// set up socket.io configuration and
+// load files that attach event handlers for socket events
+fs.readdirSync(socketsPath).forEach(function(fileName) {
+  require(path.join(socketsPath, fileName))(io, db);
 });
+
 
 // kick things off
 server.listen(app.get('port'));
