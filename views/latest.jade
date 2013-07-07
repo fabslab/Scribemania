@@ -7,14 +7,29 @@ block content
       include storyStartedInfo
       h2 #{story.title}
 
-      p #{story.paragraphs[0].text}
+      // print at most 200 characters or 10 paragraphs (whichever comes first) for the story preview
+      // or the entire story if it is less than both of these parameters
+      - var availableChars = 200; paragraphLimit = 10;
+      - for (var i = 0; paragraph = story.paragraphs[i]; ++i) {
+        - if (availableChars <= 0 || i >= paragraphLimit) {
+          - break;
+        - }
+        - var text = paragraph.text;
+        - if (text.length > availableChars) {
+          p #{text.substring(0, availableChars)}...
+        - } else {
+          p #{text.substring(0, availableChars)}
+        - }
+        - availableChars -= text.length;
+      - }
+
       p.read-more
         a(href="/stories/#{story._id}") <i class="icon-double-angle-right"></i> Read/write more
 
 
   if stories.length < 1
     section
-      h2 No stories here yet. Time to <a href="/new">write</a> some!
+      h2 No stories here yet. <a href="/new">Time to write some!</a>
 
 
   script(data-main="/scripts/latest/loader", src="/vendor/requirejs.min.js")
