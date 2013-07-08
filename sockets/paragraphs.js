@@ -10,12 +10,7 @@ module.exports = function(io, db) {
     socket.emit('read-write');
 
     socket.on('add.paragraph', function(paragraph) {
-      if (!socket.handshake.username) return;
-
-      paragraph.author = socket.handshake.name;
-      if (!stories.validParagraph(paragraph)) {
-        socket.emit('error', 'Invalid paragraph.');
-      }
+      if (!(paragraph.author = socket.handshake.username)) return;
 
       stories.addParagraph(paragraph.storyId, paragraph, function() {
         // once added to db send paragraph to all other users to update their views of the story

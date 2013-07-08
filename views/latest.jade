@@ -3,13 +3,13 @@ block content
 
   each story in stories
 
-    section.story(data-story-id="#{story._id}")
+    section.story.preview(data-story-id="#{story._id}")
       include storyStartedInfo
-      h2 #{story.title}
+      h2: a(href="/stories/#{story._id}") #{story.title}
 
-      // print at most 200 characters or 10 paragraphs (whichever comes first) for the story preview
-      // or the entire story if it is less than both of these parameters
-      - var availableChars = 200; paragraphLimit = 10;
+      //- limit story previews to a number of characters or paragraphs (whichever comes first)
+      //- or display the entire story if it is less than both of these parameters
+      - var availableChars = 500; paragraphLimit = 5;
       - for (var i = 0; paragraph = story.paragraphs[i]; ++i) {
         - if (availableChars <= 0 || i >= paragraphLimit) {
           - break;

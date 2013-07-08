@@ -13,6 +13,14 @@ section
   box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.4) inset
   border: 1px solid rgba(120, 120, 120, 0.1)
   border-width: 0.1rem
+  h2
+    font: 2.2rem $titleFont
+    font-weight: 100
+    padding-bottom: 15px
+    a
+      color: black
+      &:hover
+        color: $scribemaniaComplement
   a
     color: $scribemaniaGreen
   p
@@ -21,7 +29,6 @@ section
     float: right
     margin-top: 10px
   textarea, input
-    font-size: 14px
     font: 1.4rem $storyFont
     box-sizing: border-box
     border-radius: 4px
@@ -48,14 +55,12 @@ section.story
     padding-right: 2px
     color: $scribemaniaComplement
     opacity: 0.7
-    font-size: 12px
     font-size: 1.2rem
     font-style: italic
     .started-name
       color: black
   .enter-hints, .read-more
     color: $scribemaniaGreen
-    font-size: 11px
     font-size: 1.1rem
     font-style: italic
     .start-writing, .login-hint

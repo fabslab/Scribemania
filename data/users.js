@@ -7,7 +7,7 @@ module.exports = function(db) {
   // simply checks whether a user exists and provides that user
   function get(identifier, callback) {
     // identifier used to look up the user can be a username or an email address
-    users.find({ $or: [{ username: identifier }, { email: identifier }] })
+    return users.find({ $or: [{ username: identifier }, { email: identifier }] })
     .complete(function(err, foundUsers) {
       if (err) console.warn(err);
       callback(err, foundUsers[0]);
@@ -15,7 +15,7 @@ module.exports = function(db) {
   }
 
   function getById(id, callback) {
-    users.findById(id)
+    return users.findById(id)
     .complete(function(err, foundUser) {
       if (err) console.warn(err);
       callback(err, foundUser);

@@ -1,7 +1,7 @@
 header
   .page
-    h1: a(href="/") Scribemania
     if username
-      span.user: a(href="/users/#{username}") #{username} <i class="icon-user"></i>
+      h2.user: a(href="/users/#{username}") #{username} <i class="icon-user"></i>
     else
-      span.user: a#login(href="/login") Log In <i class="icon-user"></i>
+      h2.user: a#login(href="/login") Log In <i class="icon-user"></i>
+    h1: a(href="/") Scribemania
