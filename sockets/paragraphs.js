@@ -9,7 +9,19 @@ module.exports = function(io, db) {
     }
     socket.emit('read-write');
 
+    // notify other users when someone starts/finishes writing
+    socket.on('type-on', function broadcastTypeStart() {
+      var user = socket.handshake.username;
+      if (user) socket.broadcast.emit('type-on', user);
+    });
+
+    socket.on('type-off', function broadcastTypeEnd() {
+      var user = socket.handshake.username;
+      if (user) socket.broadcast.emit('type-off', user);
+    });
+
     socket.on('add.paragraph', function(paragraph) {
+      // set paragraph author as username if available
       if (!(paragraph.author = socket.handshake.username)) return;
 
       stories.addParagraph(paragraph.storyId, paragraph, function() {

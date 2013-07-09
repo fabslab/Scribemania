@@ -14,8 +14,17 @@ module.exports = function(params) {
   app.post('/login', function(req, res, next) {
     (passport.authenticate('local', redirects))(req, res, next);
   });
+
+  app.get('/logout', logout);
+  app.post('/logout', logout);
 };
 
 function loginForm(req, res) {
   res.render('login');
+}
+
+function logout(req, res) {
+  // clear session which causes cookie to be removed
+  req.session = null;
+  res.redirect('/');
 }

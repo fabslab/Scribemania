@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
 var $ = require('jquery')
+  , _ = require('lodash')
   , createEnterHandler = require('paragraph-enter')
   , io = require('socketio')
   , socketAuthorized = new $.Deferred()
@@ -8,18 +9,20 @@ var $ = require('jquery')
 socket.on('error', function(reason) {
   socketAuthorized.reject(reason);
 });
+
 // the following events are emitted after a successful connection
 // and tell us whether the user is anonymous (not logged in) and has only
 // read capabilities or is fully authenticated and can also write
 socket.on('read-only', function(reason) {
   socketAuthorized.reject(reason);
 });
+
 socket.on('read-write', function() {
   socketAuthorized.resolve();
 });
 
 // initialize live timestamps
-  require('livestamp');
+require('livestamp');
 
 $(function() {
 
@@ -38,7 +41,9 @@ $(function() {
 
   socketAuthorized
   .fail(renderUnauthorized)
-  .done(renderAuthorized);
+  .done(renderAuthorized)
+  .done(typeNotifier)
+  .done(typeReceiver);
 
   function renderUnauthorized() {
     $story.find('.login-hint').show();
@@ -47,7 +52,7 @@ $(function() {
   function renderAuthorized() {
     $story.find('.start-writing').show();
 
-    // Open input for user to add to story
+    // open input for user to add to story
     $story
     .on('click', function(event) {
       var $story = $(this);
@@ -77,8 +82,42 @@ $(function() {
     .on('keydown', function escapeHandler(event) {
       // 27 is key code for escape key
       if (event.which === 27) {
-        hideInput.call(this, event);
+        $(this).blur();
       }
+    });
+  }
+
+  // when the user begins typing we emit a message to notify the other users
+  // that this user is typing a paragraph for the story
+  // if there is a gap of 500 ms in typing we will, after that gap, emit
+  // a message to notify the other users that their typing has stopped
+  function typeNotifier() {
+    var ignoreKeys = [27];
+
+    $story.find('#paragraph-input')
+
+    .on('keydown', _.debounce(function(event) {
+      if (_.contains(ignoreKeys, event.which)) return;
+      socket.emit('type-on');
+    }, 500, { leading: true, trailing: false}))
+
+    .on('keydown', _.debounce(function(event) {
+      if (_.contains(ignoreKeys, event.which)) return;
+      socket.emit('type-off');
+    }, 500));
+
+  }
+
+  // receive messages notifying us of other users typing and display
+  // the notification as they start and remove it when they finish
+  function typeReceiver() {
+    socket.on('type-on', function(user) {
+      var usersContainer = $story.find('.typing-users');
+      var typingNotification = $('<div class="' + user + '"><i class="icon-pencil"></i> ' + user + ' is typing...</div>');
+      usersContainer[0].appendChild(typingNotification[0]);
+    });
+    socket.on('type-off', function(user) {
+      $story.find('.' + user).remove();
     });
   }
 

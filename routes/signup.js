@@ -1,5 +1,5 @@
 var users
-  , zxcvbn = require('../public/vendor/zxcvbn.js');
+  , zxcvbn = require('../public/vendor/zxcvbn.min.js');
 
 module.exports = function(params) {
   var app = params.app;
