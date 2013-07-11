@@ -27,7 +27,6 @@ module.exports = function(db) {
   function add(story, callback) {
     // set titles to "Title Case" and set a max character length for the title
     story.title = story.title.trim();
-    story.title = toTitleCase(story.title).substring(0, 120);
 
     story._id = stories.id();
     story.paragraphs[0].storyId = story._id;
@@ -73,27 +72,4 @@ function validStory(story) {
 
 function validParagraph(paragraph) {
   return !!paragraph.text;
-}
-
-function toTitleCase(title) {
-  var i, str, lowers, uppers;
-  str = title.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-
-  // certain minor words should be left lowercase unless
-  // they are the first or last words in the string
-  lowers = ['A', 'An', 'The', 'And', 'But', 'Or', 'For', 'Nor', 'As', 'At',
-    'By', 'For', 'From', 'In', 'Into', 'Near', 'Of', 'On', 'Onto', 'To', 'With'];
-  for (i = 0; i < lowers.length; i++) {
-    str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'), lowers[i].toLowerCase());
-  }
-
-  // Certain words such as acronyms should be left uppercase
-  uppers = ['Id', 'Tv'];
-  for (i = 0; i < uppers.length; i++) {
-    str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), uppers[i].toUpperCase());
-  }
-
-  return str;
 }

@@ -42,7 +42,7 @@ module.exports = function createParagraphEnterHandler(socket) {
           .children('.start-writing')
           .fadeIn('fast');
         this.value = '';
-      });
+      }).blur();
     }
 
   };
