@@ -8,11 +8,12 @@ section
   background: $storyBG
   margin-top: 40px
   padding: 20px
-  border-radius: 10px
+  border-radius: 8px
   overflow: auto
-  box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.4) inset
-  border: 1px solid rgba(120, 120, 120, 0.1)
-  border-width: 0.1rem
+  //box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.4) inset
+  box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.6)
+  border: 2px solid rgba($scribemaniaDarkGreen, 0.15)
+  border-width: 0.2rem
   h2
     font: 2.2rem $titleFont
     font-weight: 100
@@ -50,16 +51,18 @@ section.story
     margin-bottom: 5px
     display: none
   .started-info
+    background: $storyBG
     float: right
     text-align: right
     line-height: 1.6rem
-    padding-right: 2px
+    padding: 0 2px 10px 10px
     color: $scribemaniaDarkGreen
-    opacity: 0.7
+    color: rgba($scribemaniaDarkGreen, 0.7)
     font-size: 1.2rem
     font-style: italic
     .started-name
-      color: black
+      color: $scribemaniaGreen
+      color: rgba($scribemaniaGreen, 0.7)
   .enter-hints, .read-more
     color: $scribemaniaGreen
     font-size: 1.1rem
@@ -79,3 +82,4 @@ section.story
 
 .read-more .icon-double-angle-right
   color: $scribemaniaDarkGreen
+  color: rgba($scribemaniaDarkGreen, 0.7)

@@ -32,17 +32,21 @@ module.exports = function createParagraphEnterHandler(socket) {
 
       // hide the key command hint for entering text for story
       $(this.nextSibling).children('.add-paragraph').fadeOut('fast');
-      // dismiss and empty the input box while appending the text to the story
+
+      // dismiss and empty the input box before appending the text to the story
       $(this).fadeOut('fast', function() {
-        $('<p>' + this.value + '</p>')
-          .hide()
-          .insertBefore(this)
-          .fadeIn('fast')
-          .siblings('.enter-hints')
-          .children('.start-writing')
-          .fadeIn('fast');
         this.value = '';
       }).blur();
+
+      $('<p>' + this.value + '</p>')
+        .hide()
+        .insertBefore(this)
+        .fadeIn('fast')
+        .siblings('.enter-hints')
+        .children('.start-writing')
+        .fadeIn('fast');
+
+      keysDown['16'] = keysDown['13'] = false;
     }
 
   };
