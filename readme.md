@@ -1,9 +1,7 @@
 Scribemania
 -----------
 
-Watch your stories unfold together
-
-A collaborative writing site that feels like chat.
+Watch your stories unfold together - a collaborative writing site that feels like chat.
 
 Runs on Node.js
 
