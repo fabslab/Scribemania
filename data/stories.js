@@ -38,11 +38,11 @@ module.exports = function(db) {
   }
 
   function add(story, callback) {
+    story._id = stories.id();
     story.title = story.title.trim();
     story.genre = story.genre.trim();
-
-    story._id = stories.id();
     story.paragraphs[0].storyId = story._id;
+    story.stars = 0;
 
     story.createdDate = story.paragraphs[0].createdDate = new Date();
 

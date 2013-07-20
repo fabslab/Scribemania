@@ -1,25 +1,26 @@
 Story
 
-  title: ''
-  paragraphs: []
+  title: string
+  paragraphs: array
   _id: ObjectId
-  creator: ''
+  creator: string
   createdDate: ISODate
-  genre: ''
+  genre: string
+  stars: number
 
 
 Paragraph
 
-  author: ''
+  author: string
   createdDate: ISODate
   storyId: ObjectId
-  text: ''
+  text: string
 
 
 User
 
-  username: ''
-  password: ''
-  email: ''
-  salt: ''
+  username: string
+  password: string
+  email: string
+  salt: string
   _id: ObjectId

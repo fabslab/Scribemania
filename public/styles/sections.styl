@@ -1,30 +1,37 @@
 #content
   line-height: 2.4rem
-  margin: 0 10px
-  padding: 10px
+  margin: 0 20px
 
 section
   position: relative
   background: $storyBG
   margin-top: 40px
-  padding: 20px
+  padding: 25px
   border-radius: 8px
   overflow: auto
-  //box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.4) inset
-  box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.6)
-  border: 2px solid rgba($scribemaniaDarkGreen, 0.15)
-  border-width: 0.2rem
+  //box-shadow: 0px 0px 2px 1px rgba(208, 223, 226, 0.4) inset, 0px 0px 4px 1px rgba(#999, 0.6)
+  box-shadow: 0 0 2px 1px rgba(208,223,226,0.5) inset
+  //border: 1px solid rgba($scribemaniaGreen, 0.4)
+  border: 2px solid rgba(120,120,120,0.2)
+  border-width: 0.1rem
   h2
     font: 2.2rem $titleFont
     font-weight: 100
-    padding-bottom: 20px
+    padding-bottom: 10px
     a
       color: black
       &:hover
-        color: $scribemaniaDarkGreen
+        color: $scribemaniaBlue
+  .divider
+    border: 0
+    height: 0
+    border-top: 1px solid rgba(0, 0, 0, 0.1)
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3)
+    margin-bottom: 15px
   a
-    color: $scribemaniaGreen
+    color: rgba($scribemaniaGreen, 0.7)
   p
+    padding: 0 10px
     margin-bottom: 7px
   button
     float: right
@@ -42,22 +49,31 @@ section
     max-width: 100%
     min-height: 80px
 
-section:first-child
-  margin-top: 0
-
 section.story
   textarea
     margin-top: 20px
     margin-bottom: 5px
     display: none
+  .star
+    margin-top: -2px
+    float: right
+    font-size: 1.1rem
+    font-style: italic
+    color: rgba($scribemaniaBlue, 0.6)
+    a
+      color: rgba($scribemaniaBlue, 0.6)
+      font-size: 1.6rem
+      padding-left: 5px
+      &:hover
+        color: $scribemaniaBlue
   .started-info
     background: $storyBG
     float: right
     text-align: right
     line-height: 1.6rem
-    padding: 0 2px 10px 10px
-    color: $scribemaniaDarkGreen
-    color: rgba($scribemaniaDarkGreen, 0.7)
+    padding: 0 2px 10px 15px
+    color: $scribemaniaBlue
+    color: rgba($scribemaniaBlue, 0.6)
     font-size: 1.2rem
     font-style: italic
     .started-name
@@ -73,7 +89,7 @@ section.story
     .add-paragraph
       display: none
     .typing-users
-      color: rgba($scribemaniaDarkGreen, 0.7)
+      color: rgba($scribemaniaBlue, 0.7)
       margin-top: 5px
   .read-more
     margin-top: 15px
@@ -81,5 +97,5 @@ section.story
     margin-bottom: 150px
 
 .read-more .icon-double-angle-right
-  color: $scribemaniaDarkGreen
-  color: rgba($scribemaniaDarkGreen, 0.7)
+  color: $scribemaniaBlue
+  color: rgba($scribemaniaBlue, 0.7)
