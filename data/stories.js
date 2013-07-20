@@ -4,28 +4,40 @@ module.exports = function(db) {
 
   var stories = db.get('stories');
 
-  function get(limit, callback) {
-    if (typeof limit != 'number') {
+  function get(filters, limit, callback) {
+    if (typeof filters == 'function') {
+      callback = filters;
+      filters = {};
+    } else if (typeof filters == 'number') {
+      limit = filters;
+      callback = limit;
+      filters = {};
+    } else if (typeof limit == 'function') {
       callback = limit;
       limit = 50;
     }
-    return stories.find({}, { limit: limit, sort: [['createdDate','desc']] })
-    .complete(function(err, stories) {
-      if (err) console.warn(err);
-      callback(err, stories);
-    });
+
+    filters = filters || {};
+    limit = limit != null ? limit : 50;
+
+    return stories
+      .find(filters, { limit: limit, sort: [['createdDate','desc']] })
+      .complete(function(err, stories) {
+        if (err) console.warn(err);
+        callback(err, stories);
+      });
   }
 
   function getById(id, callback) {
-    return stories.findById(id)
-    .complete(function(err, story) {
-      if (err) console.warn(err);
-      callback(err, story);
-    });
+    return stories
+      .findById(id)
+      .complete(function(err, story) {
+        if (err) console.warn(err);
+        callback(err, story);
+      });
   }
 
   function add(story, callback) {
-    // set titles to "Title Case" and set a max character length for the title
     story.title = story.title.trim();
     story.genre = story.genre.trim();
 
@@ -37,10 +49,10 @@ module.exports = function(db) {
     if (!validStory(story)) return callback(new UserError('Invalid story.'));
 
     return stories.insert(story)
-    .complete(function(err, story) {
-      if (err) console.warn(err);
-      callback(err, story);
-    });
+      .complete(function(err, story) {
+        if (err) console.warn(err);
+        callback(err, story);
+      });
   }
 
   function addParagraph(storyId, paragraph, callback) {
@@ -49,10 +61,10 @@ module.exports = function(db) {
     if (!validParagraph(paragraph)) return callback(new UserError('Invalid paragraph.'));
 
     return stories.updateById(storyId, { '$push': { paragraphs: paragraph } })
-    .complete(function(err) {
-      if (err) console.warn(err);
-      callback(err);
-    });
+      .complete(function(err) {
+        if (err) console.warn(err);
+        callback(err);
+      });
   }
 
   return {

@@ -8,18 +8,18 @@ module.exports = function(db) {
   function get(identifier, callback) {
     // identifier used to look up the user can be a username or an email address
     return users.find({ $or: [{ username: identifier }, { email: identifier }] })
-    .complete(function(err, foundUsers) {
-      if (err) console.warn(err);
-      callback(err, foundUsers[0]);
-    });
+      .complete(function(err, foundUsers) {
+        if (err) console.warn(err);
+        callback(err, foundUsers[0]);
+      });
   }
 
   function getById(id, callback) {
     return users.findById(id)
-    .complete(function(err, foundUser) {
-      if (err) console.warn(err);
-      callback(err, foundUser);
-    });
+      .complete(function(err, foundUser) {
+        if (err) console.warn(err);
+        callback(err, foundUser);
+      });
   }
 
   // authenticate a user given a username and plaintext password
@@ -52,10 +52,10 @@ module.exports = function(db) {
     passwordUtils.deriveKey(user.password, user.salt, function(err, derivedKey) {
       user.password = passwordUtils.createHashDigest(derivedKey.toString('hex'));
       users.insert(user)
-      .complete(function(err, user) {
-        if (err) console.warn(err);
-        callback(err, user, derivedKey);
-      });
+        .complete(function(err, user) {
+          if (err) console.warn(err);
+          callback(err, user, derivedKey);
+        });
     });
   }
 

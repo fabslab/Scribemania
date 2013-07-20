@@ -8,10 +8,11 @@ module.exports = function(params) {
 };
 
 function story(req, res) {
+  var id = req.params.id;
   var objectIdRegExp = /^[0-9a-fA-F]{24}$/;
-  if (!objectIdRegExp.test(req.params.id)) res.send(404);
+  if (!objectIdRegExp.test(id)) res.send(404);
 
-  stories.getById(req.params.id, function(err, doc) {
+  stories.getById(id, function(err, doc) {
     res.render('story', { story: doc });
   });
 }
