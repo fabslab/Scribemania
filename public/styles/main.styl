@@ -3,7 +3,6 @@
 @import "fonts"
 
 $pageWidth = 1080px
-$navWidth = 80px
 $navBGGradient = 0
 $scribemaniaGreen = #2e7b2d
 $scribemaniaDarkGreen = #10363B
@@ -22,10 +21,10 @@ body
 a
   text-decoration: none
   color: black
-  transition: color 0.4s
+  transition: color 0.4s ease-out, background-color 0.4s ease-out, font-size 0.4s ease-out
   &:hover
     color: $scribemaniaGreen
-    transition: color 0.2s
+    transition: color 0.2s ease-in, background-color 0.2s ease-in, font-size 0.2s ease-in
 
 .page
   max-width: $pageWidth
