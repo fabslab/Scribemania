@@ -27,6 +27,7 @@ module.exports = function(db) {
   function add(story, callback) {
     // set titles to "Title Case" and set a max character length for the title
     story.title = story.title.trim();
+    story.genre = story.genre.trim();
 
     story._id = stories.id();
     story.paragraphs[0].storyId = story._id;
@@ -36,9 +37,9 @@ module.exports = function(db) {
     if (!validStory(story)) return callback(new UserError('Invalid story.'));
 
     return stories.insert(story)
-    .complete(function(err) {
+    .complete(function(err, story) {
       if (err) console.warn(err);
-      callback(err);
+      callback(err, story);
     });
   }
 

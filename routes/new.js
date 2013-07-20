@@ -14,22 +14,20 @@ function newStoryForm(req, res) {
 }
 
 function addStory(req, res) {
-  var genres = req.body.genres.split(/,\s*/).map(function(genre) { return genre.toLowerCase(); });
-  var paragraphText = req.body.paragraph;
 
   var story = {
     title: req.body.title,
     creator: req.user.username,
     paragraphs: [{
-      text: paragraphText,
+      text: req.body.paragraph,
       author: req.user.username
     }],
-    genres: genres
+    genre: req.body.genre
   };
 
-  stories.add(story, function(doc) {
+  stories.add(story, function(err, story) {
     // TODO: set up server-sent events to update the Latest page each time a story is created
     // and display how many new stories have been added since user loaded them (like Twitter)
-    res.redirect('/stories/' + doc._id);
+    res.redirect('/stories/' + story._id);
   });
 }

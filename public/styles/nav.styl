@@ -10,7 +10,12 @@ nav
   text-align: center
   text-transform: uppercase
   padding: 8px 0
+  border-width: 0
+  border-top-width: 3px
   border-top: 3px solid rgba(black, 0.85)
+  -moz-border-image: -moz-radial-gradient(center center, ellipse closest-side, black 90%, darken(white, 25%) 100%) 100
+  -webkit-border-image: -webkit-radial-gradient(center center, ellipse closest-side, black 90%, darken(white, 25%) 100%) 100
+  border-image: radial-gradient(center center, ellipse closest-side, black 90%, darken(white, 25%) 100%) 100
   li
     list-style: none
     display: inline-block
