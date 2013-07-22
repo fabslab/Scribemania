@@ -53,7 +53,18 @@ module.exports = function(db) {
       user.password = passwordUtils.createHashDigest(derivedKey.toString('hex'));
       users.insert(user)
         .complete(function(err, user) {
-          if (err) console.warn(err);
+          if (err) {
+            if (err.code === 11000) {
+              // Mongo error code 11000 is for duplicate key - indexes are defined on username and email
+              if (err.err.indexOf('username') !== -1) {
+                err = { usernameExists: true };
+              } else if (err.err.indexOf('email') !== -1) {
+                err = { emailExists: true };
+              }
+            } else {
+              console.warn(err);
+            }
+          }
           callback(err, user, derivedKey);
         });
     });

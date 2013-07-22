@@ -1,6 +1,7 @@
 Story
 
   title: string
+  slug: string
   paragraphs: array
   _id: ObjectId
   creator: string

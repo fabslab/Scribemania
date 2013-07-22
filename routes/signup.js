@@ -34,9 +34,8 @@ function createUser(req, res, next) {
   var passwordResult = zxcvbn(password, badInputs);
 
   if (passwordResult.score < 1) {
-    //return next(new UserError('Password is too weak.'));
     res.alert('Password is too weak.', 'error');
-    return next();
+    return res.redirect('/signup');
   }
 
   var user = {
@@ -47,10 +46,11 @@ function createUser(req, res, next) {
 
   users.add(user, function(err, addedUser, derivedKey) {
     if (err) {
-      // Mongo error code 11000 is for duplicate key - indexes are defined on username and email
-      if (err.code === 11000) {
-        //return next(new UserError('The username/email already exists.'));
-        res.alert('The username/email already exists.', 'error');
+      if (err.usernameExists) {
+        res.alert('The username already exists.', 'error');
+        return res.redirect('/signup');
+      } else if (err.emailExists) {
+        res.alert('The email address already exists.', 'error');
         return res.redirect('/signup');
       }
       return next(err);

@@ -28,6 +28,6 @@ function addStory(req, res) {
   stories.add(story, function(err, story) {
     // TODO: set up server-sent events to update the Latest page each time a story is created
     // and display how many new stories have been added since user loaded them (like Twitter)
-    res.redirect('/stories/' + story._id);
+    res.redirect('/stories/' + story.slug);
   });
 }

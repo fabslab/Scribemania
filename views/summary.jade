@@ -2,7 +2,7 @@ section.story.preview(data-story-id="#{story._id}")
 
   include storyStartedInfo
 
-  h2: a(href="/stories/#{story._id}") #{story.title}
+  h2: a(href="/stories/#{story.slug}") #{story.title}
 
   .divider
 
@@ -24,4 +24,4 @@ section.story.preview(data-story-id="#{story._id}")
 
   .read-more
     include star
-    a(href="/stories/#{story._id}") <i class="icon-double-angle-right"></i> Read/write more
+    a(href="/stories/#{story.slug}") <i class="icon-double-angle-right"></i> Read/write more
