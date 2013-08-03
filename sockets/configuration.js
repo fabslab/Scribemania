@@ -1,7 +1,7 @@
 var signature = require('cookie-signature')
   , cookie = require('cookie')
   , nconf = require('../configuration/init.js')
-  , passwordUtils = require('../authentication/passwordUtils.js')
+  , passwordUtils = require('../authentication/password-utils.js')
   , sessionKey = nconf.get('sessionKey')
   , macKey = nconf.get('macKey');
 

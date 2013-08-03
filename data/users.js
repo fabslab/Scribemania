@@ -1,4 +1,4 @@
-var passwordUtils = require('../authentication/passwordUtils.js');
+var passwordUtils = require('../authentication/password-utils.js');
 
 module.exports = function(db) {
 

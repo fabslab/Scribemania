@@ -1,5 +1,5 @@
 var uslug = require('uslug')
-  , UserError = require('../errors/userError.js');
+  , UserError = require('../errors/user-error.js');
 
 module.exports = function(db) {
 
