@@ -4,8 +4,6 @@ section.story.preview(data-story-id="#{story._id}")
 
   h2: a(href="/stories/#{story.slug}") #{story.title}
 
-  .divider
-
   //- limit story previews to a number of characters or paragraphs (whichever comes first)
   //- or display the entire story if it is less than both of these parameters
   - var availableChars = 500; paragraphLimit = 5;

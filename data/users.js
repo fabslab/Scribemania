@@ -2,29 +2,34 @@ var passwordUtils = require('../authentication/password-utils.js');
 
 module.exports = function(db) {
 
-  var users = db.get('users');
+  var users = db.collection('users');
 
-  // simply checks whether a user exists and provides that user
-  function get(identifier, callback) {
+  // return public functions
+  return {
+    authenticateLogin: authenticateLogin,
+    get: getByNameOrEmail,
+    getById: getById,
+    add: add
+  };
+
+  function getByNameOrEmail(identifier, callback) {
     // identifier used to look up the user can be a username or an email address
-    return users.find({ $or: [{ username: identifier }, { email: identifier }] })
-      .complete(function(err, foundUsers) {
-        if (err) console.warn(err);
-        callback(err, foundUsers[0]);
-      });
+    users.findOne({ $or: [{ username: identifier }, { email: identifier }] }, function (err, user) {
+      if (err) console.warn(err);
+      callback(err, user);
+    });
   }
 
   function getById(id, callback) {
-    return users.findById(id)
-      .complete(function(err, foundUser) {
-        if (err) console.warn(err);
-        callback(err, foundUser);
-      });
+    users.findOne({ _id: id }, function(err, user) {
+      if (err) console.warn(err);
+      callback(err, user);
+    });
   }
 
   // authenticate a user given a username and plaintext password
   function authenticateLogin(identifier, password, callback) {
-    get(identifier, function checkPassword(err, user) {
+    getByNameOrEmail(identifier, function checkPassword(err, user) {
       if (err || !user) {
         return callback(err);
       }
@@ -51,8 +56,7 @@ module.exports = function(db) {
     user.salt = passwordUtils.createSalt();
     passwordUtils.deriveKey(user.password, user.salt, function(err, derivedKey) {
       user.password = passwordUtils.createHashDigest(derivedKey.toString('hex'));
-      users.insert(user)
-        .complete(function(err, user) {
+      users.insert(user, function(err) {
           if (err) {
             if (err.code === 11000) {
               // Mongo error code 11000 is for duplicate key - indexes are defined on username and email
@@ -69,12 +73,5 @@ module.exports = function(db) {
         });
     });
   }
-
-  return {
-    authenticateLogin: authenticateLogin,
-    get: get,
-    getById: getById,
-    add: add
-  };
 
 };

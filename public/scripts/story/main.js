@@ -26,8 +26,9 @@ require('livestamp');
 
 $(function() {
 
-  var $story = $('.story');
-  var storyId = $story.attr('data-story-id');
+  var $story = $('.story')
+    , storyId = $story.attr('data-story-id')
+    , $paragraphInput = $story.find('#paragraph-input');
 
   // update the story with new paragraph whenever another user adds one
   socket.on(storyId, function(paragraph) {
@@ -35,7 +36,7 @@ $(function() {
     var $newParagraph = $(newParagraph);
     newParagraph.appendChild(document.createTextNode(paragraph.text));
     $newParagraph.hide();
-    $story[0].insertBefore(newParagraph, document.getElementById('paragraph-input'));
+    $story[0].insertBefore(newParagraph, $paragraphInput[0]);
     $newParagraph.fadeIn();
   });
 
@@ -54,35 +55,37 @@ $(function() {
 
     // open input for user to add to story
     $story.on('click', function(event) {
-        var $story = $(this);
-        // check whether the textarea is visible and show it if it isn't
+        // check whether the textarea for entering a new paragraph is visible and show if not
         $story.off('mousedown', stopBlur).on('mousedown', stopBlur);
-        $story.children('textarea').show().focus();
+
+        $paragraphInput.show().focus();
+
         $story.find('.start-writing').hide()
           .end().find('.add-paragraph').show();
 
         function stopBlur(event) {
-          if ($(this).children('textarea').is(':visible')) {
+          if ($paragraphInput.is(':visible')) {
             event.preventDefault();
             return;
           }
         }
+      });
+
+    $paragraphInput
+      // hide the input when we click away from the story or hit escape
+      .on('blur', hideInput)
+      .on('keydown', function escapeHandler(event) {
+        // 27 is key code for escape key, hide the input
+        if (event.which === 27) {
+          $(this).blur();
+        }
       })
-      .find('#paragraph-input')
       // look for key command to add text to story
       .on('keydown', createEnterHandler(socket))
       .on('keyup', createEnterHandler(socket))
       .on('click', function(event) {
         // stop click handler on parent
         event.stopPropagation();
-      })
-      // hide the input when we click away from the story or hit escape
-      .on('blur', hideInput)
-      .on('keydown', function escapeHandler(event) {
-        // 27 is key code for escape key
-        if (event.which === 27) {
-          $(this).blur();
-        }
       });
   }
 
@@ -91,19 +94,16 @@ $(function() {
   // if there is a gap of 500 ms in typing we will, after that gap, emit
   // a message to notify the other users that their typing has stopped
   function typeNotifier() {
-    var ignoreKeys = [27];
-
     $story.find('#paragraph-input')
-      .on('keydown', _.debounce(function(event) {
-        if (_.contains(ignoreKeys, event.which)) return;
+
+      .on('input', _.debounce(function(event) {
+        if (!$paragraphInput.is(':visible')) return;
         socket.emit('type-on');
       }, 500, { leading: true, trailing: false}))
 
-      .on('keydown', _.debounce(function(event) {
-        if (_.contains(ignoreKeys, event.which)) return;
+      .on('input', _.debounce(function(event) {
         socket.emit('type-off');
       }, 500));
-
   }
 
   // receive messages notifying us of other users typing and display
@@ -111,7 +111,8 @@ $(function() {
   function typeReceiver() {
     socket.on('type-on', function(user) {
       var usersContainer = $story.find('.typing-users');
-      var typingNotification = $('<div class="' + user + '"><i class="icon-pencil"></i> ' + user + ' is typing...</div>');
+      // TODO: use a messages file for this text (to support i18n)
+      var typingNotification = $('<div class="' + user + '"><i class="icon-user"></i> ' + user + ' is typing...</div>');
       usersContainer[0].appendChild(typingNotification[0]);
     });
     socket.on('type-off', function(user) {

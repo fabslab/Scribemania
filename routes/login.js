@@ -10,10 +10,10 @@ module.exports = function(params) {
     failureRedirect: '/login'
   };
 
+  var loginHandler = passport.authenticate('local', redirects);
+
   app.get('/login', loginForm);
-  app.post('/login', function(req, res, next) {
-    (passport.authenticate('local', redirects))(req, res, next);
-  });
+  app.post('/login', loginHandler);
 
   app.get('/logout', logout);
   app.post('/logout', logout);

@@ -1,8 +1,22 @@
 extends layout
 block content
 
-  .genres
-    h2 Find new stories by Genre
+  form.genre-search(action="/genres", method="GET")
+    h2 Find new stories by genre
+    input.genre-search-input(type="text", name="genre", autofocus="true")
+    .search-button.button-icon
+      a(title="Search", href="javascript:;")
+        i.icon-search
 
+  if stories
+    each story in stories
+      include summary
+
+  else
+    section.popular-genres
+      h2 Popular Genres
+      p
+        each genre in genres
+            a.genre-list(href="/genres/#{genre.name.toLowerCase()}", title="#{genre.name}") #{genre.name}
 
   script(data-main="/scripts/genres/main", src="/vendor/requirejs.min.js")

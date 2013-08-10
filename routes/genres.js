@@ -1,15 +1,34 @@
-var stories;
+var stories
+  , genres;
 
 module.exports = function(params) {
-  stories = require('../data/stories.js')(params.db);
-  var app = params.app;
+  var app = params.app
+    , db = params.db;
 
-  app.get('/genres/:genre', genres);
+  stories = require('../data/stories.js')(db);
+  genres = require('../data/genres.js')(db);
+
+  app.get('/genres', genreSearchPage);
+  app.get('/genres/:genre', genreSearchResults);
 };
 
-function genres(req, res) {
+function genreSearchPage(req, res) {
+  var genreQuery = req.query.genre;
+  if (genreQuery && (genreQuery = genreQuery.trim())) {
+    return getStoriesForGenre(res, genreQuery);
+  }
+  genres.getTop(function(err, topGenres) {
+    res.render('genres', { genres: topGenres });
+  });
+}
+
+function genreSearchResults(req, res) {
   var genre = req.params.genre;
+  getStoriesForGenre(res, genre);
+}
+
+function getStoriesForGenre(res, genre) {
   stories.get({ genre: genre }, function(err, stories) {
-    res.render('latest', { stories: stories });
+    res.render('genres', { stories: stories });
   });
 }

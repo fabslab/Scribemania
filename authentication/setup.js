@@ -33,17 +33,4 @@ module.exports = function(app, db, passport) {
     });
   });
 
-  // Connect middleware to verify a logged-in user's authenticity
-  app.use(function verifyAuthentication(req, res, next) {
-    var user = req.user;
-    if (!user) return next();
-    if (passwordUtils.createHashDigest(req.session.authenticator) === user.password) {
-      res.locals.username = user.username;
-      return next();
-    }
-    req.logOut();
-    req.session = null;
-    res.redirect('/login');
-  });
-
 };

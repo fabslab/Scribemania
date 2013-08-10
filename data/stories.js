@@ -1,9 +1,19 @@
 var uslug = require('uslug')
+  , ObjectID = require('mongodb').ObjectID
   , UserError = require('../errors/user-error.js');
 
 module.exports = function(db) {
 
-  var stories = db.get('stories');
+  var stories = db.collection('stories');
+
+  // return public functions
+  return {
+    get: get,
+    getBySlug: getBySlug,
+    getById: getById,
+    add: add,
+    addParagraph: addParagraph
+  };
 
   function get(filters, limit, callback) {
     if (typeof filters == 'function') {
@@ -21,9 +31,9 @@ module.exports = function(db) {
     filters = filters || {};
     limit = limit != null ? limit : 50;
 
-    return stories
+    stories
       .find(filters, { limit: limit, sort: [['createdDate','desc']] })
-      .complete(function(err, stories) {
+      .toArray(function(err, stories) {
         if (err) console.warn(err);
         callback(err, stories);
       });
@@ -32,29 +42,21 @@ module.exports = function(db) {
   function getBySlug(slug, callback) {
     stories.hint = 'slug';
 
-    return stories.findOne({ slug: slug })
-      .complete(function(err, story) {
-        if (err) console.warn(err);
-        callback(err, story);
-      });
+    stories.findOne({ slug: slug }, function(err, story) {
+      if (err) console.warn(err);
+      callback(err, story);
+    });
   }
 
   function getById(id, callback) {
-    return stories
-      .findById(id)
-      .complete(function(err, story) {
-        if (err) console.warn(err);
-        callback(err, story);
-      });
+    stories.findOne({ _id: id }, function(err, story) {
+      if (err) console.warn(err);
+      callback(err, story);
+    });
   }
 
-  // this function is a bit different to the rest of the db access functions in
-  // that it doesn't return a promise - I plan to largely rewrite the db access layer
-  // when I create an http api in front of it and remove the monk dependency, replacing it
-  // with the q library (for promises) and either mongo-skin or node-mongodb-native
-  // for now none of the returned promises are actually used - callbacks still rule here
   function add(story, callback) {
-    story._id = stories.id();
+    story._id = new ObjectID();
     story.title = story.title.trim();
     story.slug = uslug(story.title, { allowedChars: '-' });
     story.genre = story.genre.trim();
@@ -69,33 +71,24 @@ module.exports = function(db) {
   }
 
   function addParagraph(storyId, paragraph, callback) {
+    storyId = new ObjectID(storyId);
     paragraph.text = paragraph.text.trim();
 
     if (!validParagraph(paragraph)) return callback(new UserError('Invalid paragraph.'));
 
-    return stories.updateById(storyId, { '$push': { paragraphs: paragraph } })
-      .complete(function(err) {
-        if (err) console.warn(err);
-        callback(err);
-      });
+    stories.update({ _id: storyId }, { $push: { paragraphs: paragraph } }, function(err) {
+      if (err) console.warn(err);
+      callback(err);
+    });
   }
-
-  // return public functions
-  return {
-    get: get,
-    getBySlug: getBySlug,
-    getById: getById,
-    add: add,
-    addParagraph: addParagraph
-  };
 
 
   // private functions
 
   // wrapper around inserting a story to enable retries
   function insertStory(story, callback) {
-    stories.insert(story)
-      .error(function(err) {
+    stories.insert(story, function(err) {
+      if (err) {
         if (err.code === 11000 && err.err.indexOf('slug') !== -1) {
           // duplicate key error - unique index constraint on slug has been violated
           // append a random number before trying again
@@ -105,10 +98,11 @@ module.exports = function(db) {
           console.warn(err);
           callback(err);
         }
-      })
-      .success(function(story) {
+      }
+      else {
         callback(null, story);
-      });
+      }
+    });
   }
 
   function validStory(story) {

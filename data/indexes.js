@@ -1,35 +1,30 @@
 module.exports = function(db) {
 
   // indexes for users collection
-  var users = db.get('users');
+  var users = db.collection('users');
 
-  users.ensureIndex('email', { unique: true })
-    .complete(function(err, indexName) {
-      if (err) console.warn(err);
-    });
+  users.ensureIndex('email', { unique: true }, function(err, indexName) {
+    if (err) console.warn(err);
+  });
 
-  users.ensureIndex('username', { unique: true })
-    .complete(function(err, indexName) {
-      if (err) console.warn(err);
-    });
+  users.ensureIndex('username', { unique: true }, function(err, indexName) {
+    if (err) console.warn(err);
+  });
 
 
   // indexes for `stories` collection
-  var stories = db.get('stories');
+  var stories = db.collection('stories');
 
-  stories.ensureIndex('slug', { unique: true })
-    .complete(function(err, indexName) {
-      if (err) console.warn(err);
-    });
+  stories.ensureIndex('slug', { unique: true }, function(err, indexName) {
+    if (err) console.warn(err);
+  });
 
-  stories.ensureIndex('genre')
-    .complete(function(err, indexName) {
-      if (err) console.warn(err);
-    });
+  stories.ensureIndex('genre', function(err, indexName) {
+    if (err) console.warn(err);
+  });
 
-  stories.ensureIndex('creator')
-    .complete(function(err, indexName) {
-      if (err) console.warn(err);
-    });
+  stories.ensureIndex('creator', function(err, indexName) {
+    if (err) console.warn(err);
+  });
 
 };
