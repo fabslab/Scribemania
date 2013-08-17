@@ -10,6 +10,8 @@ block content
       label(for="password") Password
       input#password(name="password", required, type="password")
 
+      input(type='hidden', name='_csrf', value=_csrf)
+
       button(type="submit") Log In
 
       a.signup-link(href="/signup") Need to sign up?

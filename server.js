@@ -43,6 +43,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(verifyAuth);
 
+app.use(express.csrf());
+
 app.use(alerts({
   template: path.join(__dirname, 'views/alert.jade'),
   engine: 'jade'

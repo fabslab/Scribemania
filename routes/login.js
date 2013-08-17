@@ -15,11 +15,11 @@ module.exports = function(params) {
   app.get('/login', loginForm);
   app.post('/login', loginHandler);
 
-  app.get('/logout', logout);
   app.post('/logout', logout);
 };
 
 function loginForm(req, res) {
+  res.locals._csrf = req.session._csrf;
   res.render('login');
 }
 

@@ -10,7 +10,10 @@ module.exports = function(params) {
 
 function newStoryForm(req, res) {
   if (!req.user) res.redirect('/login');
-  else res.render('new');
+  else {
+    res.locals._csrf = req.session._csrf;
+    res.render('new');
+  }
 }
 
 function addStory(req, res) {

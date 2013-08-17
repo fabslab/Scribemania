@@ -13,6 +13,8 @@ block content
       label(for="story-genre") Intended Genre
       input#story-genre(name="genre", placeholder="Eg: fantasy", type="text")
 
+      input(type='hidden', name='_csrf', value=_csrf)
+
       button.submit-new(type="submit") Add Story
 
   script(data-main="/scripts/start/main", src="/vendor/requirejs.min.js")
