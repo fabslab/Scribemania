@@ -1,7 +1,7 @@
 header
-  .page
+  .header-titles
     if username
       h2.user: a(href="/users/#{username}") #{username} <i class="icon-user"></i>
     else
-      h2.user: a#login(href="/login") Log In <i class="icon-user"></i>
+      h2.user: a#login(href="/join") Join <i class="icon-user"></i>
     h1: a(href="/") Scribemania

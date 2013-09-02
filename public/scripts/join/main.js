@@ -3,7 +3,7 @@ require('../common/alerts');
 var $ = require('jquery');
 var zxcvbn = require('zxcvbn');
 
-$(function signupFormValidation() {
+$(function joinFormValidation() {
   var $submitButton = $('button[type="submit"]');
   var $passwordInput = $('#password');
   var $passwordRepeat = $('#password-repeat');

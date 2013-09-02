@@ -17,23 +17,25 @@ module.exports = function(db) {
 
     stories.aggregate(
       [
+        { $match: { genre: { $exists: true } } },
         { $group: { _id: '$genre', count: { $sum: 1 } } },
         { $sort: { count: -1 } },
         { $limit: limit }
       ],
       function(err, genres) {
-        if (err) console.warn(err);
-        if (genres) {
-          genres = genres.map(function(genre) {
-            // capitalize each genre
+        if (err) {
+          console.warn(err);
+          return callback(err);
+        }
+        genres = genres.map(function(genre) {
+            // capitalise each genre
             var name = genre._id.charAt(0).toUpperCase() + genre._id.substring(1);
             return {
               name: name,
               count: genre.count
             };
-          });
-        }
-        callback(err, genres);
+        });
+        callback(null, genres);
       }
     );
   }

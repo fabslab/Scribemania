@@ -24,9 +24,12 @@ function addStory(req, res) {
     paragraphs: [{
       text: req.body.paragraph,
       author: req.user.username
-    }],
-    genre: req.body.genre
+    }]
   };
+
+  if (req.body.genre.trim()) {
+    story.genre = req.body.genre.trim();
+  }
 
   stories.add(story, function(err, story) {
     // TODO: set up server-sent events to update the Latest page each time a story is created

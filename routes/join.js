@@ -5,13 +5,13 @@ module.exports = function(params) {
   var app = params.app;
   users = require('../data/users.js')(params.db);
 
-  app.get('/signup', signupForm);
-  app.post('/signup', createUser);
+  app.get('/join', joinForm);
+  app.post('/join', createUser);
   app.post('/name-available', checkUsernameAvailability);
 };
 
-function signupForm(req, res) {
-  res.render('signup');
+function joinForm(req, res) {
+  res.render('join');
 }
 
 function createUser(req, res, next) {
@@ -35,7 +35,7 @@ function createUser(req, res, next) {
 
   if (passwordResult.score < 1) {
     res.alert('Password is too weak.', 'error');
-    return res.redirect('/signup');
+    return res.redirect('/join');
   }
 
   var user = {
@@ -48,10 +48,10 @@ function createUser(req, res, next) {
     if (err) {
       if (err.usernameExists) {
         res.alert('The username already exists.', 'error');
-        return res.redirect('/signup');
+        return res.redirect('/join');
       } else if (err.emailExists) {
         res.alert('The email address already exists.', 'error');
-        return res.redirect('/signup');
+        return res.redirect('/join');
       }
       return next(err);
     }
@@ -71,7 +71,7 @@ function checkUsernameAvailability(req, res, next) {
   users.get(req.param('username'), function(user) {
     if (user) {
       res.alert('The name has already been taken.');
-      return res.redirect('/signup');
+      return res.redirect('/join');
     }
     res.send(200);
   });

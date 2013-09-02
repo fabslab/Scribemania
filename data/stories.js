@@ -58,8 +58,7 @@ module.exports = function(db) {
   function add(story, callback) {
     story._id = new ObjectID();
     story.title = story.title.trim();
-    story.slug = uslug(story.title, { allowedChars: '-' });
-    story.genre = story.genre.trim();
+    story.slug = uslug(story.title.substring(0, 80), { allowedChars: '-' });
     story.paragraphs[0].storyId = story._id;
     story.stars = 0;
 

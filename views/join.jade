@@ -1,9 +1,9 @@
 extends layout
 block content
 
-  form#signup-form(action="/signup", method="POST")
+  form#signup-form(action="/join", method="POST")
 
-    section.signup
+    section.join
       label(for="username") Pen Name
       input#username(name="username", required, type="text")
 
@@ -16,8 +16,8 @@ block content
       label(for="password-repeat") Repeat Password
       input#password-repeat(name="password-repeat", required, type="password")
 
-      button(type="submit") Sign Up
+      button(type="submit") Join
 
-      a.signup-link(href="/login") Already signed up?
+      a.join-link(href="/login") Already signed up?
 
-  script(data-main="/scripts/signup/main", src="/vendor/requirejs.min.js")
+  script(data-main="/scripts/join/main", src="/vendor/requirejs.min.js")
