@@ -16,6 +16,8 @@ block content
       label(for="password-repeat") Repeat Password
       input#password-repeat(name="password-repeat", required, type="password")
 
+      input(type='hidden', name='_csrf', value=_csrf)
+
       button(type="submit") Join
 
       a.join-link(href="/login") Already signed up?

@@ -11,6 +11,7 @@ module.exports = function(params) {
 };
 
 function joinForm(req, res) {
+  res.locals._csrf = req.session._csrf;
   res.render('join');
 }
 
