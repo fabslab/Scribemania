@@ -57,10 +57,11 @@ var envHandlers = {
   development: function() {
     app.use(express.logger('dev'));
     app.use(express.errorHandler());
-  },
-  production: function() {}
+  }
 };
-envHandlers[app.settings.env]();
+if (envHandlers[app.settings.env]) {
+    envHandlers[app.settings.env]();
+}
 
 
 // connect to database
