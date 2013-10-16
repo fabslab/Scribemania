@@ -1,6 +1,6 @@
 {
   "name": "scribemania",
-  "version": "0.0.1-32",
+  "version": "0.0.1-38",
   "private": true,
   "scripts": {
     "predeploy": "grunt predeploy",
@@ -36,6 +36,6 @@
   },
   "subdomain": "scribemania",
   "engines": {
-    "node": "*"
+    "node": "0.10.x"
   }
 }
