@@ -4,4 +4,9 @@ block content
   each story in stories
     include summary
 
+  if stories.length < 1
+    section
+        h2 No stories available.
+        p: a(href="/new") Write your own!
+
   script(data-main="/scripts/latest/main", src="/vendor/requirejs.min.js")
