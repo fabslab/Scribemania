@@ -1,6 +1,4 @@
-.started-info started by
-  span.started-name &nbsp;
-    a(href="/users/#{story.creator}") #{story.creator}
-  .started-time
+.started-info
+  span started by&nbsp;
+    a.started-name(href="/users/#{story.creator}") #{story.creator}&nbsp;
     span(data-livestamp="#{story.createdDate.toISOString()}")
-  .div

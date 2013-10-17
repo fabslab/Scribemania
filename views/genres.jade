@@ -3,7 +3,7 @@ block content
 
   form.genre-search(action="/genres", method="GET")
     h2 Find new stories by genre
-    input.genre-search-input(type="text", name="genre", autofocus="true")
+    input.genre-search-input(type="text", name="genre", autocomplete="off", autofocus="true")
     .search-button.button-icon
       a(title="Search", href="javascript:;")
         i.icon-search

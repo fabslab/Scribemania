@@ -1,8 +1,10 @@
 section.story.preview(data-story-id="#{story._id}")
 
-  include story-start-info
+  include star
 
   h2: a(href="/stories/#{story.slug}") #{story.title}
+
+  include story-start-info
 
   //- limit story previews to a number of characters or paragraphs (whichever comes first)
   //- or display the entire story if it is less than both of these parameters
@@ -21,5 +23,4 @@ section.story.preview(data-story-id="#{story._id}")
   - }
 
   .read-more
-    include star
     a(href="/stories/#{story.slug}") <i class="icon-double-angle-right"></i> Read/write more

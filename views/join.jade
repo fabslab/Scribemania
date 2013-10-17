@@ -4,8 +4,10 @@ block content
   form#signup-form(action="/join", method="POST")
 
     section.join
+      h2 Join Scribemania
+
       label(for="username") Pen Name
-      input#username(name="username", required, type="text")
+      input#username(name="username", required, autofocus="true",  type="text")
 
       label(for="email") Email
       input#email(name="email", placeholder="you@domain.com", type="email")

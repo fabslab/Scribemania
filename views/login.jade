@@ -4,8 +4,10 @@ block content
   form#login-form(action="/login", method="POST")
 
     section.login
+      h2 Log in to Scribemania
+
       label(for="username") Name or Email
-      input#username(name="username", required, autocomplete="on", type="text")
+      input#username(name="username", required, autocomplete="off", type="text", autofocus="true")
 
       label(for="password") Password
       input#password(name="password", required, type="password")
