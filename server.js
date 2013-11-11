@@ -7,7 +7,9 @@ var express = require('express')
   , alerts = require('connect-alerts')
   , passport = require('passport')
   , verifyAuth = require('./authentication/verify.js')
-  , nconf = require('./configuration/init.js');
+  , nconf = require('./configuration/init.js')
+  , indexes = require('./data/indexes.js')
+  , localAuth = require('./authentication/local-auth.js');
 
 // constants for paths
 var routesPath = path.join(__dirname, 'routes')
@@ -72,13 +74,12 @@ mongo.MongoClient.connect(dbURL, function runServerAfterDBConnection(err, db) {
     throw err;
   }
 
-  // create indexes
-  require('./data/indexes.js')(db);
+  indexes.create(db);
 
   // set up passport authentication module
-  require('./authentication/setup.js')(app, db, passport);
+  localAuth.init(app, db, passport);
 
-  var routesParams = {
+  var routeParams = {
     app: app,
     db: db,
     passport: passport,
@@ -88,7 +89,7 @@ mongo.MongoClient.connect(dbURL, function runServerAfterDBConnection(err, db) {
   // load files that define routes
   // this way we can add new route files without any additional setup
   fs.readdirSync(routesPath).forEach(function(fileName) {
-    require(path.join(routesPath, fileName))(routesParams);
+    require(path.join(routesPath, fileName))(routeParams);
   });
 
   // set up socket.io configuration and
