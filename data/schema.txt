@@ -2,7 +2,7 @@ Story
 
   title: string
   slug: string
-  paragraphs: array
+  paragraphs: array of Paragraphs
   _id: ObjectId
   creator: string
   createdDate: ISODate
@@ -25,3 +25,4 @@ User
   email: string
   salt: string
   _id: ObjectId
+  favorites: array of Story ids
