@@ -1,6 +1,6 @@
 {
   "name": "scribemania",
-  "version": "0.0.1-44",
+  "version": "0.0.1-45",
   "private": true,
   "scripts": {
     "predeploy": "grunt predeploy",
@@ -14,12 +14,12 @@
     "cookie-signature": "~1.0.1",
     "express": "~3.2.6",
     "jade": "~0.33.0",
-    "mongodb": "~1.3.15",
     "nconf": "~0.6.7",
     "socket.io": "~0.9.14",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
-    "uslug": "~1.0.3"
+    "uslug": "~1.0.3",
+    "request": "~2.30.0"
   },
   "bundledDependencies": [
     "connect-alerts"

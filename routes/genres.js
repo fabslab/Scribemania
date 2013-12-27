@@ -5,8 +5,8 @@ module.exports = function(params) {
   var app = params.app
     , db = params.db;
 
-  stories = require('../data/stories.js')(db);
-  genres = require('../data/genres.js')(db);
+  stories = require('../api/stories.js')(db);
+  genres = require('../api/genres.js')(db);
 
   app.get('/genres', genreSearchPage);
   app.get('/genres/:genre', genreSearchResults);

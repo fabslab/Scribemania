@@ -1,5 +1,5 @@
 module.exports = function(io, db) {
-  var stories = require('../data/stories.js')(db);
+  var stories = require('./stories.js')(db);
 
   io.sockets.on('connection', function(socket) {
 

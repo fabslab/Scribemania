@@ -611,7 +611,7 @@
     lodash.templateSettings = {
 
       /**
-       * Used to detect `data` property values to be HTML-escaped.
+       * Used to detect `api` property values to be HTML-escaped.
        *
        * @memberOf _.templateSettings
        * @type RegExp
@@ -627,7 +627,7 @@
       'evaluate': /<%([\s\S]+?)%>/g,
 
       /**
-       * Used to detect `data` property values to inject.
+       * Used to detect `api` property values to inject.
        *
        * @memberOf _.templateSettings
        * @type RegExp
@@ -635,7 +635,7 @@
       'interpolate': reInterpolate,
 
       /**
-       * Used to reference the data object in the template text.
+       * Used to reference the api object in the template text.
        *
        * @memberOf _.templateSettings
        * @type String
@@ -4133,7 +4133,7 @@
 
     /**
      * Groups the elements of each array at their corresponding indexes. Useful for
-     * separate data sources that are coordinated through matching array indexes.
+     * separate api sources that are coordinated through matching array indexes.
      * For a matrix of nested arrays, `_.zip.apply(...)` can transpose the matrix
      * in a similar fashion.
      *
@@ -4710,14 +4710,14 @@
      * var defaultsDeep = _.partialRight(_.merge, _.defaults);
      *
      * var options = {
-     *   'variable': 'data',
+     *   'variable': 'api',
      *   'imports': { 'jq': $ }
      * };
      *
      * defaultsDeep(options, _.templateSettings);
      *
      * options.variable
-     * // => 'data'
+     * // => 'api'
      *
      * options.imports
      * // => { '_': _, 'jq': $ }
@@ -5006,14 +5006,14 @@
      * @memberOf _
      * @category Utilities
      * @param {String} text The template text.
-     * @param {Object} data The data object used to populate the text.
+     * @param {Object} data The api object used to populate the text.
      * @param {Object} options The options object.
      *  escape - The "escape" delimiter regexp.
      *  evaluate - The "evaluate" delimiter regexp.
      *  interpolate - The "interpolate" delimiter regexp.
      *  sourceURL - The sourceURL of the template's compiled source.
-     *  variable - The data object variable name.
-     * @returns {Function|String} Returns a compiled function when no `data` object
+     *  variable - The api object variable name.
+     * @returns {Function|String} Returns a compiled function when no `api` object
      *  is given, else it returns the interpolated text.
      * @example
      *
@@ -5026,7 +5026,7 @@
      * _.template(list, { 'people': ['moe', 'larry'] });
      * // => '<li>moe</li><li>larry</li>'
      *
-     * // using the "escape" delimiter to escape HTML in data property values
+     * // using the "escape" delimiter to escape HTML in api property values
      * _.template('<b><%- value %></b>', { 'value': '<script>' });
      * // => '<b>&lt;script&gt;</b>'
      *
@@ -5048,15 +5048,15 @@
      *
      * // using the `sourceURL` option to specify a custom sourceURL for the template
      * var compiled = _.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });
-     * compiled(data);
+     * compiled(api);
      * // => find the source of "greeting.jst" under the Sources tab or Resources panel of the web inspector
      *
      * // using the `variable` option to ensure a with-statement isn't used in the compiled template
-     * var compiled = _.template('hi <%= data.name %>!', null, { 'variable': 'data' });
+     * var compiled = _.template('hi <%= api.name %>!', null, { 'variable': 'api' });
      * compiled.source;
-     * // => function(data) {
+     * // => function(api) {
      *   var __t, __p = '', __e = _.escape;
-     *   __p += 'hi ' + ((__t = ( data.name )) == null ? '' : __t) + '!';
+     *   __p += 'hi ' + ((__t = ( api.name )) == null ? '' : __t) + '!';
      *   return __p;
      * }
      *
@@ -5123,7 +5123,7 @@
       source += "';\n";
 
       // if `variable` is not specified, wrap a with-statement around the generated
-      // code to add the data object to the top of the scope chain
+      // code to add the api object to the top of the scope chain
       var variable = options.variable,
           hasVariable = variable;
 

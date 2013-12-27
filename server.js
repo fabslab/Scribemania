@@ -2,13 +2,11 @@ var express = require('express')
   , http = require('http')
   , fs = require('fs')
   , path = require('path')
-  , mongo = require('mongodb')
   , socketio = require('socket.io')
   , alerts = require('connect-alerts')
   , passport = require('passport')
   , verifyAuth = require('./authentication/verify.js')
   , nconf = require('./configuration/init.js')
-  , indexes = require('./data/indexes.js')
   , localAuth = require('./authentication/local-auth.js');
 
 // constants for paths
@@ -61,45 +59,33 @@ var envHandlers = {
     app.use(express.errorHandler());
   }
 };
+
 if (envHandlers[app.settings.env]) {
     envHandlers[app.settings.env]();
 }
 
+// set up passport authentication module
+localAuth.init(app, passport);
 
-// connect to database
-var dbURL = nconf.get('mongodb:connectionString');
-mongo.MongoClient.connect(dbURL, function runServerAfterDBConnection(err, db) {
-  if (err) {
-    console.warn(err);
-    throw err;
-  }
+var routeParams = {
+  app: app,
+  passport: passport,
+  socketIo: io
+};
 
-  indexes.create(db);
-
-  // set up passport authentication module
-  localAuth.init(app, db, passport);
-
-  var routeParams = {
-    app: app,
-    db: db,
-    passport: passport,
-    socketIo: io
-  };
-
-  // load files that define routes
-  // this way we can add new route files without any additional setup
-  fs.readdirSync(routesPath).forEach(function(fileName) {
-    require(path.join(routesPath, fileName))(routeParams);
-  });
-
-  // set up socket.io configuration and
-  // load files that attach event handlers for socket events
-  fs.readdirSync(socketsPath).forEach(function(fileName) {
-    require(path.join(socketsPath, fileName))(io, db);
-  });
-
-
-  // kick things off
-  server.listen(app.get('port'));
-  console.log('Listening on port %d in %s mode.', app.get('port'), app.settings.env);
+// load files that define routes
+// this way we can add new route files without any additional setup
+fs.readdirSync(routesPath).forEach(function(fileName) {
+  require(path.join(routesPath, fileName))(routeParams);
 });
+
+// set up socket.io configuration and
+// load files that attach event handlers for socket events
+fs.readdirSync(socketsPath).forEach(function(fileName) {
+  require(path.join(socketsPath, fileName))(io, db);
+});
+
+
+// kick things off
+server.listen(app.get('port'));
+console.log('Listening on port %d in %s mode.', app.get('port'), app.settings.env);

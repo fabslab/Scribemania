@@ -2,7 +2,7 @@ var users;
 
 module.exports = function(params) {
   var app = params.app;
-  users = require('../data/users.js')(params.db);
+  users = require('../api/users.js')(params.db);
 
   app.get('/users/:username', user);
 };

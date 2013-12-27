@@ -1,8 +1,8 @@
 var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = {
-  init: function(app, db, passport) {
-    var users = require('../data/users.js')(db);
+  init: function(app, passport) {
+    var users = require('../api/users.js')(db);
 
     // authentication strategy -
     // function provided to strategy constructor is called on POST /login (when passport.authenticate() called)

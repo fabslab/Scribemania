@@ -1,7 +1,7 @@
 var stories;
 
 module.exports = function(params) {
-  stories = require('../data/stories.js')(params.db);
+  stories = require('../api/stories.js')(params.db);
   var app = params.app;
 
   // home page is currently the same as the latest stories page

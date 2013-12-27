@@ -27,7 +27,7 @@ require('livestamp');
 $(function() {
 
   var $story = $('.story')
-    , storyId = $story.attr('data-story-id')
+    , storyId = $story.attr('api-story-id')
     , $paragraphInput = $story.find('#paragraph-input');
 
   // update the story with new paragraph whenever another user adds one

@@ -21,7 +21,7 @@
       if (typeof timestamp == 'number')
         timestamp *= 1e3;
 
-      $el.removeAttr('data-livestamp')
+      $el.removeAttr('api-livestamp')
         .removeData('livestamp');
 
       timestamp = moment(timestamp);
@@ -42,7 +42,7 @@
 
     livestampGlobal = {
       update: function() {
-        $('[data-livestamp]').each(function() {
+        $('[api-livestamp]').each(function() {
           var $this = $(this);
           prep($this, $this.data('livestamp'));
         });

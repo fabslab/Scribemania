@@ -1013,7 +1013,7 @@
         moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
     };
 
-    // returns language data
+    // returns language api
     moment.langData = function (key) {
         if (key && key._lang && key._lang._abbr) {
             key = key._lang._abbr;

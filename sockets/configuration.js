@@ -6,7 +6,7 @@ var signature = require('cookie-signature')
   , macKey = nconf.get('macKey');
 
 module.exports = function(io, db) {
-  var users = require('../data/users.js')(db);
+  var users = require('./users.js')(db);
 
   io.configure(function configureSocketIo() {
 

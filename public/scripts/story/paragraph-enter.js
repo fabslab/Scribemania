@@ -23,9 +23,9 @@ module.exports = function createParagraphEnterHandler(socket) {
       // don't send an empty paragraph - TODO: should do extra validation here
       if (!(this.value = this.value.trim())) return;
 
-      // get the story id using the data-story-id attribute of the story container div
-      // use .attr() rather than .data() because we don't want to try to convert it - it's always a string
-      var storyId = $(this.parentNode).attr('data-story-id');
+      // get the story id using the api-story-id attribute of the story container div
+      // use .attr() rather than .api() because we don't want to try to convert it - it's always a string
+      var storyId = $(this.parentNode).attr('api-story-id');
 
       // send paragraph to server
       socket.emit('add.paragraph', { dateCreated: new Date(), storyId: storyId, text: this.value });

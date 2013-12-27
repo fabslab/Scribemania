@@ -1,7 +1,4 @@
 {
-  "mongodb": {
-    "connectionString": "mongodb://localhost/scribemania"
-  },
   "sessionKey": "scribe.sess",
   "macKey": "secret"
 }
