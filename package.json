@@ -19,7 +19,7 @@
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
     "uslug": "~1.0.3",
-    "request": "~2.30.0"
+    "restify": "~2.6.1"
   },
   "bundledDependencies": [
     "connect-alerts"
