@@ -1,7 +1,7 @@
 header
   .header-titles
     if username
-      h2.user: a(href="/users/#{username}") #{username} <i class="icon-user"></i>
+      h2.user: a(href="javascript:;") #{username} <i class="fa fa-user"></i>
     else
-      h2.user: a#login(href="/join") Join <i class="icon-user"></i>
+      h2.user: a#login(href="/join") Join <i class="fa fa-user fw"></i>
     h1: a(href="/") Scribemania
