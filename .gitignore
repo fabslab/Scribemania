@@ -1,5 +1,4 @@
 .DS_Store
 .idea/
 *.log
-*.css
 production-config.json
