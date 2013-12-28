@@ -1,7 +1,10 @@
-var stories;
+var restify = require('restify');
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
 
 module.exports = function(params) {
-  stories = require('../api/stories.js')(params.db);
   var app = params.app;
 
   // home page is currently the same as the latest stories page
@@ -11,7 +14,7 @@ module.exports = function(params) {
 };
 
 function latest(req, res) {
-  stories.get(function(err, stories) {
+  apiClient.get('/stories', function(err, cReq, cRes, stories) {
     res.render('latest', { stories: stories });
   });
 }

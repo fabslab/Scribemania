@@ -3,10 +3,14 @@ var signature = require('cookie-signature')
   , nconf = require('../configuration/init.js')
   , passwordUtils = require('../authentication/password-utils.js')
   , sessionKey = nconf.get('sessionKey')
-  , macKey = nconf.get('macKey');
+  , macKey = nconf.get('macKey')
+  , restify = require('restify');
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
 
 module.exports = function(io, db) {
-  var users = require('./users.js')(db);
 
   io.configure(function configureSocketIo() {
 
@@ -30,12 +34,18 @@ module.exports = function(io, db) {
       var username = socketSession.passport.user.name;
       var authenticator = socketSession.authenticator;
 
-      users.get(username, function authenticateSocketPassword(err, user) {
-        if (err) return callback(err.message, false);
-        if (!user) return callback('No user found for the given username.', false);
-        if (passwordUtils.createHashDigest(authenticator) === user.password) {
+      apiClient.get('/users/' + username, function authenticateSocketPassword(err, cReq, cRes, user) {
+        if (err) {
+          return callback(err.message, false);
+        }
+        if (cRes.statusCode == 404) {
+          return callback('No user found for the given username.', false);
+        }
+
+        var digest = passwordUtils.createHashDigest(authenticator);
+        if (digest === user.password) {
           // successfully authenticated socket connection
-          // accept connection with full
+          // accept connection with full access
           handshake.username = username;
           callback(null, true);
         } else {

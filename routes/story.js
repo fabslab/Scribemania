@@ -1,7 +1,10 @@
-var stories;
+var restify = require('restify');
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
 
 module.exports = function(params) {
-  stories = require('../api/stories.js')(params.db);
   var app = params.app;
 
   app.get('/stories/:slug', story);
@@ -10,7 +13,7 @@ module.exports = function(params) {
 function story(req, res) {
   var slug = req.params.slug;
 
-  stories.getBySlug(slug, function(err, story) {
+  apiClient.get('/stories/' + slug, function(err, cReq, cRes, story) {
     res.render('story', { story: story });
   });
 }

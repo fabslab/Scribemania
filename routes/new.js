@@ -1,8 +1,11 @@
-var stories;
+var restify = require('restify');
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
 
 module.exports = function(params) {
   var app = params.app;
-  stories = require('../api/stories.js')(params.db);
 
   app.get('/new', newStoryForm);
   app.post('/new', addStory);
@@ -31,9 +34,9 @@ function addStory(req, res) {
     story.genre = req.body.genre.trim();
   }
 
-  stories.add(story, function(err, story) {
-    // TODO: set up server-sent events to update the Latest page each time a story is created
+  apiClient.post(story, function(err, cReq, cRes, result) {
+    // TODO: set up socket listener to update the Latest page each time a story is created
     // and display how many new stories have been added since user loaded them (like Twitter)
-    res.redirect('/stories/' + story.slug);
+    res.redirect('/stories/' + result.slug);
   });
 }

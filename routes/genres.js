@@ -1,12 +1,11 @@
-var stories
-  , genres;
+var restify = require('restify');
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
 
 module.exports = function(params) {
-  var app = params.app
-    , db = params.db;
-
-  stories = require('../api/stories.js')(db);
-  genres = require('../api/genres.js')(db);
+  var app = params.app;
 
   app.get('/genres', genreSearchPage);
   app.get('/genres/:genre', genreSearchResults);
@@ -17,8 +16,8 @@ function genreSearchPage(req, res) {
   if (genreQuery && (genreQuery = genreQuery.trim())) {
     return getStoriesForGenre(res, genreQuery);
   }
-  genres.getTop(function(err, topGenres) {
-    res.render('genres', { genres: topGenres });
+  apiClient.get('/genres', function(err, cReq, cRes, genres) {
+    res.render('genres', { genres: genres });
   });
 }
 
@@ -28,7 +27,7 @@ function genreSearchResults(req, res) {
 }
 
 function getStoriesForGenre(res, genre) {
-  stories.get({ genre: genre }, function(err, stories) {
+  apiClient.get('/genres/' + genre + '/stories', function(err, cReq, cRes, stories) {
     res.render('genres', { stories: stories });
   });
 }

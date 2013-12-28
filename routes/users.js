@@ -1,8 +1,5 @@
-var users;
-
 module.exports = function(params) {
   var app = params.app;
-  users = require('../api/users.js')(params.db);
 
   app.get('/users/:username', user);
 };

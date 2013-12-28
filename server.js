@@ -82,7 +82,7 @@ fs.readdirSync(routesPath).forEach(function(fileName) {
 // set up socket.io configuration and
 // load files that attach event handlers for socket events
 fs.readdirSync(socketsPath).forEach(function(fileName) {
-  require(path.join(socketsPath, fileName))(io, db);
+  require(path.join(socketsPath, fileName))(io);
 });
 
 

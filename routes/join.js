@@ -1,13 +1,15 @@
-var users
+var restify = require('restify')
   , zxcvbn = require('../public/vendor/zxcvbn.min.js');
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
 
 module.exports = function(params) {
   var app = params.app;
-  users = require('../api/users.js')(params.db);
 
   app.get('/join', joinForm);
   app.post('/join', createUser);
-  app.post('/name-available', checkUsernameAvailability);
 };
 
 function joinForm(req, res) {
@@ -42,38 +44,24 @@ function createUser(req, res, next) {
   var user = {
     username: username,
     password: password,
-    email: email
+    email: email,
+    favorites: []
   };
 
-  users.add(user, function(err, addedUser, derivedKey) {
+  apiClient.post('/users', user, function(err, cReq, cRes, result) {
     if (err) {
-      if (err.usernameExists) {
-        res.alert('The username already exists.', 'error');
-        return res.redirect('/join');
-      } else if (err.emailExists) {
-        res.alert('The email address already exists.', 'error');
-        return res.redirect('/join');
-      }
-      return next(err);
-    }
-
-    req.logIn(addedUser, function(loginErr) {
-      if (loginErr) return next(loginErr);
-      // retain authenticator (derived key) here to save into cookie session
-      // and check upon subsequent access
-      req.session.authenticator = derivedKey.toString('hex');
-      return res.redirect('/');
-    });
-  });
-}
-
-// determines whether a username is there for the taking
-function checkUsernameAvailability(req, res, next) {
-  users.get(req.param('username'), function(user) {
-    if (user) {
-      res.alert('The name has already been taken.');
+      res.alert(err.msg, 'error');
       return res.redirect('/join');
     }
-    res.send(200);
+
+    req.logIn(result.user, function(loginErr) {
+      if (loginErr) {
+        return next(loginErr);
+      }
+      // retain authenticator (derived key) here to save into cookie session
+      // and check upon subsequent access
+      req.session.authenticator = result.derivedKey;
+      res.redirect('/');
+    });
   });
 }

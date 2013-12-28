@@ -1,5 +1,10 @@
+var restify = require('restify');
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
+
 module.exports = function(io, db) {
-  var stories = require('./stories.js')(db);
 
   io.sockets.on('connection', function(socket) {
 
@@ -24,7 +29,7 @@ module.exports = function(io, db) {
       // set paragraph author as username if available
       if (!(paragraph.author = socket.handshake.username)) return;
 
-      stories.addParagraph(paragraph.storyId, paragraph, function() {
+      apiClient.post('/stories/' + paragraph.storyId + '/paragraphs', paragraph, function(err, cReq, cRes, result) {
         // once added to db send paragraph to all other users to update their views of the story
         socket.broadcast.emit(paragraph.storyId, paragraph);
       });

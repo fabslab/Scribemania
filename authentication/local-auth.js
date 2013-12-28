@@ -1,8 +1,12 @@
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy
+  , restify = require('restify');
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
 
 module.exports = {
   init: function(app, passport) {
-    var users = require('../api/users.js')(db);
 
     // authentication strategy -
     // function provided to strategy constructor is called on POST /login (when passport.authenticate() called)
@@ -28,7 +32,7 @@ module.exports = {
     });
 
     passport.deserializeUser(function(sessionUser, done) {
-      users.get(sessionUser.name, function(err, user) {
+      apiClient.get('/users/' + sessionUser.name, function(err, user) {
         done(err, user);
       });
     });

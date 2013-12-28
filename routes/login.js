@@ -1,9 +1,6 @@
-var users;
-
 module.exports = function(params) {
   var app = params.app
     , passport = params.passport;
-  users = require('../api/users.js')(params.db);
 
   var redirects = {
     successRedirect: '/',
