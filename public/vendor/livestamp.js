@@ -9,8 +9,8 @@
   }
 }(function ($, moment) {
   var updateInterval = 1e3,
-      paused = false,
-      $livestamps = $([]),
+    paused = false,
+    $livestamps = $([]),
 
     init = function() {
       livestampGlobal.resume();
@@ -21,7 +21,7 @@
       if (typeof timestamp == 'number')
         timestamp *= 1e3;
 
-      $el.removeAttr('api-livestamp')
+      $el.removeAttr('data-livestamp')
         .removeData('livestamp');
 
       timestamp = moment(timestamp);
@@ -42,7 +42,7 @@
 
     livestampGlobal = {
       update: function() {
-        $('[api-livestamp]').each(function() {
+        $('[data-livestamp]').each(function() {
           var $this = $(this);
           prep($this, $this.data('livestamp'));
         });
