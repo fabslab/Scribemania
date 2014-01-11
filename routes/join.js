@@ -1,9 +1,4 @@
-var restify = require('restify')
-  , zxcvbn = require('../public/vendor/zxcvbn.min.js');
-
-var apiClient = restify.createJsonClient({
-  url: 'https://localhost:8080'
-});
+var zxcvbn = require('../public/vendor/zxcvbn.min.js');
 
 module.exports = function(params) {
   var app = params.app;

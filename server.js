@@ -5,6 +5,7 @@ var express = require('express')
   , socketio = require('socket.io')
   , alerts = require('connect-alerts')
   , passport = require('passport')
+  , restify = require('restify')
   , verifyAuth = require('./authentication/verify.js')
   , nconf = require('./configuration/init.js')
   , localAuth = require('./authentication/local-auth.js');
@@ -17,6 +18,10 @@ var routesPath = path.join(__dirname, 'routes')
 var app = express();
 var server = http.createServer(app);
 var io = socketio.listen(server);
+
+var apiClient = restify.createJsonClient({
+  url: 'https://localhost:8080'
+});
 
 
 // middleware for all environments
@@ -70,7 +75,8 @@ localAuth.init(app, passport);
 var routeParams = {
   app: app,
   passport: passport,
-  socketIo: io
+  socketIo: io,
+  apiClient: apiClient
 };
 
 // load files that define routes

@@ -1,12 +1,9 @@
-var restify = require('restify');
-
-var apiClient = restify.createJsonClient({
-  url: 'https://localhost:8080'
-});
+var apiClient;
 
 module.exports = function(params) {
   var app = params.app;
-
+  apiClient = params.apiClient;
+  
   app.get('/stories/:slug', story);
 };
 

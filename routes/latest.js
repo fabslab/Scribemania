@@ -1,11 +1,8 @@
-var restify = require('restify');
-
-var apiClient = restify.createJsonClient({
-  url: 'https://localhost:8080'
-});
+var apiClient;
 
 module.exports = function(params) {
   var app = params.app;
+  apiClient = params.apiClient;
 
   // home page is currently the same as the latest stories page
   app.get('/', latest);
