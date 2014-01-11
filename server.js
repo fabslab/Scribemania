@@ -20,7 +20,7 @@ var server = http.createServer(app);
 var io = socketio.listen(server);
 
 var apiClient = restify.createJsonClient({
-  url: 'https://localhost:8080'
+  url: 'http://localhost:8080'
 });
 
 
@@ -70,7 +70,7 @@ if (envHandlers[app.settings.env]) {
 }
 
 // set up passport authentication module
-localAuth.init(app, passport);
+localAuth.init(app, passport, apiClient);
 
 var routeParams = {
   app: app,
@@ -88,7 +88,7 @@ fs.readdirSync(routesPath).forEach(function(fileName) {
 // set up socket.io configuration and
 // load files that attach event handlers for socket events
 fs.readdirSync(socketsPath).forEach(function(fileName) {
-  require(path.join(socketsPath, fileName))(io);
+  require(path.join(socketsPath, fileName))(io, apiClient);
 });
 
 

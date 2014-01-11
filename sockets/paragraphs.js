@@ -1,10 +1,4 @@
-var restify = require('restify');
-
-var apiClient = restify.createJsonClient({
-  url: 'https://localhost:8080'
-});
-
-module.exports = function(io, db) {
+module.exports = function(io, apiClient) {
 
   io.sockets.on('connection', function(socket) {
 

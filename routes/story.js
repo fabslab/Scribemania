@@ -3,7 +3,7 @@ var apiClient;
 module.exports = function(params) {
   var app = params.app;
   apiClient = params.apiClient;
-  
+
   app.get('/stories/:slug', story);
 };
 

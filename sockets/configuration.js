@@ -3,14 +3,9 @@ var signature = require('cookie-signature')
   , nconf = require('../configuration/init.js')
   , passwordUtils = require('../authentication/password-utils.js')
   , sessionKey = nconf.get('sessionKey')
-  , macKey = nconf.get('macKey')
-  , restify = require('restify');
+  , macKey = nconf.get('macKey');
 
-var apiClient = restify.createJsonClient({
-  url: 'https://localhost:8080'
-});
-
-module.exports = function(io, db) {
+module.exports = function(io, apiClient) {
 
   io.configure(function configureSocketIo() {
 
