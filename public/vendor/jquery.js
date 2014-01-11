@@ -3540,7 +3540,7 @@ jQuery.fn.extend({
 					for ( ; i < attrs.length; i++ ) {
 						name = attrs[ i ].name;
 
-						if ( name.indexOf( "api-" ) === 0 ) {
+						if ( name.indexOf( "data-" ) === 0 ) {
 							name = jQuery.camelCase( name.slice(5) );
 							dataAttr( elem, name, data[ name ] );
 						}
@@ -3584,7 +3584,7 @@ jQuery.fn.extend({
 				}
 
 				// Attempt to "discover" the api in
-				// HTML5 custom api-* attrs
+				// HTML5 custom data-* attrs
 				data = dataAttr( elem, camelKey, undefined );
 				if ( data !== undefined ) {
 					return data;
@@ -3600,7 +3600,7 @@ jQuery.fn.extend({
 				// api that might've been store with a camelCased key.
 				var data = data_user.get( this, camelKey );
 
-				// For HTML5 api-* attribute interop, we have to
+				// For HTML5 data-* attribute interop, we have to
 				// store property names with dashes in a camelCase form.
 				// This might not apply to all properties...*
 				data_user.set( this, camelKey, value );
@@ -3626,9 +3626,9 @@ function dataAttr( elem, key, data ) {
 	var name;
 
 	// If nothing was found internally, try to fetch any
-	// api from the HTML5 api-* attribute
+	// api from the HTML5 data-* attribute
 	if ( data === undefined && elem.nodeType === 1 ) {
-		name = "api-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+		name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
 		data = elem.getAttribute( name );
 
 		if ( typeof data === "string" ) {
