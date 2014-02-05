@@ -24,7 +24,11 @@ module.exports = function(io, apiClient) {
       if (!(paragraph.author = socket.handshake.username)) return;
 
       apiClient.post('/stories/' + paragraph.storyId + '/paragraphs', paragraph, function(err, cReq, cRes, result) {
-        // once added to db send paragraph to all other users to update their views of the story
+        if (err) {
+          socket.emit('error', err);
+          return;
+        }
+        // once added to db send paragraph to all other users to update their view of the story
         socket.broadcast.emit(paragraph.storyId, paragraph);
       });
     });

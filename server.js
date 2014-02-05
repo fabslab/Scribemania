@@ -70,7 +70,7 @@ if (envHandlers[app.settings.env]) {
 }
 
 // set up passport authentication module
-localAuth.init(app, passport, apiClient);
+localAuth.init(app, apiClient, passport);
 
 // load files that define routes
 // this way we can add new route files without any additional setup
