@@ -1,7 +1,4 @@
-module.exports = function(params) {
-  var app = params.app
-    , passport = params.passport;
-
+module.exports = function(app, api, passport) {
   var redirects = {
     successRedirect: '/',
     failureRedirect: '/login'

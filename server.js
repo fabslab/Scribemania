@@ -20,7 +20,7 @@ var server = http.createServer(app);
 var io = socketio.listen(server);
 
 var apiClient = restify.createJsonClient({
-  url: 'http://localhost:8080'
+  url: nconf.get('apiUrl')
 });
 
 
@@ -72,17 +72,10 @@ if (envHandlers[app.settings.env]) {
 // set up passport authentication module
 localAuth.init(app, passport, apiClient);
 
-var routeParams = {
-  app: app,
-  passport: passport,
-  socketIo: io,
-  apiClient: apiClient
-};
-
 // load files that define routes
 // this way we can add new route files without any additional setup
 fs.readdirSync(routesPath).forEach(function(fileName) {
-  require(path.join(routesPath, fileName))(routeParams);
+  require(path.join(routesPath, fileName))(app, apiClient, passport, io);
 });
 
 // set up socket.io configuration and

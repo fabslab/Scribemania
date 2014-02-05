@@ -1,4 +1,5 @@
 {
   "sessionKey": "scribe.sess",
-  "macKey": "secret"
+  "macKey": "secret",
+  "apiUrl": "http://localhost:8080"
 }

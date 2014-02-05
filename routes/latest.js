@@ -1,8 +1,7 @@
 var apiClient;
 
-module.exports = function(params) {
-  var app = params.app;
-  apiClient = params.apiClient;
+module.exports = function(app, api) {
+  apiClient = api;
 
   // home page is currently the same as the latest stories page
   app.get('/', latest);

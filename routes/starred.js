@@ -1,5 +1,7 @@
-module.exports = function(params) {
-  var app = params.app;
+var apiClient;
+
+module.exports = function(app, api) {
+  apiClient = api;
 
   app.get('/starred', getUserStarred);
 };

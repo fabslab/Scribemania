@@ -1,7 +1,8 @@
 var zxcvbn = require('../public/vendor/zxcvbn.min.js');
+var apiClient;
 
-module.exports = function(params) {
-  var app = params.app;
+module.exports = function(app, api) {
+  apiClient = api;
 
   app.get('/join', joinForm);
   app.post('/join', createUser);
