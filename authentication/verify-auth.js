@@ -1,7 +1,7 @@
 var passwordUtils = require('./password-utils.js');
 
-module.exports = function verifyAuthentication(req, res, next) {
-  // Connect middleware to verify a logged-in user's authenticity
+module.exports = function verifyAuth(req, res, next) {
+  // Connect style middleware to verify a logged-in user's authenticity according to the password
   var user = req.user;
   if (!user) return next();
 

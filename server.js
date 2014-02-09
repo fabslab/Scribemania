@@ -6,9 +6,10 @@ var express = require('express')
   , alerts = require('connect-alerts')
   , passport = require('passport')
   , restify = require('restify')
-  , verifyAuth = require('./authentication/verify.js')
   , nconf = require('./configuration/init.js')
-  , localAuth = require('./authentication/local-auth.js');
+  , localAuth = require('./authentication/local-auth.js')
+  , twitterAuth = require('./authentication/twitter-auth.js')
+  , verifyAuth = require('./authentication/verify-auth.js');
 
 // constants for paths
 var routesPath = path.join(__dirname, 'routes')
@@ -69,8 +70,9 @@ if (envHandlers[app.settings.env]) {
     envHandlers[app.settings.env]();
 }
 
-// set up passport authentication module
+// set up passport authentication
 localAuth.init(app, apiClient, passport);
+twitterAuth.init(app, apiClient, passport);
 
 // load files that define routes
 // this way we can add new route files without any additional setup

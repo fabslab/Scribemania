@@ -1,8 +1,9 @@
-var crypto = require('crypto');
-
-// Password storage and sessions implemented for Scribemania are inspired
-// by the following paper to create stateless session cookies:
+// These methods are used in allowing password storage and sessions to be implemented
+// according to the description in following paper, to create stateless session cookies:
 // http://www.cl.cam.ac.uk/~sjm217/papers/protocols08cookies.pdf
+
+
+var crypto = require('crypto');
 
 // A key is created using the password and a per-user salt with an iterative key derivation function
 // The HMAC of this key is stored in the cookie (using Connect signed cookies middleware)

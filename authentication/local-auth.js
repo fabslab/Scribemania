@@ -6,7 +6,10 @@ module.exports = {
     // authentication strategy -
     // function provided to strategy constructor is called on POST /login (when passport.authenticate() called)
 
-    var localStrategy = new LocalStrategy({ passReqToCallback: true }, function(req, identifier, password, done) {
+    var localStrategy = new LocalStrategy({
+      passReqToCallback: true
+    },
+    function(req, identifier, password, done) {
       apiClient.post('/users/' + identifier + '/authenticate', { password: password }, function(err, cReq, cRes, result) {
         if (result == null || result.user == null || result.derivedKey == null) {
           req.alert('Login failed.', 'error');

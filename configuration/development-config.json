@@ -1,5 +1,8 @@
 {
   "sessionKey": "scribe.sess",
   "macKey": "secret",
-  "apiUrl": "http://localhost:8080"
+  "apiUrl": "http://localhost:8080",
+  "twitterConsumerKey" : "",
+  "twitterConsumerSecret": "",
+  "twitterCallbackURL": "http://127.0.0.1:3000/auth/twitter/callback"
 }
