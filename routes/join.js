@@ -1,63 +1,32 @@
-var zxcvbn = require('../public/vendor/zxcvbn.min.js');
-var apiClient;
+module.exports = function(app, api, passport) {
 
-module.exports = function(app, api) {
-  apiClient = api;
-
+  app.get('/login', joinForm);
   app.get('/join', joinForm);
-  app.post('/join', createUser);
+  app.post('/join', logout);
+
+  // the first step in Twitter authentication will involve redirecting
+  // the user to twitter.com.  After authorization, the Twitter will redirect
+  // the user back to this application at /auth/twitter/callback
+
+  app.get('/auth/twitter', passport.authenticate('twitter'));
+
+  app.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    function(req, res) {
+      // TODO: redirect to page user was trying to go to if different to homepage
+      res.redirect('/');
+    }
+  );
+
 };
 
 function joinForm(req, res) {
-  res.locals._csrf = req.session._csrf;
+  res.locals._csrf = req.csrfToken();
   res.render('join');
 }
 
-function createUser(req, res, next) {
-  var username = req.body.username
-    , email = req.body.email
-    , password = req.body.password;
-
-  // check for valid email
-  var emailExp = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
-  if (!emailExp.test(email)) {
-    return next(new Error('Email provided is invalid.'));
-  }
-
-  // check strength of password
-  // user can not have a password that is the same as their username or tokens in their email address
-  var emailParts = email.split('@');
-  var emailName = emailParts[0];
-  var emailDomain = emailParts[1].substring(0, emailParts[1].indexOf('.'));
-  var badInputs = [username, email, emailName, emailDomain];
-  var passwordResult = zxcvbn(password, badInputs);
-
-  if (passwordResult.score < 1) {
-    res.alert('Password is too weak.', 'error');
-    return res.redirect('/join');
-  }
-
-  var user = {
-    username: username,
-    password: password,
-    email: email,
-    favorites: []
-  };
-
-  apiClient.post('/users', user, function(err, cReq, cRes, result) {
-    if (err) {
-      res.alert(err.msg, 'error');
-      return res.redirect('/join');
-    }
-
-    req.logIn(result.user, function(loginErr) {
-      if (loginErr) {
-        return next(loginErr);
-      }
-      // retain authenticator (derived key) here to save into cookie session
-      // and check upon subsequent access
-      req.session.authenticator = result.derivedKey;
-      res.redirect('/');
-    });
-  });
+function logout(req, res) {
+  // clear session which causes cookie to be removed
+  req.session = null;
+  res.redirect('/');
 }

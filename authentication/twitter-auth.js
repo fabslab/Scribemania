@@ -11,7 +11,7 @@ module.exports = {
         callbackURL: config.get('twitterCallbackURL')
       },
       function(token, tokenSecret, profile, done) {
-        return done(profile);
+        return done(null, profile);
       }
     );
 

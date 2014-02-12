@@ -1,0 +1,39 @@
+.login-providers
+  text-align: center
+.login-provider
+  display: inline-block
+  padding: 5px 15px
+  margin-top: 20px
+  font-size: 16px
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial
+  color: white
+  border-radius: 4px
+  opacity: 0.8
+  margin-left: 40px
+  transition: opacity 0.2s
+  &:first-child
+    margin-left: 0
+  &:hover
+    opacity: 1
+    transition: opacity 0.2s
+    color: white
+  .fa
+    display: inline-block
+    margin-bottom: -2px
+    font-size: 22px
+    padding-right: 10px
+    margin-right: 10px
+
+@media (max-width: 919px)
+  .login-provider
+    display: block
+    margin-left: 0
+
+.login-facebook
+  background-color: #223173
+
+.login-google
+  background-color: #C0000E
+
+.login-twitter
+  background-color: #1684e5

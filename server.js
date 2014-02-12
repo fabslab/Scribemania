@@ -7,9 +7,7 @@ var express = require('express')
   , passport = require('passport')
   , restify = require('restify')
   , nconf = require('./configuration/init.js')
-  , localAuth = require('./authentication/local-auth.js')
-  , twitterAuth = require('./authentication/twitter-auth.js')
-  , verifyAuth = require('./authentication/verify-auth.js');
+  , twitterAuth = require('./authentication/twitter-auth.js');
 
 // constants for paths
 var routesPath = path.join(__dirname, 'routes')
@@ -36,7 +34,8 @@ app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'socket.io')));
 
-app.use(express.bodyParser());
+app.use(express.urlencoded());
+app.use(express.json());
 app.use(express.methodOverride());
 
 // set up session support using cookies
@@ -47,9 +46,15 @@ app.use(express.cookieSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(verifyAuth);
 
 app.use(express.csrf());
+
+app.use(function(req, res, next) {
+  if (req.user) {
+    res.locals.username = req.user.username;
+  }
+  return next();
+});
 
 app.use(alerts({
   template: path.join(__dirname, 'views/alert.jade'),
@@ -71,7 +76,6 @@ if (envHandlers[app.settings.env]) {
 }
 
 // set up passport authentication
-localAuth.init(app, apiClient, passport);
 twitterAuth.init(app, apiClient, passport);
 
 // load files that define routes
