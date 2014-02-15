@@ -17,8 +17,7 @@
     "nconf": "~0.6.9",
     "socket.io": "~0.9.16",
     "passport": "~0.2.0",
-    "passport-local": "~0.1.6",
-    "passport-twitter": "~1.0.2",
+    "passport-facebook": "~1.0.2",
     "uslug": "~1.0.3",
     "restify": "~2.6.1"
   },

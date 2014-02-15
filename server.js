@@ -7,7 +7,7 @@ var express = require('express')
   , passport = require('passport')
   , restify = require('restify')
   , nconf = require('./configuration/init.js')
-  , twitterAuth = require('./authentication/twitter-auth.js');
+  , facebookAuth = require('./authentication/facebook-auth.js');
 
 // constants for paths
 var routesPath = path.join(__dirname, 'routes')
@@ -49,9 +49,11 @@ app.use(passport.session());
 
 app.use(express.csrf());
 
+// make username available to views
 app.use(function(req, res, next) {
   if (req.user) {
-    res.locals.username = req.user.username;
+    var name = req.user.name || {};
+    res.locals.username = name.givenName || req.user.displayName;
   }
   return next();
 });
@@ -76,7 +78,15 @@ if (envHandlers[app.settings.env]) {
 }
 
 // set up passport authentication
-twitterAuth.init(app, apiClient, passport);
+facebookAuth.init(app, apiClient, passport);
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 // load files that define routes
 // this way we can add new route files without any additional setup

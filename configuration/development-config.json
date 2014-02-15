@@ -4,5 +4,8 @@
   "apiUrl": "http://localhost:8080",
   "twitterConsumerKey" : "",
   "twitterConsumerSecret": "",
-  "twitterCallbackURL": "http://127.0.0.1:3000/auth/twitter/callback"
+  "twitterCallbackURL": "http://127.0.0.1:3000/auth/twitter/callback",
+  "facebookAppID": "",
+  "facebookAppSecret": "",
+  "facebookCallbackURL": "http://127.0.0.1:3000/auth/facebook/callback"
 }
