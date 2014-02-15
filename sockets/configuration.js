@@ -1,7 +1,6 @@
 var signature = require('cookie-signature')
   , cookie = require('cookie')
   , nconf = require('../configuration/init.js')
-  , passwordUtils = require('../authentication/password-utils.js')
   , sessionKey = nconf.get('sessionKey')
   , macKey = nconf.get('macKey');
 
@@ -26,27 +25,26 @@ module.exports = function(io, apiClient) {
         // (no username set on handshake)
         return callback(null, true);
       }
-      var username = socketSession.passport.user.name;
-      var authenticator = socketSession.authenticator;
 
-      apiClient.get('/users/' + username, function authenticateSocketPassword(err, cReq, cRes, user) {
+      var user = socketSession.passport.user;
+
+      var userId = user._id;
+      var username = (user.name || {}).givenName || user.displayName;
+
+      apiClient.get('/users/' + userId, function authenticateSocketPassword(err, cReq, cRes, user) {
         if (err) {
           return callback(err.message, false);
         }
         if (cRes.statusCode == 404) {
-          return callback('No user found for the given username.', false);
+          return callback('No user found for the given id.', false);
         }
 
-        var digest = passwordUtils.createHashDigest(authenticator);
-        if (digest === user.password) {
-          // successfully authenticated socket connection
-          // accept connection with full access
-          handshake.username = username;
-          callback(null, true);
-        } else {
-          callback('Incorrect password.', false);
-        }
+        // successfully authenticated socket connection
+        handshake.userId = userId;
+        handshake.username = username;
+        callback(null, true);
       });
+
     });
 
   });

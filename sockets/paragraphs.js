@@ -10,20 +10,26 @@ module.exports = function(io, apiClient) {
 
     // notify other users when someone starts/finishes writing
     socket.on('type-on', function broadcastTypeStart() {
-      var user = socket.handshake.username;
-      if (user) socket.broadcast.emit('type-on', user);
+      var userId = socket.handshake.userId;
+      var username = socket.handshake.username;
+      if (userId) socket.broadcast.emit('type-on', username);
     });
 
     socket.on('type-off', function broadcastTypeEnd() {
-      var user = socket.handshake.username;
-      if (user) socket.broadcast.emit('type-off', user);
+      var userId = socket.handshake.userId;
+      var username = socket.handshake.username;
+      if (userId) socket.broadcast.emit('type-off', username);
     });
 
     socket.on('add.paragraph', function(paragraph) {
-      // set paragraph author as username if available
-      if (!(paragraph.author = socket.handshake.username)) return;
+      var userId = socket.handshake.userId;
+      var username = socket.handshake.username;
+      if (!userId || !username) return;
 
-      apiClient.post('/stories/' + paragraph.storyId + '/paragraphs', paragraph, function(err, cReq, cRes, result) {
+      paragraph.authorId = userId;
+      paragraph.authorName = username;
+
+      apiClient.post('/stories/' + paragraph.storyId + '/paragraphs', paragraph, function(err) {
         if (err) {
           socket.emit('error', err);
           return;
