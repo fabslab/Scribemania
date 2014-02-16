@@ -27,6 +27,6 @@ function joinForm(req, res) {
 
 function logout(req, res) {
   // clear session which causes cookie to be removed
-  req.session = null;
+  req.logout();
   res.redirect('/');
 }
