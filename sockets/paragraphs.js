@@ -3,22 +3,23 @@ module.exports = function(io, apiClient) {
   io.sockets.on('connection', function(socket) {
 
     // don't allow anonymous users to write to stories
-    if (!socket.handshake.username) {
+    if (!socket.handshake.userId) {
       return socket.emit('read-only');
     }
+
     socket.emit('read-write');
 
     // notify other users when someone starts/finishes writing
     socket.on('type-on', function broadcastTypeStart() {
       var userId = socket.handshake.userId;
       var username = socket.handshake.username;
-      if (userId) socket.broadcast.emit('type-on', username);
+      if (userId) socket.broadcast.emit('type-on', { id: userId, name: username });
     });
 
     socket.on('type-off', function broadcastTypeEnd() {
       var userId = socket.handshake.userId;
       var username = socket.handshake.username;
-      if (userId) socket.broadcast.emit('type-off', username);
+      if (userId) socket.broadcast.emit('type-off', { id: userId, name: username });
     });
 
     socket.on('add.paragraph', function(paragraph) {

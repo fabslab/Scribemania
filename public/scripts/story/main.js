@@ -27,7 +27,7 @@ require('livestamp');
 $(function() {
 
   var $story = $('.story')
-    , storyId = $story.attr('api-story-id')
+    , storyId = $story.attr('data-story-id')
     , $paragraphInput = $story.find('#paragraph-input');
 
   // update the story with new paragraph whenever another user adds one
@@ -111,18 +111,17 @@ $(function() {
   function typeReceiver() {
     socket.on('type-on', function(user) {
       var usersContainer = $story.find('.typing-users');
-      // TODO: use a messages file for this text (to support i18n)
-      var typingNotification = $('<div class="' + user + '"><i class="icon-user"></i> ' + user + ' is typing...</div>');
+      var typingNotification = $('<div class="' + user.id + '"><i class="icon-user"></i> ' + user.name + ' is typing...</div>');
       usersContainer[0].appendChild(typingNotification[0]);
     });
     socket.on('type-off', function(user) {
-      $story.find('.' + user).remove();
+      $story.find('.' + user.id).remove();
     });
   }
 
 });
 
-function hideInput(event) {
+function hideInput() {
   $(this).hide().siblings('.enter-hints')
     .children('.add-paragraph').hide()
     .siblings('.start-writing').show();

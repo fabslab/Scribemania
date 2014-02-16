@@ -10,8 +10,7 @@ module.exports = function(io, apiClient) {
 
     io.set('authorization', function authorizeSocket(handshake, callback) {
       if (!handshake.headers.cookie) {
-        // no cookie provided but accept connection as read-only
-        // (no username set on handshake)
+        // no cookie provided but accept connection as read-only (no userId will be set on handshake)
         return callback(null, true);
       }
 
@@ -21,27 +20,20 @@ module.exports = function(io, apiClient) {
 
       var socketSession = parseJSONCookie(socketSessionJson);
       if (!socketSession.passport.user) {
-        // user not logged in but accept connection as read-only
-        // (no username set on handshake)
+        // user not logged in but accept connection as read-only (no userId will be set on handshake)
         return callback(null, true);
       }
 
-      var user = socketSession.passport.user;
-
-      var userId = user._id;
-      var username = (user.name || {}).givenName || user.displayName;
+      var userId = socketSession.passport.user._id;
 
       apiClient.get('/users/' + userId, function authenticateSocketPassword(err, cReq, cRes, user) {
         if (err) {
-          return callback(err.message, false);
-        }
-        if (cRes.statusCode == 404) {
-          return callback('No user found for the given id.', false);
+          return callback(err.message || err.name, false);
         }
 
         // successfully authenticated socket connection
         handshake.userId = userId;
-        handshake.username = username;
+        handshake.username = user.displayName;
         callback(null, true);
       });
 

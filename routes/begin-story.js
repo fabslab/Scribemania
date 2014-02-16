@@ -11,18 +11,19 @@ function newStoryForm(req, res) {
   if (!req.user) res.redirect('/login');
   else {
     res.locals._csrf = req.csrfToken();
-    res.render('new');
+    res.render('begin-story');
   }
 }
 
 function addStory(req, res) {
-
   var story = {
     title: req.body.title,
-    creator: req.user.username,
+    creatorId: req.user._id,
+    creatorName: req.user.displayName,
     paragraphs: [{
       text: req.body.paragraph,
-      author: req.user.username
+      authorId: req.user._id,
+      authorName: req.user.displayName
     }]
   };
 
@@ -30,7 +31,7 @@ function addStory(req, res) {
     story.genre = req.body.genre.trim();
   }
 
-  apiClient.post(story, function(err, cReq, cRes, result) {
+  apiClient.post('/stories', story, function(err, cReq, cRes, result) {
     // TODO: set up socket listener to update the Latest page each time a story is created
     // and display how many new stories have been added since user loaded them (like Twitter)
     res.redirect('/stories/' + result.slug);
