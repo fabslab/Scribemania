@@ -2,9 +2,13 @@ define(function (require, exports, module) {
 var $ = require('jquery')
   , _ = require('lodash')
   , createEnterHandler = require('paragraph-enter')
-  , io = require('socketio')
-  , socketAuthorized = new $.Deferred()
-  , socket = io.connect();
+  , io = require('socketio');
+
+// load jquery plugins
+require('jquery.autosize');
+
+var socketAuthorized = new $.Deferred();
+var socket = io.connect();
 
 socket.on('error', function(reason) {
   socketAuthorized.reject(reason);
@@ -28,7 +32,9 @@ $(function() {
 
   var $story = $('.story')
     , storyId = $story.attr('data-story-id')
-    , $paragraphInput = $story.find('#paragraph-input');
+    , $paragraphInput = $story.find('.paragraph-input');
+
+  $paragraphInput.autosize();
 
   // update the story with new paragraph whenever another user adds one
   socket.on(storyId, function(paragraph) {
@@ -94,7 +100,7 @@ $(function() {
   // if there is a gap of 500 ms in typing we will, after that gap, emit
   // a message to notify the other users that their typing has stopped
   function typeNotifier() {
-    $story.find('#paragraph-input')
+    $story.find('.paragraph-input')
 
       .on('input', _.debounce(function(event) {
         if (!$paragraphInput.is(':visible')) return;

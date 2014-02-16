@@ -40,8 +40,8 @@ section h2 a:hover{color:#10363b}
 section a{color:rgba(46,123,45,0.7)}
 section p{padding:0 10px;margin-bottom:7px}
 section button{float:right;margin-top:10px}
-section textarea,section input{font:14px Museo300Regular,'Helvetica Neue','Helvetica',Arial,sans-serif;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:2px;border-radius:2px;width:100%;padding:5px;border:1px solid #babdc3;border-width:.1rem;outline:none}
-section textarea{max-width:100%;min-height:80px}
+section textarea,section input{font:14px Museo300Regular,'Helvetica Neue','Helvetica',Arial,sans-serif;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;border-radius:3px;width:100%;padding:5px;border:1px solid #babdc3;border-width:.1rem;outline:none}
+section textarea{max-width:100%;min-height:80px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2);box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2)}
 section.story textarea{margin-top:20px;margin-bottom:5px;display:none}
 section.story .star{margin-top:-2px;float:right;font-size:11px;font-style:italic;color:rgba(16,54,59,0.6);}
 section.story .star a{color:rgba(16,54,59,0.6);font-size:16px;padding-left:5px;}
