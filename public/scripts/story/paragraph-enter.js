@@ -20,15 +20,17 @@ module.exports = function createParagraphEnterHandler(socket) {
     if (keysDown['16'] && keysDown['13']) {
       event.preventDefault();
 
-      // don't send an empty paragraph - TODO: should do extra validation here
-      if (!(this.value = this.value.trim())) return;
+      var paragraphText = this.value.trim();
+      // remove newlines and extra spaces
+      paragraphText = paragraphText.replace(/\s+/g, ' ');
+      if (!paragraphText) return;
 
       // get the story id using the data-story-id attribute of the story container div
       // use .attr() rather than .data() because we don't want to try to convert it - it's always a string
       var storyId = $(this.parentNode).attr('data-story-id');
 
       // send paragraph to server
-      socket.emit('add.paragraph', { dateCreated: new Date(), storyId: storyId, text: this.value });
+      socket.emit('add.paragraph', { dateCreated: new Date(), storyId: storyId, text: paragraphText });
 
       // hide the key command hint for entering text for story
       $(this.nextSibling).children('.add-paragraph').fadeOut('fast');
@@ -38,7 +40,7 @@ module.exports = function createParagraphEnterHandler(socket) {
         this.value = '';
       }).blur();
 
-      $('<p>' + this.value + '</p>')
+      $('<p>' + paragraphText + '</p>')
         .hide()
         .insertBefore(this)
         .fadeIn('fast')
