@@ -3,9 +3,10 @@ module.exports = function(io, apiClient) {
   io.sockets.on('connection', function(socket) {
 
     // don't allow anonymous users to write to stories
-    if (!socket.handshake.username) {
+    if (!socket.handshake.userId) {
       return socket.emit('read-only');
     }
+
     socket.emit('read-write');
 
     // notify other users when someone starts/finishes writing

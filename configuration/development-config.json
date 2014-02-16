@@ -1,11 +1,11 @@
 {
   "sessionKey": "scribe.sess",
-  "macKey": "secret",
+  "macKey": "Myl88R0DEkwSEs6dAw2/80nZRC72hsmvLhoXSs/JvQv32+6nDcLcCZKO8DwQ6mNZTnKtKOYPjMIS2iEMf0us9w",
   "apiUrl": "http://localhost:8080",
-  "twitterConsumerKey" : "",
-  "twitterConsumerSecret": "",
+  "twitterConsumerKey" : "DbM5V4Pags03KiCpbTgQ",
+  "twitterConsumerSecret": "rfiffEnUnzjmDgHvjbjVhfUIddzVEK3CbGg6BFuseI",
   "twitterCallbackURL": "http://127.0.0.1:3000/auth/twitter/callback",
-  "facebookAppID": "",
-  "facebookAppSecret": "",
+  "facebookAppID": "615350011870706",
+  "facebookAppSecret": "02bc13364482b84aa5c985c5fcae9c27",
   "facebookCallbackURL": "http://127.0.0.1:3000/auth/facebook/callback"
 }
