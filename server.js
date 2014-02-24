@@ -93,12 +93,15 @@ fs.readdirSync(routesPath).forEach(function(fileName) {
   require(path.join(routesPath, fileName))(app, apiClient, passport, io);
 });
 
+app.get('*', function pageNotFound(req, res) {
+  res.render('404');
+});
+
 // set up socket.io configuration and
 // load files that attach event handlers for socket events
 fs.readdirSync(socketsPath).forEach(function(fileName) {
   require(path.join(socketsPath, fileName))(io, apiClient);
 });
-
 
 // kick things off
 server.listen(app.get('port'));

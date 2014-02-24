@@ -61,12 +61,29 @@ function recognitionEnded() {
   }
 }
 
-function recognizeSpeech() {
+function recognitionError() {
+  transcript = transcriptElement.textContent;
+  micIcon.className = 'fa fa-microphone-slash fa-2x';
+}
+
+function stopRecognition() {
+  // replace click event listener with one to turn recognition on
+  micIcon.removeEventListener('click', stopRecognition);
+  micIcon.addEventListener('click', startRecognition);
+
+  recognition.stop();
+}
+
+function startRecognition() {
+  // replace click event listener with one to turn recognition off
+  micIcon.removeEventListener('click', startRecognition);
+  micIcon.addEventListener('click', stopRecognition);
+
   recognition = new SpeechRecognition();
   recognition.onresult = addSpeechToInput;
   recognition.onstart = recognitionStarted;
   recognition.onend = recognitionEnded;
-  recognition.onerror = recognitionEnded;
+  recognition.onerror = recognitionError;
   recognition.continuous = true;
   recognition.interimResults = true;
   recognition.start();
@@ -83,7 +100,7 @@ function enableSpeechRecognition() {
     return;
   }
 
-  micIcon.addEventListener('click', recognizeSpeech);
+  micIcon.addEventListener('click', startRecognition);
 
   transcriptElement.addEventListener('input', function updateTranscript() {
     transcript = transcriptElement.textContent;

@@ -43,9 +43,10 @@ section a{color:rgba(46,123,45,0.7)}
 section p{padding:0 10px;margin-bottom:7px}
 section button{float:right;margin-top:10px}
 section .paragraph-input,section textarea,section input{font:14px Museo300Regular,'Helvetica Neue','Helvetica',Arial,sans-serif;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;border-radius:3px;width:100%;padding:5px;border:1px solid #babdc3;border-width:.1rem;outline:none}
-section.story .paragraph-input{margin-top:20px;margin-bottom:5px;display:none;max-width:100%;min-height:80px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2);box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2);padding-bottom:20px;}
+section .paragraph-input,section textarea{min-height:80px}
+section.story .paragraph-input{margin-top:20px;margin-bottom:5px;display:none;max-width:100%;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2);box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2);padding-bottom:20px;}
 section.story .paragraph-input .interim-text{color:#808080}
-section.story .fa-microphone{display:none;position:absolute;left:-30px;bottom:30px;opacity:.5;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter:alpha(opacity=50);cursor:pointer;-webkit-transition:opacity 0.1s;-moz-transition:opacity 0.1s;-o-transition:opacity 0.1s;-ms-transition:opacity 0.1s;transition:opacity 0.1s}
+section.story .fa-microphone,section.story .fa-microphone-slash{display:none;position:absolute;left:-30px;bottom:30px;opacity:.5;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter:alpha(opacity=50);cursor:pointer;-webkit-transition:opacity 0.1s;-moz-transition:opacity 0.1s;-o-transition:opacity 0.1s;-ms-transition:opacity 0.1s;transition:opacity 0.1s}
 section.story .fa-microphone:hover{opacity:1;-ms-filter:none;filter:none;-webkit-transition:opacity 0.1s;-moz-transition:opacity 0.1s;-o-transition:opacity 0.1s;-ms-transition:opacity 0.1s;transition:opacity 0.1s}
 section.story .fa-microphone.recording{opacity:1;-ms-filter:none;filter:none;color:#8b0000}
 section.story .star{margin-top:-2px;float:right;font-size:11px;font-style:italic;color:rgba(16,54,59,0.6);}

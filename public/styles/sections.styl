@@ -39,6 +39,8 @@ section
     border: 1px solid #babdc3
     border-width: 0.1rem
     outline: none
+  .paragraph-input, textarea
+    min-height: 80px
 
 section.story
   .paragraph-input
@@ -46,12 +48,11 @@ section.story
     margin-bottom: 5px
     display: none
     max-width: 100%
-    min-height: 80px
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.075), 0 0 1px 1px rgba(lighten($scribemaniaGreen, 75%), 0.2)
     padding-bottom: 20px
     .interim-text
       color: grey
-  .fa-microphone
+  .fa-microphone, .fa-microphone-slash
     display: none
     position: absolute
     left: -30px
@@ -59,10 +60,9 @@ section.story
     opacity: 0.5
     cursor: pointer
     transition: opacity 0.1s
-  .fa-microphone
-    &:hover
-      opacity: 1
-      transition: opacity 0.1s
+  .fa-microphone:hover
+    opacity: 1
+    transition: opacity 0.1s
   .fa-microphone.recording
     opacity: 1
     color: darkred
