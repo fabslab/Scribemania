@@ -10,12 +10,11 @@ module.exports = function(app, api) {
 function newStoryForm(req, res) {
   if (!req.user) res.redirect('/login');
   else {
-    res.locals._csrf = req.csrfToken();
     res.render('begin-story');
   }
 }
 
-function addStory(req, res) {
+function addStory(req, res, next) {
   var story = {
     title: req.body.title,
     creatorId: req.user._id,
@@ -32,6 +31,7 @@ function addStory(req, res) {
   }
 
   apiClient.post('/stories', story, function(err, cReq, cRes, result) {
+    if (err) return next(err);
     // TODO: set up socket listener to update the Latest page each time a story is created
     // and display how many new stories have been added since user loaded them (like Twitter)
     res.redirect('/stories/' + result.slug);

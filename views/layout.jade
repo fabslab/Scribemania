@@ -6,6 +6,10 @@ html
 
     title Scribemania
 
+    if _csrf
+      meta(name="csrf-token", content="#{_csrf}")
+    meta(name="description", content="Scribemania allows people to write and watch stories, fun or serious, evolve in real-time as they contribute to them.")
+
     link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway:400,200,600", type="text/css")
     link(rel='stylesheet', href='/styles/reset.css')
     link(rel='stylesheet', href='/vendor/font-awesome-4.0.3/css/font-awesome.min.css')

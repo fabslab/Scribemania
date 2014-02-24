@@ -21,7 +21,6 @@ function authSuccess(req, res) {
 
 
 function joinForm(req, res) {
-  res.locals._csrf = req.csrfToken();
   res.render('join');
 }
 

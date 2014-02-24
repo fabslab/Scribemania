@@ -49,11 +49,13 @@ app.use(passport.session());
 
 app.use(express.csrf());
 
-// make name available to views
 app.use(function(req, res, next) {
+  // make username available to views
   if (req.user) {
     res.locals.displayName = req.user.displayName;
   }
+  // make csrf token available
+  res.locals._csrf = req.csrfToken();
   return next();
 });
 

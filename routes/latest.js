@@ -9,8 +9,9 @@ module.exports = function(app, api) {
 
 };
 
-function latest(req, res) {
+function latest(req, res, next) {
   apiClient.get('/stories', function(err, cReq, cRes, stories) {
+    if (err) return next(err);
     res.render('latest', { stories: stories });
   });
 }
