@@ -35,16 +35,19 @@ aside{display:none}
 .login-twitter{background-color:#1684e5}
 .content{max-width:900px;width:95%;margin:0 auto;position:relative;line-height:1.6}
 @media (min-width: 920px) and (max-width: 1131px){.content{margin-left:120px;width:85%}
-}section{position:relative;margin-top:40px;padding:25px;overflow:auto;}
+}section{position:relative;margin-top:40px;padding:25px;}
 section h2{font:22px Raleway,'Helvetica Neue','Helvetica',Arial,sans-serif;font-weight:100;line-height:1.2;}
 section h2 a{color:#000;}
 section h2 a:hover{color:#10363b}
 section a{color:rgba(46,123,45,0.7)}
 section p{padding:0 10px;margin-bottom:7px}
 section button{float:right;margin-top:10px}
-section textarea,section input{font:14px Museo300Regular,'Helvetica Neue','Helvetica',Arial,sans-serif;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;border-radius:3px;width:100%;padding:5px;border:1px solid #babdc3;border-width:.1rem;outline:none}
-section textarea{max-width:100%;min-height:80px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2);box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2)}
-section.story textarea{margin-top:20px;margin-bottom:5px;display:none}
+section .paragraph-input,section textarea,section input{font:14px Museo300Regular,'Helvetica Neue','Helvetica',Arial,sans-serif;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;border-radius:3px;width:100%;padding:5px;border:1px solid #babdc3;border-width:.1rem;outline:none}
+section.story .paragraph-input{margin-top:20px;margin-bottom:5px;display:none;max-width:100%;min-height:80px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2);box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),0 0 1px 1px rgba(193,232,192,0.2);padding-bottom:20px;}
+section.story .paragraph-input .interim-text{color:#808080}
+section.story .fa-microphone{display:none;position:absolute;left:-30px;bottom:30px;opacity:.5;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter:alpha(opacity=50);cursor:pointer;-webkit-transition:opacity 0.1s;-moz-transition:opacity 0.1s;-o-transition:opacity 0.1s;-ms-transition:opacity 0.1s;transition:opacity 0.1s}
+section.story .fa-microphone:hover{opacity:1;-ms-filter:none;filter:none;-webkit-transition:opacity 0.1s;-moz-transition:opacity 0.1s;-o-transition:opacity 0.1s;-ms-transition:opacity 0.1s;transition:opacity 0.1s}
+section.story .fa-microphone.recording{opacity:1;-ms-filter:none;filter:none;color:#8b0000}
 section.story .star{margin-top:-2px;float:right;font-size:11px;font-style:italic;color:rgba(16,54,59,0.6);}
 section.story .star a{color:rgba(16,54,59,0.6);font-size:16px;padding-left:5px;}
 section.story .star a:hover{color:#10363b}

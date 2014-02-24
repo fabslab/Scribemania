@@ -12,7 +12,8 @@ block content
     each paragraph in story.paragraphs
       p #{paragraph.text}
 
-    textarea.paragraph-input(spellcheck="true")
+    div.paragraph-input(contenteditable="true", spellcheck="true")
+    i.fa.fa-microphone.fa-2x
 
     .enter-hints
       .start-writing <i class="fa fa-pencil"></i> Click the story to start writing

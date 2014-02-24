@@ -1,13 +1,14 @@
 define(function (require, exports, module) {
 
-var $ = require('jquery');
+var $ = require('jquery')
+  , speechRecognition = require('speech-recognition');
 
 var keysDown = {
   16: false, // shift key
   13: false  // enter key
 };
 
-module.exports = function createParagraphEnterHandler(socket) {
+function createParagraphEnterHandler(socket) {
 
   return function addParagraph(event) {
 
@@ -20,7 +21,9 @@ module.exports = function createParagraphEnterHandler(socket) {
     if (keysDown['16'] && keysDown['13']) {
       event.preventDefault();
 
-      var paragraphText = this.value.trim();
+      var $this = $(this);
+
+      var paragraphText = $this.text().trim();
       // remove newlines and extra spaces
       paragraphText = paragraphText.replace(/\s+/g, ' ');
       if (!paragraphText) return;
@@ -33,25 +36,46 @@ module.exports = function createParagraphEnterHandler(socket) {
       socket.emit('add.paragraph', { dateCreated: new Date(), storyId: storyId, text: paragraphText });
 
       // hide the key command hint for entering text for story
-      $(this.nextSibling).children('.add-paragraph').fadeOut('fast');
+      $this
+        .siblings('.enter-hints')
+        .children('.add-paragraph')
+        .fadeOut('fast');
 
       // dismiss and empty the input box before appending the text to the story
-      $(this).fadeOut('fast', function() {
-        this.value = '';
-      }).blur();
+      $this.fadeOut('fast', function() {
+        $this
+          .text('')
+          .siblings('.enter-hints')
+          .children('.add-paragraph')
+            .hide()
+          .siblings('.start-writing')
+            .show();
 
-      $('<p>' + paragraphText + '</p>')
-        .hide()
-        .insertBefore(this)
-        .fadeIn('fast')
-        .siblings('.enter-hints')
-        .children('.start-writing')
-        .fadeIn('fast');
+        insertParagraph();
+      });
+
+
+      // clear the microphone's transcript state
+      speechRecognition.transcript = '';
 
       keysDown['16'] = keysDown['13'] = false;
     }
 
+    function insertParagraph() {
+      $('<p></p>')
+        .hide()
+        .text(paragraphText)
+        .insertBefore($this)
+        .fadeIn('fast')
+        .siblings('.enter-hints')
+        .children('.start-writing')
+        .fadeIn('fast');
+    }
+
   };
 
-};
+}
+
+module.exports = createParagraphEnterHandler;
+
 });

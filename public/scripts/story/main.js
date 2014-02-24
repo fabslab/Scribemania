@@ -1,11 +1,10 @@
 define(function (require, exports, module) {
 var $ = require('jquery')
   , _ = require('lodash')
+  , setCursor = require('set-cursor')
   , createEnterHandler = require('paragraph-enter')
+  , speechRecognition = require('speech-recognition')
   , io = require('socketio');
-
-// load jquery plugins
-require('jquery.autosize');
 
 var socketAuthorized = new $.Deferred();
 var socket = io.connect();
@@ -34,8 +33,6 @@ $(function() {
     , storyId = $story.attr('data-story-id')
     , $paragraphInput = $story.find('.paragraph-input');
 
-  $paragraphInput.autosize();
-
   // update the story with new paragraph whenever another user adds one
   socket.on(storyId, function(paragraph) {
     var newParagraph = document.createElement('p');
@@ -58,41 +55,23 @@ $(function() {
 
   function renderAuthorized() {
     $story.find('.start-writing').show();
+    $story.find('.fa-microphone').show();
 
-    // open input for user to add to story
-    $story.on('click', function(event) {
-        // check whether the textarea for entering a new paragraph is visible and show if not
-        $story.off('mousedown', stopBlur).on('mousedown', stopBlur);
+    var paragraphEnterHandler = createEnterHandler(socket);
 
-        $paragraphInput.show().focus();
-
-        $story.find('.start-writing').hide()
-          .end().find('.add-paragraph').show();
-
-        function stopBlur(event) {
-          if ($paragraphInput.is(':visible')) {
-            event.preventDefault();
-            return;
-          }
-        }
-      });
-
-    $paragraphInput
-      // hide the input when we click away from the story or hit escape
-      .on('blur', hideInput)
-      .on('keydown', function escapeHandler(event) {
-        // 27 is key code for escape key, hide the input
-        if (event.which === 27) {
-          $(this).blur();
-        }
-      })
+    $paragraphInput.on('keydown', function escapeHandler(event) {
+      // 27 is key code for escape key, hide the input
+      if (event.which === 27) {
+        $(this).blur();
+      }
+    }).on('focus', setCursor.bind($paragraphInput[0]))
       // look for key command to add text to story
-      .on('keydown', createEnterHandler(socket))
-      .on('keyup', createEnterHandler(socket))
-      .on('click', function(event) {
-        // stop click handler on parent
-        event.stopPropagation();
-      });
+      .on('keydown', paragraphEnterHandler)
+      .on('keyup', paragraphEnterHandler);
+
+    speechRecognition.enableSpeech();
+
+    $(document).on('click', toggleInput);
   }
 
   // when the user begins typing we emit a message to notify the other users
@@ -125,11 +104,24 @@ $(function() {
     });
   }
 
-});
+  function toggleInput(event) {
+    // input already open and clicked on, nothing to do
+    if (event.target === $paragraphInput[0]) return;
 
-function hideInput() {
-  $(this).hide().siblings('.enter-hints')
-    .children('.add-paragraph').hide()
-    .siblings('.start-writing').show();
-}
+    if (event.target === $story[0] || $.contains($story[0], event.target)) {
+      // user clicked on story, open input
+      $story.find('.start-writing').hide()
+        .end().find('.add-paragraph').show();
+      $paragraphInput.show().focus();
+      return;
+    }
+
+    // user click away from story, hide input
+    $paragraphInput.hide()
+      .siblings('.enter-hints')
+      .children('.add-paragraph').hide()
+      .siblings('.start-writing').show();
+  }
+
+});
 });

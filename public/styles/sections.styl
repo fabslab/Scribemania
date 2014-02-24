@@ -14,7 +14,6 @@ section
   position: relative
   margin-top: 40px
   padding: 25px
-  overflow: auto
   h2
     font: 22px $titleFont
     font-weight: 100
@@ -31,7 +30,7 @@ section
   button
     float: right
     margin-top: 10px
-  textarea, input
+  .paragraph-input, textarea, input
     font: 14px $storyFont
     box-sizing: border-box
     border-radius: 3px
@@ -40,16 +39,33 @@ section
     border: 1px solid #babdc3
     border-width: 0.1rem
     outline: none
-  textarea
-    max-width: 100%
-    min-height: 80px
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075), 0 0 1px 1px rgba(lighten($scribemaniaGreen, 75%), 0.2)
 
 section.story
-  textarea
+  .paragraph-input
     margin-top: 20px
     margin-bottom: 5px
     display: none
+    max-width: 100%
+    min-height: 80px
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075), 0 0 1px 1px rgba(lighten($scribemaniaGreen, 75%), 0.2)
+    padding-bottom: 20px
+    .interim-text
+      color: grey
+  .fa-microphone
+    display: none
+    position: absolute
+    left: -30px
+    bottom: 30px
+    opacity: 0.5
+    cursor: pointer
+    transition: opacity 0.1s
+  .fa-microphone
+    &:hover
+      opacity: 1
+      transition: opacity 0.1s
+  .fa-microphone.recording
+    opacity: 1
+    color: darkred
   .star
     margin-top: -2px
     float: right
