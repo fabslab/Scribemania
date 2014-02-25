@@ -1,4 +1,7 @@
 .star
   span.star-number #{story.stars}
   a.star-action(title="Favorite", href="javascript:;")
-    i.fa.fa-star-o
+    if story.starred
+      i.fa.fa-star.user-starred
+    else
+      i.fa.fa-star-o

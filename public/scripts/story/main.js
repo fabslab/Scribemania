@@ -4,6 +4,7 @@ var $ = require('jquery')
   , setCursor = require('set-cursor')
   , createEnterHandler = require('paragraph-enter')
   , speechRecognition = require('speech-recognition')
+  , stars = require('../common/stars')
   , io = require('socketio');
 
 var socketAuthorized = new $.Deferred();
@@ -27,11 +28,13 @@ socket.on('read-write', function() {
 // initialize live timestamps
 require('livestamp');
 
-$(function() {
+$(function documentReady() {
 
   var $story = $('.story')
     , storyId = $story.attr('data-story-id')
     , $paragraphInput = $story.find('.paragraph-input');
+
+  stars.init();
 
   // update the story with new paragraph whenever another user adds one
   socket.on(storyId, function(paragraph) {

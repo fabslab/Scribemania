@@ -4,7 +4,7 @@ module.exports = function(app, api) {
   apiClient = api;
 
   app.get('/starred', getStarredStoriesByUser);
-  app.post('/stories/:id/stars', incrementStar);
+  app.post('/stories/:id/stars/:method', incrementStar);
 };
 
 function getStarredStoriesByUser(req, res, next) {
@@ -20,8 +20,13 @@ function incrementStar(req, res, next) {
   if (!req.user) res.redirect('/login');
 
   var storyId = req.params.id;
+  var method = req.params.method;
 
-  apiClient.post('/stories/' + storyId + '/stars', { userId: req.user._id }, function(err, cReq, cRes) {
+  if (method != 'create' && method != 'destroy') {
+    return res.send(400);
+  }
+
+  apiClient.post('/stories/' + storyId + '/stars/' + method, { userId: req.user._id }, function(err, cReq, cRes) {
     if (err) return next(err);
     res.send(cRes.statusCode);
   });
