@@ -12,6 +12,12 @@ function getStarredStoriesByUser(req, res, next) {
 
   apiClient.get('/users/' + req.user._id + '/starred', function(err, cReq, cRes, stories) {
     if (err) return next(err);
+
+    // attach flag for UI to display favorited status
+    stories.forEach(function(story) {
+      story.starred = true;
+    });
+
     res.render('latest', { stories: stories });
   });
 }
