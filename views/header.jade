@@ -1,7 +1,11 @@
 header
   .header-titles
     if displayName
-      h2.user: a(href="javascript:;") #{displayName} <i class="fa fa-user"></i>
+      a.account-links(href="javascript:;")
+        h2.user #{displayName}
+        i.fa.fa-user
     else
-      h2.user: a#login(href="/join") Join <i class="fa fa-user fw"></i>
+      a.account-links(href="/join")
+        i.fa.fa-user
+        h2.user Join
     h1: a(href="/") Scribemania

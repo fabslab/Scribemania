@@ -12,12 +12,21 @@ header
     color: lighten($scribemaniaGreen, 20%)
   h1
     margin-left: 20px
-  .user
+  .account-links
+    display: inline-block
     font-size: 24px
     float: right
-    margin-right: 20px
-    padding-top: 5px
+    line-height 40px
+    h2
+      display: inline-block
+    .fa-user
+      margin-left: 10px
 
 .header-titles
   width: 95%
   margin: 0 auto
+
+@media (max-width: 919px)
+  header .account-links h2
+    display: none
+
