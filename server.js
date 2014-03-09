@@ -2,7 +2,9 @@ var express = require('express')
   , http = require('http')
   , fs = require('fs')
   , path = require('path')
-  , socketio = require('socket.io')
+  , Primus = require('primus')
+  , PrimusEmitter = require('primus-emitter')
+  , primusBroadcast = require('primus-broadcast')
   , alerts = require('connect-alerts')
   , passport = require('passport')
   , restify = require('restify')
@@ -13,11 +15,18 @@ var express = require('express')
 var routesPath = path.join(__dirname, 'routes')
   , socketsPath = path.join(__dirname, 'sockets');
 
-// run socket.io and Express servers on the same port
+// run socket and Express servers on the same port
 var app = express();
 var server = http.createServer(app);
-var io = socketio.listen(server);
+var primus = new Primus(server, {
+  transformer: 'websockets'
+});
 
+// enable events and socket.io style broadcast in primus
+primus.use('emitter', PrimusEmitter);
+primus.use('broadcast', primusBroadcast);
+
+// initialize client for api
 var apiClient = restify.createJsonClient({
   url: nconf.get('apiUrl')
 });
@@ -92,18 +101,21 @@ passport.deserializeUser(function(user, done) {
 // load files that define routes
 // this way we can add new route files without any additional setup
 fs.readdirSync(routesPath).forEach(function(fileName) {
-  require(path.join(routesPath, fileName))(app, apiClient, passport, io);
+  require(path.join(routesPath, fileName))(app, apiClient, passport, primus);
 });
 
 app.get('*', function pageNotFound(req, res) {
   res.render('404');
 });
 
-// set up socket.io configuration and
-// load files that attach event handlers for socket events
+// set up socket configuration and
+// load files that attach event handlers to socket events
 fs.readdirSync(socketsPath).forEach(function(fileName) {
-  require(path.join(socketsPath, fileName))(io, apiClient);
+  require(path.join(socketsPath, fileName))(primus, apiClient);
 });
+
+// generate client script for primus
+primus.save(__dirname +'/public/vendor/primus.js');
 
 // kick things off
 server.listen(app.get('port'));

@@ -4,43 +4,47 @@ var signature = require('cookie-signature')
   , sessionKey = nconf.get('sessionKey')
   , macKey = nconf.get('macKey');
 
-module.exports = function(io, apiClient) {
+module.exports = function(primus, apiClient) {
 
-  io.configure(function configureSocketIo() {
+  primus.authorize(function authorizeSocket(req, done) {
+    if (!req.headers.cookie) {
+      // no cookie provided but accept connection as read-only (no userId will be set on socket)
+      return done();
+    }
 
-    io.set('authorization', function authorizeSocket(handshake, callback) {
-      if (!handshake.headers.cookie) {
-        // no cookie provided but accept connection as read-only (no userId will be set on handshake)
-        return callback(null, true);
+    var socketSignedSession = cookie.parse(req.headers.cookie)[sessionKey];
+    var socketSessionJson = parseSignedCookie(socketSignedSession, macKey);
+    if (socketSessionJson === socketSignedSession) return done('Invalid cookie.', false);
+
+    var socketSession = parseJSONCookie(socketSessionJson);
+    if (!socketSession.passport.user) {
+      // user not logged in but accept connection as read-only (no userId will be set on socket)
+      return done();
+    }
+
+    var userId = socketSession.passport.user._id;
+
+    apiClient.get('/users/' + userId, function authenticateSocketPassword(err, cReq, cRes, user) {
+      if (err) {
+        return done(err);
       }
 
-      var socketSignedSession = cookie.parse(handshake.headers.cookie)[sessionKey];
-      var socketSessionJson = parseSignedCookie(socketSignedSession, macKey);
-      if (socketSessionJson === socketSignedSession) return callback('Invalid cookie.', false);
-
-      var socketSession = parseJSONCookie(socketSessionJson);
-      if (!socketSession.passport.user) {
-        // user not logged in but accept connection as read-only (no userId will be set on handshake)
-        return callback(null, true);
-      }
-
-      var userId = socketSession.passport.user._id;
-
-      apiClient.get('/users/' + userId, function authenticateSocketPassword(err, cReq, cRes, user) {
-        if (err) {
-          return callback(err.message || err.name, false);
+      // successfully authenticated socket connection
+      // attach user details to socket
+      primus.transformer.once('upgrade', function(req, socket) {
+        socket.user = {
+          id: userId,
+          username: user.displayName
         }
-
-        // successfully authenticated socket connection
-        handshake.userId = userId;
-        handshake.username = user.displayName;
-        callback(null, true);
       });
 
+      done();
     });
 
   });
+
 };
+
 
 // The following functions are taken from connect's utils.js
 
