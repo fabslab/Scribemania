@@ -1,5 +1,6 @@
 var express = require('express')
   , http = require('http')
+  , spdy = require('spdy')
   , fs = require('fs')
   , path = require('path')
   , Primus = require('primus')
@@ -15,9 +16,35 @@ var express = require('express')
 var routesPath = path.join(__dirname, 'routes')
   , socketsPath = path.join(__dirname, 'sockets');
 
-// run socket and Express servers on the same port
 var app = express();
-var server = http.createServer(app);
+
+var server = spdy.createServer({
+  key: fs.readFileSync(__dirname + '/certs/tls-key.pem'),
+  cert: fs.readFileSync(__dirname + '/certs/tls-cert.pem')
+}, app);
+
+// http server that just redirects to https
+var httpServer = http.createServer(function (req, res) {
+  var host = req.headers.host;
+  if (host.indexOf(':')) {
+    // replace http port with https port
+    host = host.split(':')[0] + ':' + nconf.get('httpsPort');
+  }
+  var url = 'https://' + host + req.url;
+  var head = 'HEAD' == req.method;
+  var status = 302;
+  var body = '';
+
+  // Set location header
+  res.setHeader('Location', url);
+
+  // Respond
+  res.statusCode = status;
+  res.setHeader('Content-Length', Buffer.byteLength(body));
+  res.end(head ? null : body);
+});
+
+// websocket server
 var primus = new Primus(server, {
   transformer: 'websockets'
 });
@@ -28,14 +55,17 @@ primus.use('broadcast', primusBroadcast);
 
 // initialize client for api
 var apiClient = restify.createJsonClient({
-  url: nconf.get('apiUrl')
+  url: nconf.get('apiUrl'),
+  rejectUnauthorized: process.env.NODE_ENV != 'development'
 });
 
 
 // middleware for all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || nconf.get('httpsPort'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+// gzip responses
 app.use(express.compress());
 
 // serve static files
@@ -61,6 +91,7 @@ app.use(express.csrf());
 app.use(function(req, res, next) {
   // make username available to views
   if (req.user) {
+    res.locals.userId = req.user._id;
     res.locals.displayName = req.user.displayName;
   }
   // make csrf token available
@@ -119,4 +150,5 @@ primus.save(__dirname +'/public/vendor/primus.js');
 
 // kick things off
 server.listen(app.get('port'));
+httpServer.listen(nconf.get('httpPort'));
 console.log('Listening on port %d in %s mode.', app.get('port'), app.settings.env);
