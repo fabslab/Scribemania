@@ -10,8 +10,10 @@ module.exports = function(app, api, passport) {
   // the user back to this application at /auth/_provider_/callback
 
   app.get('/auth/facebook', passport.authenticate('facebook', { scope: [ 'email' ] }));
-
   app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), authSuccess);
+
+  app.get('/auth/google', passport.authenticate('google', { scope: [ 'profile', 'email' ] }));
+  app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), authSuccess);
 
 };
 

@@ -10,7 +10,8 @@ var express = require('express')
   , passport = require('passport')
   , restify = require('restify')
   , nconf = require('./configuration/init.js')
-  , facebookAuth = require('./authentication/facebook-auth.js');
+  , facebookAuth = require('./authentication/facebook-auth.js')
+  , googleAuth = require('./authentication/google-auth.js');
 
 // constants for paths
 var routesPath = path.join(__dirname, 'routes')
@@ -120,6 +121,7 @@ if (envHandlers[app.settings.env]) {
 
 // set up passport authentication
 facebookAuth.init(app, apiClient, passport);
+googleAuth.init(app, apiClient, passport);
 
 passport.serializeUser(function(user, done) {
   done(null, user);

@@ -1,14 +1,14 @@
 var config = require('../configuration/init.js')
-  , FacebookStrategy = require('passport-facebook').Strategy;
+  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 module.exports = {
 
   init: function(app, apiClient, passport) {
 
-    var facebookStrategy = new FacebookStrategy({
-        clientID: config.get('facebookAppID'),
-        clientSecret: config.get('facebookAppSecret'),
-        callbackURL: config.get('facebookCallbackURL'),
+    var googleStrategy = new GoogleStrategy({
+        clientID: config.get('googleClientID'),
+        clientSecret: config.get('googleClientSecret'),
+        callbackURL: config.get('googleCallbackURL'),
         enableProof: true
       },
       function(accessToken, refreshToken, profile, done) {
@@ -40,7 +40,7 @@ module.exports = {
       }
     );
 
-    passport.use(facebookStrategy);
+    passport.use(googleStrategy);
 
   }
 

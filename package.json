@@ -17,6 +17,7 @@
     "nconf": "~0.6.9",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "^0.1.5",
     "primus": "~2.0.3",
     "primus-emitter": "~3.0.0",
     "primus-broadcast": "~1.1.0",
