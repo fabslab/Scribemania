@@ -1,6 +1,12 @@
 .star
   span.star-number #{story.stars}
-  a.star-action(title="Favorite", href="javascript:;")
+  - var className = 'star-action';
+  - var href = 'javascript:;';
+  - if (userId == null) {
+    - className = '';
+    - href = '/login';
+  - }
+  a(class="#{className}", title="Favorite", href="#{href}")
     if story.starred
       i.fa.fa-star.user-starred
     else

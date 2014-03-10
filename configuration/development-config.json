@@ -4,7 +4,7 @@
   "apiUrl": "https://localhost:8080",
   "facebookAppID": "",
   "facebookAppSecret": "",
-  "facebookCallbackURL": "http://127.0.0.1:3000/auth/facebook/callback",
+  "facebookCallbackURL": "https://127.0.0.1:3000/auth/facebook/callback",
   "httpsPort": 3000,
   "httpPort": 4000
 }

@@ -23,7 +23,7 @@ function getStarredStoriesByUser(req, res, next) {
 }
 
 function incrementStar(req, res, next) {
-  if (!req.user) res.redirect('/login');
+  if (!req.user) return res.redirect('/login');
 
   var storyId = req.params.id;
   var method = req.params.method;

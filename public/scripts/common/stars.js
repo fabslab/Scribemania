@@ -29,7 +29,7 @@ function init() {
     var $starNumberElement = $storyElement.find('.star-number');
     var oldNum = $starNumberElement.text();
     oldNum = parseInt(oldNum, 10);
-    var newNum, postMethod;
+    var newNum;
 
     var $starIcon = $starAction.find('.fa');
     if ($starIcon.hasClass('user-starred')) {
