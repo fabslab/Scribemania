@@ -8,7 +8,7 @@ module.exports = function(app, api) {
 };
 
 function getStarredStoriesByUser(req, res, next) {
-  if (!req.user) res.redirect('/login');
+  if (!req.user) return res.redirect('/login');
 
   apiClient.get('/users/' + req.user._id + '/starred', function(err, cReq, cRes, stories) {
     if (err) return next(err);
