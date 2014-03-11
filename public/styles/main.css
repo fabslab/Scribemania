@@ -55,7 +55,7 @@ section.story .fa-microphone.recording{opacity:1;-ms-filter:none;filter:none;col
 section.story .star{margin-top:-2px;float:right;font-size:11px;font-style:italic;color:rgba(16,54,59,0.6);}
 section.story .star a{color:rgba(16,54,59,0.6);font-size:16px;padding-left:5px;}
 section.story .star a:hover{color:#10363b}
-section.story .star .user-starred{color:#eee659;font-size:1.2em}
+section.story .star .user-starred{color:#e6da05;font-size:1.2em}
 section.story .started-info{line-height:1.6rem;padding:0 4px 15px 4px;color:#10363b;color:rgba(16,54,59,0.6);font-size:12px;font-style:italic;}
 section.story .started-info .started-name{color:rgba(46,123,45,0.7)}
 section.story .enter-hints,section.story .read-more{color:#2e7b2d;font-size:11px;font-style:italic;}

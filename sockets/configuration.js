@@ -35,7 +35,7 @@ module.exports = function(primus, apiClient) {
         socket.user = {
           id: userId,
           username: user.displayName
-        }
+        };
       });
 
       done();

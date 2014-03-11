@@ -19,10 +19,17 @@ var routesPath = path.join(__dirname, 'routes')
 
 var app = express();
 
-var server = spdy.createServer({
-  key: fs.readFileSync(__dirname + '/certs/tls-key.pem'),
-  cert: fs.readFileSync(__dirname + '/certs/tls-cert.pem')
-}, app);
+// spdy/tls server
+var spdyOptions = {
+  key: fs.readFileSync(__dirname + nconf.get('certificate:key')),
+  cert: fs.readFileSync(__dirname + nconf.get('certificate:cert'))
+};
+
+if (nconf.get('NODE_ENV') == 'production') {
+  spdyOptions.ca = fs.readFileSync(__dirname + nconf.get('certificate:ca'));
+}
+
+var server = spdy.createServer(spdyOptions, app);
 
 // http server that just redirects to https
 var httpServer = http.createServer(function (req, res) {
