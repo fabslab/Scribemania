@@ -35,8 +35,8 @@ var server = spdy.createServer(spdyOptions, app);
 var httpServer = http.createServer(function (req, res) {
   var host = req.headers.host;
   if (host.indexOf(':')) {
-    // replace http port with https port
-    host = host.split(':')[0] + ':' + nconf.get('httpsPort');
+    // remove port
+    host = host.split(':')[0];
   }
   var url = 'https://' + host + req.url;
   var head = 'HEAD' == req.method;
