@@ -25,7 +25,7 @@ var spdyOptions = {
   cert: fs.readFileSync(__dirname + nconf.get('certificate:cert'))
 };
 
-if (nconf.get('NODE_ENV') == 'production') {
+if (nconf.get('NODE_ENV') == 'production' && nconf.get('certificate:ca')) {
   spdyOptions.ca = fs.readFileSync(__dirname + nconf.get('certificate:ca'));
 }
 
