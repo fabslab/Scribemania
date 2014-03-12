@@ -8,8 +8,8 @@
   "googleClientID": "",
   "googleClientSecret": "",
   "googleCallbackURL": "https://127.0.0.1:4000/auth/google/callback",
-  "httpsPort": 4000,
-  "httpPort": 3000,
+  "httpsPort": 8443,
+  "httpPort": 8080,
   "certificate": {
     "cert": "/certs/tls-cert.pem",
     "key": "/certs/tls-key.pem",
