@@ -76,6 +76,18 @@ app.set('view engine', 'jade');
 // gzip responses
 app.use(express.compress());
 
+// environment specific middleware
+var envHandlers = {
+  development: function() {
+    app.use(express.logger('dev'));
+    app.use(express.errorHandler());
+  }
+};
+
+if (envHandlers[app.settings.env]) {
+  envHandlers[app.settings.env]();
+}
+
 // serve static files
 app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -113,18 +125,6 @@ app.use(alerts({
 }));
 
 app.use(app.router);
-
-// environment specific middleware
-var envHandlers = {
-  development: function() {
-    app.use(express.logger('dev'));
-    app.use(express.errorHandler());
-  }
-};
-
-if (envHandlers[app.settings.env]) {
-    envHandlers[app.settings.env]();
-}
 
 // set up passport authentication
 facebookAuth.init(app, apiClient, passport);
