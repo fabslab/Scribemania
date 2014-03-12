@@ -64,7 +64,8 @@ primus.use('broadcast', primusBroadcast);
 // initialize client for api
 var apiClient = restify.createJsonClient({
   url: nconf.get('apiUrl'),
-  rejectUnauthorized: process.env.NODE_ENV != 'development'
+  // accept api's certificate for now
+  rejectUnauthorized: false
 });
 
 
