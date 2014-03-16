@@ -26,6 +26,6 @@ function genreSearchResults(req, res, next) {
 function getStoriesForGenre(res, next, genre) {
   apiClient.get('/genres/' + genre + '/stories', function(err, cReq, cRes, stories) {
     if (err) return next(err);
-    res.render('genres', { stories: stories });
+    res.render('genres', { stories: stories, searchTerm: genre });
   });
 }

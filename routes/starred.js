@@ -18,7 +18,7 @@ function getStarredStoriesByUser(req, res, next) {
       story.starred = true;
     });
 
-    res.render('latest', { stories: stories });
+    res.render('starred', { stories: stories });
   });
 }
 

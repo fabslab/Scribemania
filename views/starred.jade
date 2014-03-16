@@ -1,0 +1,13 @@
+extends layout
+block content
+    .content-header
+        h2 Your starred stories
+    if stories && stories.length > 0
+        each story in stories
+            include summary
+    else
+        section
+            h2 No stories starred.
+            p
+                a(href="/latest") Find some you like!
+    script(data-main="/scripts/latest/main", src="/vendor/requirejs.min.js")

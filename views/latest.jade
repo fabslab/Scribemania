@@ -1,6 +1,9 @@
 extends layout
 block content
 
+  .content-header
+    h2 Latest stories
+
   if stories && stories.length > 0
     each story in stories
       include summary
