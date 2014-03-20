@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
 
-var setCursor = require('set-cursor');
+var setCursor = require('./set-cursor');
 
 var root = window
   , firstCharOfSentence = /(^\S)|([\.\?!]\s+\S)/g

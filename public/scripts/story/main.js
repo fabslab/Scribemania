@@ -1,14 +1,10 @@
 define(function (require, exports, module) {
 var $ = require('jquery')
   , _ = require('lodash')
-  , setCursor = require('set-cursor')
-  , createEnterHandler = require('paragraph-enter')
-  , speechRecognition = require('speech-recognition')
-  , stars = require('../common/stars')
-  , Primus = require('primus');
-
-// initialize live timestamps
-require('livestamp');
+  , Primus = require('primus')
+  , setCursor = require('./set-cursor')
+  , createEnterHandler = require('./paragraph-enter')
+  , speechRecognition = require('./speech-recognition');
 
 var socketAuthorized = new $.Deferred();
 
@@ -39,11 +35,12 @@ primus.on('read-write', function() {
 
 $(function documentReady() {
 
-  var $story = $('.story')
-    , storyId = $story.attr('data-story-id')
-    , $paragraphInput = $story.find('.paragraph-input');
+  var $story = $('.story').not('.preview');
 
-  stars.init();
+  if (!$story.length) return;
+
+  var storyId = $story.attr('data-story-id')
+  var $paragraphInput = $story.find('.paragraph-input');
 
   // update the story with new paragraph whenever another user adds one
   primus.on(storyId, function(paragraph) {

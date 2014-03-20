@@ -15,7 +15,7 @@ var setCSRFToken = function(securityToken) {
 
 setCSRFToken($('meta[name="csrf-token"]').attr('content'));
 
-
+$(init);
 
 function init() {
   $('.content').on('click', '.star-action', function incrementStar(event) {
@@ -74,7 +74,5 @@ function init() {
     $starNumberElement.text(newNum);
   });
 }
-
-module.exports = { init: init };
 
 });

@@ -24,5 +24,3 @@ block content
       h2 Popular Genres
       each genre in genres
         a.genre-list(href="/genres/#{genre.name.toLowerCase()}", title="#{genre.name}") #{genre.name}
-
-  script(data-main="/scripts/genres/main", src="/vendor/requirejs.min.js")

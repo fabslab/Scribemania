@@ -1,8 +1,24 @@
 define(function (require, exports, module) {
 
-require('./genre-search');
+var $ = require('jquery');
 
-// initialize live timestamps
-require('livestamp');
+$(function() {
+  var $searchForm = $('.genre-search');
+
+  if (!$searchForm.length) return;
+
+  var $searchButton = $searchForm.find('.search-button');
+
+  $searchForm.on('submit', function(event) {
+    event.preventDefault();
+    var genre = $('.genre-search-input').val();
+    window.location = '/genres/' + genre.trim();
+  });
+
+  $searchButton.on('click', function() {
+    $searchForm.trigger('submit');
+  });
+
+});
 
 });

@@ -18,8 +18,6 @@ html
     |  <script src="/vendor/html5shiv-printshiv.js"></script>
     |<![endif]-->
 
-    script(src="/scripts/requirejs-config.js")
-
   body
 
     include header
@@ -31,3 +29,6 @@ html
       include alerts
 
       block content
+
+    script(src="/scripts/requirejs-config.js")
+    script(data-main="/scripts/main", src="/vendor/requirejs.min.js")

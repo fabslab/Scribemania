@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 
 var $ = require('jquery')
-  , speechRecognition = require('speech-recognition');
+  , speechRecognition = require('./speech-recognition');
 
 var keysDown = {
   16: false, // shift key
