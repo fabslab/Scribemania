@@ -2,10 +2,12 @@ header
   .header-titles
     if displayName
       a.account-links(href="javascript:;")
-        h2.user #{displayName}
-        i.fa.fa-user
+        h2.user-name #{displayName}
+        i.fa.fa-bars
     else
       a.account-links(href="/join")
-        h2.user Join
+        h2.user-join Join
         i.fa.fa-user
-    h1: a(href="/") Scribemania
+    h1
+      a(href="/")
+        .logo

@@ -4,32 +4,27 @@
 
 $maxContentWidth = 900px
 $navBGGradient = 0
-$scribemaniaGreen = #2e7b2d
 $scribemaniaBlue = #10363B
 $storyBG = #F4F9F6
-$headerBG = #1C1C1C
+$scribemaniaGreen = #1D3B32
 $storyFont = Museo300Regular, 'Helvetica Neue', 'Helvetica', Arial, sans-serif
 $titleFont = Raleway, 'Helvetica Neue', 'Helvetica', Arial, sans-serif
+$sectionsLinks = #2f5f2f
 $mediaQuerySmallWidth = 919px
+$hoverTransitionOff = color 0.2s ease-in, background-color 0.2s ease-in, font-size 0.2s ease-in
+$hoverTransitionOn = color 0.2s ease-out, background-color 0.2s ease-out, font-size 0.2s ease-out
 
 body
   font: 15px $storyFont
   background-color: #fafafa
 
-h2
-  font-size: 22px
-
-.content-header
-  text-align: center
-  margin-top: 40px
-
 a
   text-decoration: none
   color: black
-  transition: color 0.2s ease-in, background-color 0.2s ease-in, font-size 0.2s ease-in
+  transition: $hoverTransitionOff
   &:hover
-    color: $scribemaniaGreen
-    transition: color 0.2s ease-out, background-color 0.2s ease-out, font-size 0.2s ease-out
+    color: lighten(#2f5f2f, 15%)
+    transition: $hoverTransitionOn
 
 @import "header"
 

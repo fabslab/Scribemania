@@ -1,32 +1,50 @@
+h2
+  font-size: 22px
+
 header
+  height: 50px
   z-index: 9
   position: relative
-  font-size: 30px
-  background: $headerBG
-  background: linear-gradient(top, lighten($headerBG, 5%), black)
+  background: $scribemaniaGreen
   padding: 10px 0
   clear: both
-  a
-    color: lighten($scribemaniaGreen, 10%)
+  text-transform: uppercase
+  font-family: $titleFont
   a:hover
-    color: lighten($scribemaniaGreen, 20%)
-  h1
-    margin-left: 20px
+    color: lighten($scribemaniaGreen, 90%)
+  .logo
+    background: url('/images/scribemania-white.png') no-repeat
+    height: 50px
+    max-width: 200px
   .account-links
+    color: rgba(#fafafa, 0.9)
     display: inline-block
-    font-size: 24px
     float: right
-    line-height 40px
+    line-height 56px
     h2
+      font-size: 19px
       display: inline-block
-    .fa-user
-      margin-left: 10px
+      vertical-align: top
+      margin-top: -3px
+    .fa
+      font-size: 24px
+      margin-left: 15px
 
 .header-titles
-  width: 95%
+  width: 90%
   margin: 0 auto
 
+.content-header
+  text-align: center
+  margin-top: 40px
+  text-transform: uppercase
+  font-family: $titleFont
+  font-weight: 300
+
 @media (max-width: 919px)
-  header .account-links h2
-    display: none
+  header
+    .logo
+      background-image: url('/images/scribemania-logo-white.png')
+    .account-links .user-name
+      display: none
 

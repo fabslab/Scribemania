@@ -39,7 +39,7 @@ $(function documentReady() {
 
   if (!$story.length) return;
 
-  var storyId = $story.attr('data-story-id')
+  var storyId = $story.attr('data-story-id');
   var $paragraphInput = $story.find('.paragraph-input');
 
   // update the story with new paragraph whenever another user adds one
@@ -47,7 +47,7 @@ $(function documentReady() {
     var newParagraph = document.createElement('p');
     var $newParagraph = $(newParagraph);
     newParagraph.appendChild(document.createTextNode(paragraph.text));
-    $newParagraph.hide();
+    $newParagraph.hide()
     $story[0].insertBefore(newParagraph, $paragraphInput[0]);
     $newParagraph.fadeIn();
   });
