@@ -35,6 +35,8 @@
     "grunt-contrib-watch": "*",
     "grunt-contrib-stylus": "*",
     "grunt-exec": "*",
+    "grunt-lodash": "*",
+    "lodash-cli": "*",
     "nib": "*",
     "requirejs": "*",
     "stylus": "*"
