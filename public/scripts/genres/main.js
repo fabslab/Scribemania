@@ -11,8 +11,10 @@ $(function() {
 
   $searchForm.on('submit', function(event) {
     event.preventDefault();
-    var genre = $('.genre-search-input').val();
-    window.location = '/genres/' + genre.trim();
+    var genre = $('.genre-search-input').val().trim();
+    if (genre) {
+      window.location = '/genres/' + genre;
+    }
   });
 
   $searchButton.on('click', function() {
