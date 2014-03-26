@@ -1,5 +1,7 @@
 .DS_Store
 .idea/
-/certs/*
+certs/*
 *.log
 production-config.json
+public/scripts/templates/*
+public/styles/*.css

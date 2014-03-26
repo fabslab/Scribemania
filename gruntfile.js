@@ -4,7 +4,10 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     exec: {
-      wrap: {
+      jade: {
+        command: 'jade-amd --from views/ --to public/scripts/templates'
+      },
+      amd: {
         command: 'r.js -convert public/scripts public/scripts'
       }
     },
@@ -19,9 +22,9 @@ module.exports = function(grunt) {
       build: {
         dest: 'public/vendor/lodash.js',
         options: {
+          minus: ['template'],
           modifier: 'modern',
-          exports: ['amd', 'commonjs', 'node'],
-          settings: '{ interpolate: /\\{\\{=([\\s\\S]+?)\\}\\}/g, evaluate: /\\{\\{([\\s\\S]+?)\\}\\}/g, escape: /\\{\\{!([\\s\\S]+?)\\}\\}/g }'
+          exports: ['amd']
         },
         flags: [
           '--minify'
@@ -51,6 +54,10 @@ module.exports = function(grunt) {
       stylus: {
         files: [stylesDirectory + '/*.styl'],
         tasks: ['stylus']
+      },
+      jade: {
+        files: ['views/*.jade'],
+        tasks: ['exec:jade']
       }
     }
   });
@@ -60,5 +67,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-lodash');
-  grunt.registerTask('predeploy', ['stylus', 'exec:wrap']);
+  grunt.registerTask('predeploy', ['stylus', 'lodash', 'exec:jade', 'exec:amd']);
 };
