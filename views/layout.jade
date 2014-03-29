@@ -7,16 +7,14 @@ html
     title Scribemania
 
     if _csrf
-      meta(name="csrf-token", content="#{_csrf}")
-    meta(name="description", content="Scribemania allows people to write and watch stories, fun or serious, evolve in real-time as they contribute to them.")
+    meta(name='csrf-token', content='#{_csrf}')
+    meta(name='description', content='Scribemania allows people to write and watch stories, fun or serious, evolve in real-time as they contribute to them.')
 
-    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500", type="text/css")
+    link(rel='icon', href='/images/scribemania-logo32.png')
+    link(rel="stylesheet", href='https://fonts.googleapis.com/css?family=Raleway:200,300,400,500", type="text/css')
     link(rel='stylesheet', href='/styles/reset.css')
     link(rel='stylesheet', href='/vendor/font-awesome-4.0.3/css/font-awesome.min.css')
     link(rel='stylesheet', href='/styles/main.css')
-    |<!--[if lt IE 9]>
-    |  <script src="/vendor/html5shiv-printshiv.js"></script>
-    |<![endif]-->
 
   body
 

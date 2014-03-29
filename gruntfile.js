@@ -12,8 +12,8 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      files: ['gruntfile.js', 'server.js', 'authentication/*.js', 'public/scripts/**/*.js', '!public/scripts/requirejs-config.js',
-        'routes/*.js', 'sockets/*.js', 'errors/*.js', 'configuration/*.js'],
+      files: ['gruntfile.js', 'server.js', 'authentication/*.js', 'public/scripts/**/*.js', '!public/scripts/templates/*.js',
+        '!public/scripts/requirejs-config.js', 'routes/*.js', 'sockets/*.js', 'errors/*.js', 'configuration/*.js'],
       options: {
         jshintrc: '.jshintrc'
       }
@@ -67,5 +67,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-lodash');
-  grunt.registerTask('predeploy', ['stylus', 'lodash', 'exec:jade', 'exec:amd']);
+  grunt.registerTask('build', ['stylus', 'lodash', 'exec:jade', 'exec:amd']);
 };

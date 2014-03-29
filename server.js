@@ -90,9 +90,8 @@ if (envHandlers[app.settings.env]) {
 }
 
 // serve static files
-app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
+app.use(express.favicon(path.join(__dirname, 'public/images/scribemania-logo32.png')));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'socket.io')));
 
 app.use(express.urlencoded());
 app.use(express.json());
