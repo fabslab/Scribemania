@@ -8,7 +8,7 @@ var keysDown = {
   13: false  // enter key
 };
 
-function createParagraphEnterHandler(primus) {
+function createParagraphEnterHandler(paragraphsSocket) {
 
   return function addParagraph(event) {
 
@@ -33,7 +33,7 @@ function createParagraphEnterHandler(primus) {
       var storyId = $(this.parentNode).attr('data-story-id');
 
       // send paragraph to server
-      primus.send('add.paragraph', { dateCreated: new Date(), storyId: storyId, text: paragraphText });
+      paragraphsSocket.send('added', { dateCreated: new Date(), storyId: storyId, text: paragraphText });
 
       // hide the key command hint for entering text for story
       $this

@@ -20,7 +20,7 @@
     "passport-google-oauth": "^0.1.5",
     "primus": "~2.0.3",
     "primus-emitter": "~3.0.0",
-    "primus-broadcast": "~1.1.0",
+    "primus-multiplex": "^3.0.1",
     "restify": "~2.6.3",
     "spdy": "^1.19.4",
     "uslug": "~1.0.3",

@@ -36,11 +36,26 @@ header
   margin: 0 auto
 
 .content-header
+  position: relative
   text-align: center
   margin-top: 40px
   text-transform: uppercase
   font-family: $titleFont
   font-weight: 300
+  h2
+    display: inline-block
+  .refresh-latest
+    display: none
+    border-radius: 25px
+    position: absolute
+    right: 0
+    margin-right: 20px
+    font-family: $storyFont
+    width: 25px
+    color: #006400
+    &:hover
+      color: lighten($sectionsLinks, 15%)
+
 
 @media (max-width: 919px)
   header

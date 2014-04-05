@@ -1,7 +1,9 @@
-var apiClient;
+var apiClient
+  , sockets;
 
-module.exports = function(app, api) {
+module.exports = function(app, api, passport, primus) {
   apiClient = api;
+  sockets = primus.channel('stories');
 
   app.get('/new', newStoryForm);
   app.post('/new', addStory);
@@ -32,8 +34,10 @@ function addStory(req, res, next) {
 
   apiClient.post('/stories', story, function(err, cReq, cRes, result) {
     if (err) return next(err);
-    // TODO: set up socket listener to update the Latest page each time a story is created
-    // and display how many new stories have been added since user loaded them (like Twitter)
+
+    sockets.send('created', result);
+
     res.redirect('/stories/' + result.slug);
   });
 }
+

@@ -3,6 +3,7 @@ block content
 
   .content-header
     h2 Latest stories
+    a.box-link.refresh-latest(href="/latest", title="new stories created")
 
   if stories && stories.length > 0
     each story in stories

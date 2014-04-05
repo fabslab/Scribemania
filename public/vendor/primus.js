@@ -1482,6 +1482,23 @@ if (
   }
 }
 Primus.prototype.ark["emitter"] = function (){}
+Primus.prototype.ark["multiplex"] = function client(primus) {
+
+  // multiplex instance.
+  var multiplex = new Primus.$.multiplex.Multiplex(primus);
+  
+  /**
+   * Return a `Channel` instance.
+   *
+   * @param {String} name The channel name.
+   * @return {multiplex.Spark}
+   * @api public
+   */
+
+  primus.channel = function channel(name) {
+    return multiplex.channel(name);
+  };
+}
  return Primus; });;(function (Primus, undefined) {
 function spark(Spark, Emitter) {
 
@@ -1695,4 +1712,339 @@ function emitter() {
  Primus.$.emitter.spark = spark;
  Primus.$.emitter.emitter = emitter;
  spark(Primus, emitter());
+})(Primus);
+;(function (Primus, undefined) {
+function spark() {
+
+  'use strict';
+
+  var Stream
+    , nextTick;
+
+  /**
+   * Module dependencies.
+   */
+
+  try {
+    Stream = require('stream');
+    nextTick = process.nextTick;
+  } catch (e) {
+    Stream = Primus.EventEmitter;
+    nextTick = function tick(fn) {
+      setTimeout(fn, 0);
+    };
+  }
+
+  // Object create shim
+  if ('undefined' === typeof Object.create) {
+    Object.create = function (o) {
+      function F() {}
+      F.prototype = o;
+      return new F();
+    };
+  }
+
+  // shortcut to slice
+  var slice = [].slice;
+
+  // White list events
+  var events = [
+    'error',
+    'online',
+    'offline',
+    'reconnect',
+    'reconnecting'
+  ];
+
+  /**
+   * `Spark` constructor.
+   *
+   * @constructor
+   * @param {Multiplex} Multiplex instance.
+   * @param {String|Number} id
+   * @param {primus.Spark} conn.
+   * @api public
+   */
+
+  function Spark(mp, channel, id) {
+    if (!(this instanceof Spark)) return new Spark(mp, channel, id);
+    Stream.call(this);
+    this.channel = channel;
+    this.id = id || this.uid(13);
+    this.packets = mp.packets;
+    this.conn = mp.conn;
+    this.channels = mp.channels;
+    this.writable = true;
+    this.readable = true;
+    this.reconnect = false;
+    this.initialise();
+  }
+
+  /**
+   * Inherits from `EventEmitter`.
+   */
+
+  Spark.prototype = Object.create(Stream.prototype);
+  Spark.prototype.constructor = Spark;
+
+  /**
+   * Initialise the Primus and setup all
+   * parsers and internal listeners.
+   *
+   * @api private
+   */
+
+  Spark.prototype.initialise = function initialise() {
+    var spark = this;
+
+    // connect to the actuall channel
+    this.connect();
+
+    // Re-emit events from main connection.
+    for (var i = 0; i < events.length; i++) {
+      reemit(events[i]);
+    }
+
+    function reemit(ev) {
+      spark.conn.on(ev, onevs);
+
+      spark.on('end', function () {
+        spark.conn.removeListener(ev, onevs);
+      });
+
+      function onevs() {
+        spark.emit.apply(spark, [ev].concat(slice.call(arguments)));
+      }
+    }
+
+    spark.conn.on('open', onopen);
+
+    spark.conn.on('reconnect', onreconnect);
+
+    spark.on('end', function () {
+      spark.conn.removeListener('open', onopen);
+      spark.conn.removeListener('reconnect', onreconnect);
+    });
+
+    function onopen() {
+      if (spark.reconnect) spark.connect();
+      spark.reconnect = false;
+    }
+
+    function onreconnect() {
+      spark.reconnect = true;
+    }
+
+    return this;
+  };
+
+  /**
+   * Connect to the `channel`.
+   *
+   * @return {Socket} self
+   * @api public
+   */
+
+  Spark.prototype.connect = function connect() {
+    // Subscribe to channel
+    this.conn.write(this.packet.call(this, 'SUBSCRIBE'));
+    return this;
+  };
+
+  /**
+   * Send a new message to a given spark.
+   *
+   * @param {Mixed} data The data that needs to be written.
+   * @returns {Boolean} Always returns true.
+   * @api public
+   */
+
+  Spark.prototype.write = function write(data) {
+    var payload = this.packet('MESSAGE', data);
+    return this.conn.write(payload);
+  };
+
+  /**
+   * End the connection.
+   *
+   * @param {Mixed} data Optional closing data.
+   * @param {Function} fn Optional callback function.
+   * @return {Channel} self
+   * @api public
+   */
+
+  Spark.prototype.end = function end(data) {
+    var spark = this;
+    if (data) this.write(data);
+    this.conn.write(this.packet('UNSUBSCRIBE'));
+    nextTick(function tick() {
+      spark.emit('end');
+      spark.writable = false;
+    });
+    delete this.channels[this.channel][this.id];
+    return this;
+  };
+
+  /**
+   * Generate a unique id.
+   *
+   * @param {String} len
+   * @return {String} uid.
+   * @api private
+   */
+
+  Spark.prototype.uid = function uid(len) {
+    return Math.random().toString(35).substr(2, len || 7);
+  };
+
+  /**
+   * Encode data to return a multiplex packet.
+   * @param {Number} type
+   * @param {Object} data
+   * @return {Object} packet
+   * @api private
+   */
+
+  Spark.prototype.packet = function packet(ev, data) {
+    var type = this.packets[ev];
+    var packet = [type, this.id, this.channel];
+    if (data) packet.push(data);
+    return packet;
+  };
+
+  /**
+   * Checks if the given event is an emitted event by Primus.
+   *
+   * @param {String} evt The event name.
+   * @returns {Boolean}
+   * @api public
+   */
+
+  Spark.prototype.reserved = function reserved(evt) {
+    return (/^(incoming|outgoing)::/).test(evt)
+      || evt in this.conn.reserved.events 
+      || evt in this.reserved.events;
+  };
+
+  /**
+   * The reserved custom events list.
+   *
+   * @type {Object}
+   * @api public
+   */
+
+  Spark.prototype.reserved.events = {};
+
+  return Spark;
+}
+function multiplex(Spark) {
+
+  'use strict';
+
+  /**
+   * `Multiplex` constructor.
+   *
+   * @constructor
+   * @param {Primus} primus Primus instance.
+   * @param {Object} options The options.
+   * @api public
+   */
+
+  function Multiplex(primus, options) {
+    if (!(this instanceof Multiplex)) return new Multiplex(primus, options);
+    options = options || {};
+    this.conn = primus;
+    this.channels = {};
+    this.reconnect = false;
+    if (this.conn) this.bind();
+  }
+
+  /**
+   * Message packets.
+   */
+
+  Multiplex.prototype.packets = {
+    MESSAGE: 0,
+    SUBSCRIBE: 1,
+    UNSUBSCRIBE: 2
+  };
+
+  /**
+   * Bind `Multiplex` events.
+   *
+   * @return {Multiplex} self
+   * @api private
+   */
+
+  Multiplex.prototype.bind = function bind() {
+    var mp = this;
+    this.conn.on('data', function ondata(data) {
+      if (isArray(data)) {
+        var type = data.shift()
+          , id = data.shift()
+          , name = data.shift()
+          , payload = data.shift()
+          , channel = mp.channels[name][id];
+
+        if (!channel) return false;
+
+        switch (type) {
+          case mp.packets.MESSAGE:
+            channel.emit('data', payload);
+            break;
+          case mp.packets.UNSUBSCRIBE:
+              channel.emit('end');
+              channel.removeAllListeners();
+              delete mp.channels[name][id];
+            break;
+        }
+        return false;
+      }
+    });
+
+    return this;
+  };
+
+  /**
+   * Return a `Channel` instance.
+   *
+   * @param {String} name The channel name.
+   * @return {Spark}
+   * @api public
+   */
+
+  Multiplex.prototype.channel = function channel(name) {
+    if (!name) return this.conn;
+
+    // extend Spark to use emitter if this
+    // the plugin its present.
+    if ('emitter' in Primus.$) {
+      Primus.$.emitter.spark(Spark, Primus.$.emitter.emitter());
+    }
+
+    var spark = new Spark(this, name);
+    var id = spark.id;
+    this.channels[name] =
+    this.channels[name] || {};
+    this.channels[name][id] = spark;
+    return spark;
+  };
+
+  /**
+   * Check if object is an array.
+   */
+
+  function isArray(obj) {
+    return '[object Array]' === Object.prototype.toString.call(obj);
+  }
+
+  return Multiplex;
+}
+ if (undefined === Primus) return;
+ var Spark = spark();
+ Primus.$ = Primus.$ || {};
+ Primus.$.multiplex = {}
+ Primus.$.multiplex.spark = spark;
+ Primus.$.multiplex.multiplex = multiplex;
+ Primus.$.multiplex.Multiplex = multiplex(Spark);
 })(Primus);

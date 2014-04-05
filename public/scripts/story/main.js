@@ -1,22 +1,14 @@
 define(function (require, exports, module) {
 var $ = require('jquery')
   , _ = require('lodash')
-  , Primus = require('primus')
+  , primus = require('../common/primusConnection')
   , setCursor = require('./set-cursor')
   , createEnterHandler = require('./paragraph-enter')
   , speechRecognition = require('./speech-recognition');
 
 var socketAuthorized = new $.Deferred();
 
-var url = '';
-var primus = new Primus(url, {
-  reconnect: {
-    maxDelay: Infinity, // Number: The max delay for a reconnect retry.
-    minDelay: 500, // Number: The minimum delay before we reconnect.
-    retries: 10 // Number: How many times should we attempt to reconnect.
-  },
-  strategy: ['disconnect', 'online']
-});
+var paragraphsSocket = primus.channel('paragraphs');
 
 primus.on('error', function(err) {
   socketAuthorized.reject(err.message);
@@ -25,11 +17,11 @@ primus.on('error', function(err) {
 // the following events are emitted after a successful connection
 // and tell us whether the user is anonymous (not logged in) and has only
 // read capabilities or is fully authenticated and can also write
-primus.on('read-only', function() {
+paragraphsSocket.on('read-only', function() {
   socketAuthorized.reject();
 });
 
-primus.on('read-write', function() {
+paragraphsSocket.on('read-write', function() {
   socketAuthorized.resolve();
 });
 
@@ -43,7 +35,7 @@ $(function documentReady() {
   var $paragraphInput = $story.find('.paragraph-input');
 
   // update the story with new paragraph whenever another user adds one
-  primus.on(storyId, function(paragraph) {
+  paragraphsSocket.on(storyId, function(paragraph) {
     var newParagraph = document.createElement('p');
     var $newParagraph = $(newParagraph);
     newParagraph.appendChild(document.createTextNode(paragraph.text));
@@ -66,7 +58,7 @@ $(function documentReady() {
     $story.find('.start-writing').show();
     $story.find('.fa-microphone').show();
 
-    var paragraphEnterHandler = createEnterHandler(primus);
+    var paragraphEnterHandler = createEnterHandler(paragraphsSocket);
 
     $paragraphInput.on('keydown', function escapeHandler(event) {
       // 27 is key code for escape key, hide the input
@@ -92,23 +84,23 @@ $(function documentReady() {
 
       .on('input', _.debounce(function(event) {
         if (!$paragraphInput.is(':visible')) return;
-        primus.send('type-on');
+        paragraphsSocket.send('type-on');
       }, 500, { leading: true, trailing: false}))
 
       .on('input', _.debounce(function(event) {
-        primus.send('type-off');
+        paragraphsSocket.send('type-off');
       }, 500));
   }
 
   // receive messages notifying us of other users typing and display
   // the notification as they start and remove it when they finish
   function typeReceiver() {
-    primus.on('type-on', function(user) {
+    paragraphsSocket.on('type-on', function(user) {
       var usersContainer = $story.find('.typing-users');
       var typingNotification = $('<div class="' + user.id + '"><i class="icon-user"></i> ' + user.name + ' is typing...</div>');
       usersContainer[0].appendChild(typingNotification[0]);
     });
-    primus.on('type-off', function(user) {
+    paragraphsSocket.on('type-off', function(user) {
       $story.find('.' + user.id).remove();
     });
   }

@@ -1,22 +1,22 @@
 extends layout
 block content
 
-  form(action="/new", method="POST")
+  form(action='/new', method='POST')
 
     section.add-story
       h2 Begin a Story
 
-      label(for="story-title") Story Title
-      input#story-title(name="title", type="text")
+      label(for='story-title') Story Title
+      input#story-title(name='title', required='true', type='text')
 
-      label(for="story-starter") Opening paragraph
-      textarea#story-starter(name="paragraph", spellcheck="true")
+      label(for='story-starter') Opening paragraph
+      textarea#story-starter(name='paragraph', required='true', spellcheck='true')
 
-      label(for="story-genre") Intended Genre
-      input#story-genre(name="genre", placeholder="Eg: fantasy", type="text")
+      label(for='story-genre') Intended Genre
+      input#story-genre(name='genre', placeholder='Eg: fantasy', type='text')
 
       input(type='hidden', name='_csrf', value=_csrf)
 
-      button.submit-new(type="submit") Add Story
+      button.submit-new(type='submit') Add Story
 
-  script(data-main="/scripts/start/main", src="/vendor/requirejs.min.js")
+  script(data-main='/scripts/start/main', src='/vendor/requirejs.min.js')

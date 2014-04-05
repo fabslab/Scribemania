@@ -5,7 +5,7 @@ var express = require('express')
   , path = require('path')
   , Primus = require('primus')
   , PrimusEmitter = require('primus-emitter')
-  , primusBroadcast = require('primus-broadcast')
+  , primusMultiplex = require('primus-multiplex')
   , alerts = require('connect-alerts')
   , passport = require('passport')
   , restify = require('restify')
@@ -32,7 +32,7 @@ if (nconf.get('NODE_ENV') == 'production' && nconf.get('certificate:ca')) {
 var server = spdy.createServer(spdyOptions, app);
 
 // http server that just redirects to https
-var httpServer = http.createServer(function (req, res) {
+var httpServer = http.createServer(function httpRedirect(req, res) {
   var host = req.headers.host;
   if (host.indexOf(':')) {
     // remove port
@@ -57,9 +57,9 @@ var primus = new Primus(server, {
   transformer: 'websockets'
 });
 
-// enable events and socket.io style broadcast in primus
+// enable channels, events, and socket broadcast in primus
 primus.use('emitter', PrimusEmitter);
-primus.use('broadcast', primusBroadcast);
+primus.use('multiplex', primusMultiplex);
 
 // initialize client for api
 var apiClient = restify.createJsonClient({
