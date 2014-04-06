@@ -2,6 +2,7 @@ define(function (require, exports, module) {
 
 require('./common/ajaxPrefilters');
 require('livestamp');
+require('./start/main');
 require('./summaries/main');
 require('./story/main');
 require('./genres/main');

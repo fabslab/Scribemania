@@ -10,6 +10,7 @@ block content
       input#story-title(name='title', required='true', type='text')
 
       label(for='story-starter') Opening paragraph
+      a.label-caption.generate-starter(href='javascript:;') (or generate a starter)
       textarea#story-starter(name='paragraph', required='true', spellcheck='true')
 
       label(for='story-genre') Intended Genre
@@ -18,5 +19,3 @@ block content
       input(type='hidden', name='_csrf', value=_csrf)
 
       button.submit-new(type='submit') Add Story
-
-  script(data-main='/scripts/start/main', src='/vendor/requirejs.min.js')

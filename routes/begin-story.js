@@ -6,6 +6,7 @@ module.exports = function(app, api, passport, primus) {
   sockets = primus.channel('stories');
 
   app.get('/new', newStoryForm);
+  app.get('/starters/generate', generateStarter);
   app.post('/new', addStory);
 };
 
@@ -14,6 +15,13 @@ function newStoryForm(req, res) {
   else {
     res.render('begin-story');
   }
+}
+
+function generateStarter(req, res, next) {
+  apiClient.get('/starters/generate', function(err, cReq, cRes, storyStarter) {
+    if (err) return next(err);
+    res.json(storyStarter);
+  });
 }
 
 function addStory(req, res, next) {
