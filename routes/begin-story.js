@@ -11,20 +11,24 @@ module.exports = function(app, api, passport, primus) {
 };
 
 function newStoryForm(req, res) {
-  if (!req.user) res.redirect('/login');
-  else {
-    res.render('begin-story');
-  }
+  if (!req.user) return res.redirect('/login');
+
+  res.render('begin-story');
 }
 
 function generateStarter(req, res, next) {
+  if (!req.user) res.send(403);
+
   apiClient.get('/starters/generate', function(err, cReq, cRes, storyStarter) {
     if (err) return next(err);
+
     res.json(storyStarter);
   });
 }
 
 function addStory(req, res, next) {
+  if (!req.user) res.redirect('/login');
+
   var story = {
     title: req.body.title,
     creatorId: req.user._id,
