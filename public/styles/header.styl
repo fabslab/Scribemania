@@ -4,7 +4,10 @@ h2
 header
   height: 50px
   z-index: 9
-  position: relative
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
   background: $scribemaniaGreen
   padding: 10px 0
   clear: both
@@ -14,9 +17,9 @@ header
     color: lighten($scribemaniaGreen, 90%)
   .logo
     display: inline-block
-    background: url('/images/scribemania-white.svg') no-repeat
-    height: 50px
-    width: 200px
+    background: url('/images/sheets/logos.svg') no-repeat -2px -57px
+    height: 44px
+    width: 196px
   .account-links
     color: rgba(#fafafa, 0.9)
     display: inline-block
@@ -60,9 +63,9 @@ header
 @media (max-width: 919px)
   header
     .logo
-      background-image: url('/images/scribemania-logo-white.svg')
-      width: 55px
-      height: 55px
+      background-position: -2px -2px
+      width: 51px
+      height: 51px
     .account-links .user-name
       display: none
 
