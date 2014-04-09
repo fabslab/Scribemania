@@ -1,5 +1,14 @@
 extends layout
 block content
 
-  .user-title
-    h2 #{username}
+  .content-header
+    h2 #{displayName}
+
+  if stories && stories.length > 0
+    each story in stories
+      include summary
+  else
+    section
+      h2 No stories available.
+      p
+        a(href="/new") Write your own!
