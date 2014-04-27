@@ -2,13 +2,13 @@ extends layout
 block content
 
   .content-header
-    h2 #{displayName}
+    h2 #{profileUser.displayName}
 
   if stories && stories.length > 0
     each story in stories
       include summary
   else
     section
-      h2 No stories available.
+      h2 No stories yet.
       p
         a(href="/new") Write your own!

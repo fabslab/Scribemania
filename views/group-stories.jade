@@ -2,8 +2,7 @@ extends layout
 block content
 
   .content-header
-    h2 Latest stories
-    a.box-link.refresh-latest(href="/latest", title="new stories created")
+    h2 #{groupName}
 
   if stories && stories.length > 0
     each story in stories

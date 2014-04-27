@@ -23,8 +23,7 @@ module.exports = {
           email: profile._json.email,
           gender: profile.gender || profile._json.gender,
           location: location.name,
-          locale: profile._json.locale,
-          starred: []
+          locale: profile._json.locale
         };
 
         apiClient.get('/users/' + user.email, function(err, cReq, cRes, result) {

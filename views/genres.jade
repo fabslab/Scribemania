@@ -23,4 +23,4 @@ block content
     section.popular-genres
       h2 Popular Genres
       each genre in genres
-        a.box-link(href="/genres/#{genre.name.toLowerCase()}", title="#{genre.name}") #{genre.name}
+        a.box-link(href="/genres/#{genre.name}") #{genre.name[0].toUpperCase() + genre.name.substring(1)}

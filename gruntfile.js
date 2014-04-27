@@ -67,5 +67,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-lodash');
-  grunt.registerTask('build', ['stylus', 'lodash', 'exec:jade', 'exec:amd']);
+  grunt.registerTask('build', ['stylus', 'exec:jade', 'exec:amd']);
 };

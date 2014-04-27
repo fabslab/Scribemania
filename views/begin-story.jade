@@ -1,17 +1,24 @@
 extends layout
 block content
 
-  form(action='/new', method='POST')
+  form.add-story(action='/new', method='POST')
 
-    section.add-story
+    section
       h2 Begin a Story
 
       label(for='story-title') Story Title
       input#story-title(name='title', required='true', type='text')
 
-      label(for='story-starter') Opening paragraph
+      label(for='story-starter') Opening Paragraph
       a.label-caption.generate-starter(href='javascript:;') (or generate a starter)
       textarea#story-starter(name='paragraph', required='true', spellcheck='true')
+
+      div
+        label(for'group-select') Group
+        select#group-select
+          option(value='') Public
+          each group in groups
+            option(value=group._id) #{group.name}
 
       label(for='story-genre') Intended Genre
       input#story-genre(name='genre', placeholder='Eg: fantasy', type='text')

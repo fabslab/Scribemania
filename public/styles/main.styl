@@ -14,6 +14,9 @@ $mediaQuerySmallWidth = 919px
 $hoverTransitionOff = color 0.2s ease-in, background-color 0.2s ease-in, font-size 0.2s ease-in
 $hoverTransitionOn = color 0.2s ease-out, background-color 0.2s ease-out, font-size 0.2s ease-out
 
+.user-init
+  display: none
+
 body
   font: 15px $storyFont
   background-color: #fafafa
@@ -40,11 +43,6 @@ a
 
 @import "genre-search"
 
+@import "token-input"
+
 @import "alerts"
-
-.join-link
-  display: inline-block
-  margin-top: 20px
-
-.typekit-badge
-  display: none !important

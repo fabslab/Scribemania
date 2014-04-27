@@ -2,7 +2,7 @@ define(function (require, exports, module) {
 
 var $ = require('jquery');
 
-$(function() {
+$(function documentReady() {
   var $searchForm = $('.genre-search');
 
   if (!$searchForm.length) return;

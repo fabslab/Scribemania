@@ -77,18 +77,6 @@ app.set('view engine', 'jade');
 // gzip responses
 app.use(express.compress());
 
-// environment specific middleware
-var envHandlers = {
-  development: function() {
-    app.use(express.logger('dev'));
-    app.use(express.errorHandler());
-  }
-};
-
-if (envHandlers[app.settings.env]) {
-  envHandlers[app.settings.env]();
-}
-
 // serve static files
 app.use(express.favicon(path.join(__dirname, 'public/images/scribemania-logo32.png')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -111,8 +99,10 @@ app.use(express.csrf());
 app.use(function(req, res, next) {
   // make username available to views
   if (req.user) {
-    res.locals.userId = req.user._id;
-    res.locals.displayName = req.user.displayName;
+    res.locals.user = {
+      id: req.user._id,
+      displayName: req.user.displayName
+    };
   }
   // make csrf token available
   res.locals._csrf = req.csrfToken();
@@ -144,9 +134,27 @@ fs.readdirSync(routesPath).forEach(function(fileName) {
   require(path.join(routesPath, fileName))(app, apiClient, passport, primus);
 });
 
-app.get('*', function pageNotFound(req, res) {
-  res.render('404');
-});
+app.get('*', pageNotFound);
+
+function pageNotFound(req, res) {
+  if (req.accepts('html')) {
+    res.render('404');
+  } else {
+    res.send(404);
+  }
+}
+
+// environment specific middleware
+var envHandlers = {
+  development: function() {
+    app.use(express.logger('dev'));
+    app.use(express.errorHandler());
+  }
+};
+
+if (envHandlers[app.settings.env]) {
+  envHandlers[app.settings.env]();
+}
 
 // set up socket configuration and
 // load files that attach event handlers to socket events

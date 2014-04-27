@@ -6,10 +6,10 @@ module.exports = function(app, api) {
   // home page is currently the same as the latest stories page
   app.get('/', latest);
   app.get('/latest', latest);
-  app.get('/stories', latest);
 
 };
 
+// show latest stories - currently same as /stories route
 function latest(req, res, next) {
   apiClient.get('/stories', function(err, cReq, cRes, stories) {
     if (err) return next(err);

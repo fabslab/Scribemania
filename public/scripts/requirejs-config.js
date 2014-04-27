@@ -6,6 +6,10 @@ var require = {
     livestamp: '/vendor/livestamp',
     lodash: '/vendor/lodash.min',
     moment: '/vendor/moment.min',
-    primus: '/vendor/primus'
+    primus: '/vendor/primus',
+    tokeninput: '/vendor/jquery.tokeninput'
+  },
+  shim: {
+    'tokeninput': ['jquery']
   }
 };

@@ -1,0 +1,27 @@
+extends layout
+block content
+
+  form.create-group(action='/groups', method='POST')
+
+    section
+
+      h2 Create a New Group
+
+      label(for='group-name') Group Name
+      input#group-name(name='name', required='true', type='text')
+
+      .radio-button-group
+        label(for='write-access-public') Public (anyone can join)
+        input#write-access-public(name='write-access', type='radio', value='public')
+        label(for='write-access-private') Private (only members can add other members)
+        input#write-access-private(name='write-access', type='radio', value='private' checked)
+
+      label.full-line(for='description') Description
+      textarea#description(name='description', required='true', spellcheck='true')
+
+      label(for='members') Other Members
+      input#members.input-list(name='members', type='text')
+
+      input(type='hidden', name='_csrf', value=_csrf)
+
+      button.submit-group(type='submit') Create Group

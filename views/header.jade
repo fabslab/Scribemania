@@ -1,9 +1,9 @@
 header
   .header-titles
-    if displayName
+    if user
       a.account-links(href="javascript:;")
-        h2.user-name #{displayName}
-        i.fa.fa-bars
+        h2.user-name #{user.displayName}
+        i.fa.fa-user
     else
       a.account-links(href="/join")
         h2.user-join Join
