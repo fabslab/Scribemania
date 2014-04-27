@@ -1,7 +1,7 @@
 extends layout
 block content
 
-  form.add-story(action='/new', method='POST')
+  form.add-story(action='/stories', method='POST')
 
     section
       h2 Begin a Story
@@ -15,7 +15,7 @@ block content
 
       div
         label(for'group-select') Group
-        select#group-select
+        select#group-select(name='group')
           option(value='') Public
           each group in groups
             option(value=group._id) #{group.name}

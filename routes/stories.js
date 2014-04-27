@@ -5,7 +5,7 @@ module.exports = function(app, api, passport, primus) {
   sockets = primus.channel('stories');
 
   app.get('/stories', renderStories);
-  app.post('/stories', addStory);
+  app.post('/stories', createStory);
 
   app.get('/stories/:slug', renderStory);
 
@@ -28,7 +28,7 @@ function renderStories(req, res, next) {
   });
 }
 
-function addStory(req, res, next) {
+function createStory(req, res, next) {
   if (!req.user) res.redirect('/login');
 
   var story = {
@@ -39,7 +39,8 @@ function addStory(req, res, next) {
       text: req.body.paragraph,
       authorId: req.user._id,
       authorName: req.user.displayName
-    }]
+    }],
+    groupId: req.body.group
   };
 
   if (typeof req.body.genre == 'string') {
