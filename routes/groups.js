@@ -11,7 +11,11 @@ module.exports = function(app, api) {
 
 function renderCreateGroupsPage(req, res) {
   if (!req.user) res.redirect('/login');
-  res.render('groups');
+
+  apiClient.get('/users/' + req.user._id + '/groups', function(err, cReq, cRes, groups) {
+    if (err) return next(err);
+    res.render('groups', { groups: groups });
+  });
 }
 
 function createGroup(req, res, next) {
