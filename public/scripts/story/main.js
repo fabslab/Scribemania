@@ -92,17 +92,52 @@ $(function documentReady() {
       }, 500));
   }
 
+  var typingUsers = {};
+  var usersContainer = $story.find('.typing-users');
+
   // receive messages notifying us of other users typing and display
   // the notification as they start and remove it when they finish
   function typeReceiver() {
     paragraphsSocket.on('type-on', function(user) {
-      var usersContainer = $story.find('.typing-users');
-      var typingNotification = $('<div class="' + user.id + '"><i class="icon-user"></i> ' + user.name + ' is typing...</div>');
-      usersContainer[0].appendChild(typingNotification[0]);
+      typingUsers[user.id] = user;
+      displayTypingUsers();
     });
     paragraphsSocket.on('type-off', function(user) {
-      $story.find('.' + user.id).remove();
+      delete typingUsers[user.id];
+      displayTypingUsers();
     });
+  }
+
+  function displayTypingUsers() {
+    var message = createTypingUsersMessage(typingUsers);
+    var typingNotification = $('<div><i class="icon-user"></i> ' + message + '</div>');
+    usersContainer.html(typingNotification);
+  }
+
+  function createTypingUsersMessage(typingUsers) {
+    var message = '', names;
+    var userIds = Object.keys(typingUsers);
+
+    if (userIds.length < 1) return message;
+
+    if (userIds.length > 4) {
+      message = 'Several people are';
+    } else {
+      names = userIds.map(function(id) {
+        return typingUsers[id].name;
+      });
+      message = names.join(', ');
+
+      if (userIds.length === 1) {
+        message += ' is';
+      } else {
+        message += ' are';
+      }
+    }
+
+    message += ' typing.';
+
+    return message;
   }
 
   function toggleInput(event) {
