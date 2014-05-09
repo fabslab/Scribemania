@@ -2,7 +2,7 @@
   span.star-number #{story.stars}
   - var className = 'star-action';
   - var href = 'javascript:;';
-  - if (userId == null) {
+  - if (!user || !user.id) {
     - className = '';
     - href = '/login';
   - }
