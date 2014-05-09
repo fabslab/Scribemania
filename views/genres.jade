@@ -11,14 +11,15 @@ block content
         i.fa.fa-search
 
   if stories
-    each story in stories
-      include summary
-    if stories.length < 1
+    if stories.length > 0
+      .summaries
+        each story in stories
+          include summary
+    else
       section
         h2 No #{searchTerm} stories available.
         p
           a(href="/new") Write your own!
-
   else
     section.popular-genres
       h2 Popular Genres

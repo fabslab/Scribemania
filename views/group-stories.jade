@@ -5,8 +5,9 @@ block content
     h2 #{groupName}
 
   if stories && stories.length > 0
-    each story in stories
-      include summary
+    .summaries
+      each story in stories
+        include summary
   else
     section
       h2 No stories yet.
