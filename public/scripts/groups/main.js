@@ -6,6 +6,9 @@ require('tokeninput');
 $(function documentReady() {
   var memberList = $('.create-group #members');
 
+  var userData = $('.user-init')[0].textContent;
+  userData = JSON.parse(userData);
+
   memberList.tokenInput('/users', {
     hintText: 'Type in a user\'s name',
     preventDuplicates: true,
@@ -21,8 +24,10 @@ $(function documentReady() {
     memberList.value = memberIds.join(',');
   }
 
-  function removeSelf() {
-
+  function removeSelf(results) {
+    return results.filter(function(member) {
+      return member.id !== userData.id;
+    });
   }
 
 });

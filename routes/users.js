@@ -12,7 +12,7 @@ function getUsers(req, res, next) {
   var substring = req.query.q;
 
   // ensure the substring is not empty and contains only letters and spaces
-  if (typeof substring != 'string' || !substring.trim() || !/^[A-Z ]+$/i.test(substring)) {
+  if (typeof substring != 'string' || !(substring = substring.trim()) || !/^[A-Z ]+$/i.test(substring)) {
     return res.send(400);
   }
 
