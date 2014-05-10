@@ -1,11 +1,29 @@
 {
-  "name": "scribemania",
+  "name": "Scribemania",
   "version": "0.7.0",
   "private": true,
+  "description": "Scribemania allows people to create and watch stories, fun or serious, evolve in real-time as they contribute to them.",
   "scripts": {
-    "predeploy": "grunt predeploy",
+    "predeploy": "grunt build",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fsbdev/Scribemania"
+  },
+  "keywords": [
+    "writing",
+    "stories",
+    "collaborate",
+    "chat",
+    "game"
+  ],
+  "author": "Fabien Brooke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fsbdev/scribemania-api/issues"
+  },
+  "homepage": "https://scribemania.com",
   "dependencies": {
     "connect": "~2.15.0",
     "connect-alerts": "~0.1.1",
