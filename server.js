@@ -138,7 +138,7 @@ app.get('*', pageNotFound);
 
 function pageNotFound(req, res) {
   if (req.accepts('html')) {
-    res.render('404');
+    res.status(404).render('404');
   } else {
     res.send(404);
   }
