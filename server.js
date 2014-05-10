@@ -1,4 +1,5 @@
 var express = require('express')
+  , connect = require('connect')
   , http = require('http')
   , spdy = require('spdy')
   , fs = require('fs')
@@ -75,26 +76,26 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 // gzip responses
-app.use(express.compress());
+app.use(connect.compress());
 
 // serve static files
-app.use(express.favicon(path.join(__dirname, 'public/images/scribemania-logo32.png')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(connect.favicon(path.join(__dirname, 'public/images/scribemania-logo32.png')));
+app.use(connect.static(path.join(__dirname, 'public')));
 
-app.use(express.urlencoded());
-app.use(express.json());
-app.use(express.methodOverride());
+app.use(connect.urlencoded());
+app.use(connect.json());
+app.use(connect.methodOverride());
 
 // set up session support using cookies
-app.use(express.cookieParser());
-app.use(express.cookieSession({
+app.use(connect.cookieParser());
+app.use(connect.cookieSession({
   key: nconf.get('sessionKey'),
   secret: nconf.get('macKey')
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.csrf());
+app.use(connect.csrf());
 
 app.use(function(req, res, next) {
   // make username available to views
@@ -113,8 +114,6 @@ app.use(alerts({
   template: path.join(__dirname, 'views/alert.jade'),
   engine: 'jade'
 }));
-
-app.use(app.router);
 
 // set up passport authentication
 facebookAuth.init(app, apiClient, passport);
@@ -147,8 +146,8 @@ function pageNotFound(req, res) {
 // environment specific middleware
 var envHandlers = {
   development: function() {
-    app.use(express.logger('dev'));
-    app.use(express.errorHandler());
+    app.use(connect.logger('dev'));
+    app.use(connect.errorHandler());
   }
 };
 
