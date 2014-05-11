@@ -10,8 +10,8 @@ module.exports = function(app, api) {
 function genreSearchPage(req, res, next) {
   var genreQuery = req.query.genre;
 
-  if (typeof genreQuery =='string' && genreQuery.trim()) {
-    return getStoriesForGenre(res, genreQuery);
+  if (genreQuery && genreQuery.trim()) {
+    return getStoriesForGenre(res, next, genreQuery);
   }
 
   apiClient.get('/genres', function(err, cReq, cRes, genres) {
