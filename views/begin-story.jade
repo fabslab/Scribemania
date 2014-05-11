@@ -15,7 +15,7 @@ block content
 
       div
         label(for'group-select') Group (who can write)
-        select.#group-select(name='group')
+        select#group-select(name='group')
           option(value='') Public
           each group in groups
             option(value=group._id) #{group.name}
