@@ -39,9 +39,13 @@ function createStory(req, res, next) {
       text: req.body.paragraph,
       authorId: req.user._id,
       authorName: req.user.displayName
-    }],
-    groupId: req.body.group
+    }]
   };
+
+  var groupId = req.body.group;
+  if (groupId && groupId.trim()) {
+    story.groupId = groupId;
+  }
 
   if (typeof req.body.genre == 'string') {
     story.genre = req.body.genre.trim().replace(' ', '-');
