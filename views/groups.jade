@@ -5,6 +5,8 @@ block content
     h2 Your Groups
     each group in groups
       a.box-link(href="/groups/#{group.slug}") #{group.name[0].toUpperCase() + group.name.substring(1)}
+    if groups.length < 1
+      p You don't belong to any groups yet.
 
   form.create-group(action='/groups', method='POST')
 
