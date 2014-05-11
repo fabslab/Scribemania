@@ -3,7 +3,7 @@ define(function (require, exports, module) {
 var $ = require('jquery');
 require('tokeninput');
 
-$(function documentReady() {
+$(function createMemberList() {
   var memberList = $('.create-group #members');
 
   var userData = $('.user-init')[0].textContent;
