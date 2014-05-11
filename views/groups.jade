@@ -1,6 +1,15 @@
 extends layout
 block content
 
+  .content-header
+    h2 Find groups to join
+
+  form.search-form.group-search(action="/groups", method="GET")
+    input.search-input(type="text", name="group", autocomplete="off", autofocus="true")
+    .search-button.button-icon
+      a(title="Search", href="javascript:;")
+        i.fa.fa-search
+
   section.user-groups
     h2 Your Groups
     each group in groups
