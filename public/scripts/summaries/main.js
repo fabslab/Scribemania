@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
 
 var $ = require('jquery')
+  , tabNotifications = require('../common/tabNotifications')
   , summaryTemplate = require('../templates/summary')
   , primus = require('../common/primusConnection');
 
@@ -21,6 +22,8 @@ storiesSocket.on('created', function updateRefreshCounter(story) {
 
   refreshLink.text(current);
   refreshLink.show();
+
+  tabNotifications.increaseCount();
 });
 
 refreshLink.on('click', function(event) {
@@ -36,6 +39,8 @@ refreshLink.on('click', function(event) {
 
   refreshLink.hide();
   refreshLink.text(0);
+
+  tabNotifications.resetCount();
 });
 
 });
