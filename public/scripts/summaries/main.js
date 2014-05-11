@@ -9,6 +9,8 @@ var storiesSocket = primus.channel('stories');
 
 var refreshLink = $('.refresh-latest');
 var summaries = $('.summaries');
+var userData = $('.user-init')[0].textContent;
+userData = JSON.parse(userData);
 
 var preloadedStories = [];
 
@@ -31,7 +33,7 @@ refreshLink.on('click', function(event) {
   event.stopPropagation();
 
   preloadedStories.forEach(function(story) {
-    var html = summaryTemplate({ story: story });
+    var html = summaryTemplate({ story: story, user: userData });
     summaries.prepend(html);
   });
 
