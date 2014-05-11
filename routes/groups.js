@@ -25,7 +25,7 @@ function createGroup(req, res, next) {
     name: req.body.name,
     description: req.body.description,
     creatorId: req.user._id,
-    isPrivate: req.body['write-access'] == 'private',
+    writePrivate: req.body['write-access'] == 'private',
     members: req.body.members.split(',')
   };
 
