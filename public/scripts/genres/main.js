@@ -11,7 +11,7 @@ $(function documentReady() {
 
   $searchForm.on('submit', function(event) {
     event.preventDefault();
-    var genre = $('.genre-search-input').val().trim();
+    var genre = $searchForm.find('.search-input').val().trim();
     if (genre) {
       window.location = '/genres/' + genre;
     }

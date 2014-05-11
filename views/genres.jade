@@ -4,8 +4,8 @@ block content
   .content-header
     h2 Find stories by genre
 
-  form.genre-search(action="/genres", method="GET")
-    input.genre-search-input(type="text", name="genre", autocomplete="off", autofocus="true")
+  form.search-form.genre-search(action="/genres", method="GET")
+    input.search-input(type="text", name="genre", autocomplete="off", autofocus="true")
     .search-button.button-icon
       a(title="Search", href="javascript:;")
         i.fa.fa-search
