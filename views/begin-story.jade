@@ -14,8 +14,8 @@ block content
       textarea#story-starter(name='paragraph', required='true', spellcheck='true')
 
       div
-        label(for'group-select') Group
-        select#group-select(name='group')
+        label(for'group-select') Group (who can write)
+        select.#group-select(name='group')
           option(value='') Public
           each group in groups
             option(value=group._id) #{group.name}
