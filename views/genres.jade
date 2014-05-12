@@ -25,3 +25,5 @@ block content
       h2 Popular Genres
       each genre in genres
         a.box-link(href="/genres/#{genre.name}") #{genre.name[0].toUpperCase() + genre.name.substring(1)}
+      if genres.length < 1
+        p No genres available.
