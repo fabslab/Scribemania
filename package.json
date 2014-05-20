@@ -19,7 +19,6 @@
     "game"
   ],
   "author": "Fabien Brooke",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/fsbdev/scribemania-api/issues"
   },
@@ -51,17 +50,15 @@
     "grunt": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-watch": "*",
+    "grunt-contrib-requirejs": "*",
     "grunt-contrib-stylus": "*",
     "grunt-exec": "*",
     "grunt-lodash": "*",
+    "grunt-string-replace": "*",
     "jade-amd": "*",
     "lodash-cli": "*",
     "nib": "*",
     "requirejs": "*",
     "stylus": "*"
-  },
-  "subdomain": "scribemania",
-  "engines": {
-    "node": "0.10.x"
   }
 }

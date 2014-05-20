@@ -3,5 +3,6 @@
 certs/*
 *.log
 production-config.json
-public/scripts/templates/*
+public/scripts/templates
+public/scripts-build
 public/styles/*.css
