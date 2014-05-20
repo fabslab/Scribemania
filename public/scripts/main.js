@@ -1,16 +1,12 @@
 define(function (require, exports, module) {
 
-require('./common/ajaxPrefilters');
-require('./common/stars');
-require('./common/alerts');
 require('livestamp');
 
-// routing
-var path = window.location.pathname;
-if (path[path.length - 1] == '/') {
-  path = path.substring(0, path.length - 1);
-}
+require('./init/main');
 
+var path = getPath();
+
+// routing
 if (path == '/new') {
   require(['./new/main']);
 }
@@ -28,6 +24,17 @@ else if (['', '/latest', '/stories', '/starred'].indexOf(path) !== -1 || path.in
 }
 else if (path.indexOf('/stories/') === 0) {
   require(['./story/main']);
+}
+
+function getPath() {
+  var path = window.location.pathname;
+
+  // remove trailing slashes
+  if (path.slice(-1) == '/') {
+    path = path.slice(0, - 1);
+  }
+
+  return path;
 }
 
 });

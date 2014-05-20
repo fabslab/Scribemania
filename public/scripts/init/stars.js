@@ -2,9 +2,9 @@ define(function (require, exports, module) {
 
 var $ = require('jquery');
 
-$(init);
+$(setStarClickHandler);
 
-function init() {
+function setStarClickHandler() {
   $('.content').on('click', '.star-action', function incrementStar(event) {
     event.preventDefault();
     event.stopPropagation();
