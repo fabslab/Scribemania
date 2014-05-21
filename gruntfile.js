@@ -106,8 +106,10 @@ module.exports = function(grunt) {
           'include css': true
         },
         files: {
-          'public/styles/reset.css': stylesDirectory + '/reset.styl',
-          'public/styles/main.css': [stylesDirectory + '/main.styl']
+          'public/styles/main.css': [
+              stylesDirectory + '/reset.styl',
+              stylesDirectory + '/main.styl'
+          ]
         }
       }
     },
