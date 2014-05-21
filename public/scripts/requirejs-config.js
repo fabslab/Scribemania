@@ -3,12 +3,12 @@ var require = {
   paths: {
     favico: '../vendor/favico-0.3.4.min',
     jquery: '../vendor/jquery.min',
-    jadeRuntime: '../vendor/jade-runtime',
-    livestamp: '../vendor/livestamp',
+    jadeRuntime: '../vendor/jade-runtime.min',
+    livestamp: '../vendor/livestamp.min',
     lodash: '../vendor/lodash.min',
     moment: '../vendor/moment.min',
     primus: '../vendor/primus',
-    tokeninput: '../vendor/jquery.tokeninput'
+    tokeninput: '../vendor/jquery.tokeninput.min'
   },
   shim: {
     'tokeninput': ['jquery']

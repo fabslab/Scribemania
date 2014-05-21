@@ -163,7 +163,7 @@ fs.readdirSync(socketsPath).forEach(function(fileName) {
 });
 
 // generate client script for primus
-var primusClientLocation = __dirname +'/public/vendor/primus.js';
+var primusClientLocation = path.join(__dirname, 'public/vendor/primus.js');
 primus.save(primusClientLocation);
 fs.writeFileSync(primusClientLocation, uglify.minify(primusClientLocation).code);
 
