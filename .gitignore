@@ -6,3 +6,4 @@ production-config.json
 public/scripts/templates
 public/scripts-build
 public/styles/*.css
+public/vendor/primus.js

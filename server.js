@@ -4,6 +4,7 @@ var express = require('express')
   , spdy = require('spdy')
   , fs = require('fs')
   , path = require('path')
+  , uglify = require('uglify-js')
   , Primus = require('primus')
   , PrimusEmitter = require('primus-emitter')
   , primusMultiplex = require('primus-multiplex')
@@ -162,7 +163,9 @@ fs.readdirSync(socketsPath).forEach(function(fileName) {
 });
 
 // generate client script for primus
-primus.save(__dirname +'/public/vendor/primus.js');
+var primusClientLocation = __dirname +'/public/vendor/primus.js';
+primus.save(primusClientLocation);
+fs.writeFileSync(primusClientLocation, uglify.minify(primusClientLocation).code);
 
 // kick things off
 server.listen(app.get('port'));
