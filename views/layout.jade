@@ -12,8 +12,6 @@ html
       meta(name='csrf-token', content='#{_csrf}')
 
     link(rel='icon', href='/images/scribemania-logo32.png')
-    link(rel="stylesheet", href='https://fonts.googleapis.com/css?family=Raleway:200,300,400,500", type="text/css')
-    link(rel='stylesheet', href='/vendor/font-awesome-4.0.3/css/font-awesome.min.css')
     link(rel='stylesheet', href='/styles/main.css')
 
   body
@@ -31,5 +29,6 @@ html
     if user
       .user-init #{JSON.stringify(user)}
 
+    link(rel='stylesheet', href='/vendor/font-awesome-4.0.3/css/font-awesome.min.css')
     script(src="/scripts/requirejs-config.js")
     script(data-main="/scripts/main", src="/vendor/requirejs.min.js")
