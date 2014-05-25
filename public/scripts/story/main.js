@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
 var $ = require('jquery')
-  , _ = require('lodash')
+  , debounce = require('../common/debounce')
   , primus = require('../common/primusConnection')
   , setCursor = require('./set-cursor')
   , createEnterHandler = require('./paragraph-enter')
@@ -82,12 +82,12 @@ $(function documentReady() {
   function typeNotifier() {
     $story.find('.paragraph-input')
 
-      .on('input', _.debounce(function(event) {
+      .on('input', debounce(function(event) {
         if (!$paragraphInput.is(':visible')) return;
         paragraphsSocket.send('type-on');
       }, 500, { leading: true, trailing: false}))
 
-      .on('input', _.debounce(function(event) {
+      .on('input', debounce(function(event) {
         paragraphsSocket.send('type-off');
       }, 500));
   }

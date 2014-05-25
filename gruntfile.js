@@ -7,7 +7,7 @@ var requirejsLibs = [];
 // it is wrapped in a function to avoid overwriting the original node require reference
 (function() {
   var requirejsConfig = fs.readFileSync('public/scripts/requirejs-config.js');
-  // creates the require variable used in requirejs config to list all library paths
+  // creates the require variable used in requirejs config to list all client library paths
   requirejsConfig = eval(requirejsConfig + " require");
   requirejsLibs = Object.keys(requirejsConfig.paths);
 }());
@@ -29,19 +29,6 @@ module.exports = function(grunt) {
         '!public/scripts/requirejs-config.js', 'routes/*.js', 'sockets/*.js', 'errors/*.js', 'configuration/*.js'],
       options: {
         jshintrc: '.jshintrc'
-      }
-    },
-    lodash: {
-      build: {
-        dest: 'public/vendor/lodash.js',
-        options: {
-          minus: ['template'],
-          modifier: 'modern',
-          exports: ['amd']
-        },
-        flags: [
-          '--minify'
-        ]
       }
     },
     'string-replace': {
@@ -134,7 +121,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-exec');
-  grunt.loadNpmTasks('grunt-lodash');
   grunt.loadNpmTasks('grunt-string-replace');
 
   grunt.registerTask('build', ['exec:jade', 'requirejs', 'string-replace', 'stylus']);

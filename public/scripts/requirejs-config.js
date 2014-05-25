@@ -5,7 +5,6 @@ var require = {
     jquery: '../vendor/jquery.min',
     jadeRuntime: '../vendor/jade-runtime.min',
     livestamp: '../vendor/livestamp.min',
-    lodash: '../vendor/lodash.min',
     moment: '../vendor/moment.min',
     primus: '../vendor/primus',
     tokeninput: '../vendor/jquery.tokeninput.min'
