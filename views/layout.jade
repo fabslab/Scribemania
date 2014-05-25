@@ -13,6 +13,7 @@ html
 
     link(rel='icon', href='/images/scribemania-logo32.png')
     link(rel='stylesheet', href='/styles/main.css')
+    link(rel='stylesheet', href='/vendor/font-awesome-4.0.3/css/font-awesome.min.css')
 
   body
 
@@ -29,6 +30,5 @@ html
     if user
       .user-init #{JSON.stringify(user)}
 
-    link(rel='stylesheet', href='/vendor/font-awesome-4.0.3/css/font-awesome.min.css')
     script(src="/scripts/requirejs-config.js")
     script(data-main="/scripts/main", src="/vendor/requirejs.min.js")
