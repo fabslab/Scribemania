@@ -14,15 +14,11 @@ primus.on('error', function(err) {
   socketAuthorized.reject(err.message);
 });
 
-// the following events are emitted after a successful connection
-// and tell us whether the user is anonymous (not logged in) and has only
-// read capabilities or is fully authenticated and can also write
-paragraphsSocket.on('read-only', function() {
-  socketAuthorized.reject();
-});
-
-paragraphsSocket.on('read-write', function() {
-  socketAuthorized.resolve();
+// the following event is emitted after a successful connection
+// and tell us whether can contribute to the given story
+// they must be logged in and have write access
+paragraphsSocket.on('write-access', function(access) {
+  access ? socketAuthorized.resolve() : socketAuthorized.reject();
 });
 
 $(function documentReady() {

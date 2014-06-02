@@ -7,10 +7,10 @@ module.exports = function(primus, apiClient) {
     // don't allow anonymous users to write to stories
     var user = spark.remote.socket.user;
     if (!user) {
-      return spark.send('read-only');
+      return spark.send('write-access', false);
     }
 
-    spark.send('read-write');
+    spark.send('write-access', true);
 
     var userId = user.id;
     var username = user.username;
