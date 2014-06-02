@@ -9,7 +9,7 @@ var storiesSocket = primus.channel('stories');
 
 var refreshLink = $('.refresh-latest');
 var summaries = $('.summaries');
-var userData = $('.user-init')[0].textContent;
+var userData = $('.init-user')[0].textContent;
 userData = JSON.parse(userData);
 
 var preloadedStories = [];

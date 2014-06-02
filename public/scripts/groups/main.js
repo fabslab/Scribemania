@@ -6,7 +6,7 @@ require('tokeninput');
 $(function createMemberList() {
   var memberList = $('.create-group #members');
 
-  var userData = $('.user-init')[0].textContent;
+  var userData = $('.init-user')[0].textContent;
   userData = JSON.parse(userData);
 
   memberList.tokenInput('/users', {

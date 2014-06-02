@@ -28,7 +28,7 @@ html
       block content
 
     if user
-      .user-init #{JSON.stringify(user)}
+      .init-data.init-user #{JSON.stringify(user)}
 
-    script(src="/scripts/requirejs-config.js")
-    script(data-main="/scripts/main", src="/vendor/requirejs.min.js")
+    script(src="/scripts-build/requirejs-config.js")
+    script(data-main="/scripts-build/main", src="/vendor/requirejs.min.js")
