@@ -103,7 +103,8 @@ app.use(function(req, res, next) {
   if (req.user) {
     res.locals.user = {
       id: req.user._id,
-      displayName: req.user.displayName
+      displayName: req.user.displayName,
+      groupIds: req.user.groupIds
     };
   }
   // make csrf token available
