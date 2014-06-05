@@ -1,7 +1,7 @@
 extends layout
 block content
 
-  section.story(data-story-id="#{story._id}")
+  section.story(data-story-id="#{story._id}", data-group-id="#{story.groupId}")
 
     include star
 
@@ -18,5 +18,6 @@ block content
     .enter-hints
       .start-writing <i class="fa fa-pencil"></i> Click the story to start writing
       .add-paragraph <i class="fa fa-pencil"></i> Hit shift + enter to add your paragraph
+      .join-group: a(href="/groups") <i class="fa fa-group"></i> Join the story's group to start writing
       .login-hint: a(href="/join") <i class="fa fa-user"></i> Log in to join in!
       .typing-users

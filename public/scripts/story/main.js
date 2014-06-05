@@ -50,7 +50,23 @@ $(function documentReady() {
     $story.find('.login-hint').show();
   }
 
+  function renderJoinGroup() {
+    $story.find('.join-group').show();
+  }
+
   function renderAuthorized() {
+    var userData = $('.init-user').text();
+    if (userData) {
+      // check whether user has access to group
+      var groupId = $('.story').attr('data-group-id');
+      userData = JSON.parse(userData);
+      if (userData.groupIds.indexOf(groupId) < 0) {
+        return renderJoinGroup();
+      }
+    } else {
+      return renderUnauthorized();
+    }
+
     $story.find('.start-writing').show();
     $story.find('.fa-microphone').show();
 
