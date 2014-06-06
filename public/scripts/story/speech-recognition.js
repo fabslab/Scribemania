@@ -19,6 +19,10 @@ function capitalize(s) {
   return s.replace(firstCharOfSentence, function toUpperCase(m) { return m.toUpperCase(); });
 }
 
+function clearTranscript() {
+  transcript = '';
+}
+
 function addSpeechToInput(event) {
   var interim = '';
   var i = event.resultIndex;
@@ -109,7 +113,7 @@ function enableSpeechRecognition() {
 
 module.exports = {
   enableSpeech: enableSpeechRecognition,
-  transcript: transcript
+  clearTranscript: clearTranscript
 };
 
 });

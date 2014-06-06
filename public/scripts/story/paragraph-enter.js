@@ -54,9 +54,8 @@ function createParagraphEnterHandler(paragraphsSocket) {
         insertParagraph();
       });
 
-
       // clear the microphone's transcript state
-      speechRecognition.transcript = '';
+      speechRecognition.clearTranscript();
 
       keysDown['16'] = keysDown['13'] = false;
     }
