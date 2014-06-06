@@ -26,13 +26,13 @@ function genreSearchResults(req, res, next) {
 }
 
 function getStoriesForGenre(res, next, genre) {
-  genre = encodeURIComponent(genre.trim());
+  var encodedGenre = encodeURIComponent(genre.trim());
 
-  if (!genre) {
+  if (!encodedGenre) {
     res.render('404');
   }
 
-  apiClient.get('/genres/' + genre + '/stories', function(err, cReq, cRes, stories) {
+  apiClient.get('/genres/' + encodedGenre + '/stories', function(err, cReq, cRes, stories) {
     if (err) return next(err);
     res.render('genres', { stories: stories, searchTerm: genre });
   });
