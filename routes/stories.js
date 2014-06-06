@@ -62,6 +62,7 @@ function createStory(req, res, next) {
 
 function renderStory(req, res, next) {
   var slug = req.params.slug;
+  slug = encodeURIComponent(slug);
 
   apiClient.get('/stories/' + slug, function(err, cReq, cRes, story) {
     if (cRes.statusCode == 404) {
