@@ -20,6 +20,7 @@ module.exports = {
           providerProfile: profile.profileUrl || profile._json.link,
           displayName: profile.displayName,
           name: profile.name,
+          picture: profile._json.picture,
           email: profile._json.email,
           gender: profile.gender || profile._json.gender,
           location: location.name,
