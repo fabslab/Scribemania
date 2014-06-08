@@ -20,7 +20,7 @@ module.exports = {
           providerProfile: profile.profileUrl || profile._json.link,
           displayName: profile.displayName,
           name: profile.name,
-          picture: "https://graph.facebook.com/" + profile.id + "/picture?type=large",
+          picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=large',
           email: profile._json.email,
           gender: profile.gender || profile._json.gender,
           location: location.name,
