@@ -8,7 +8,7 @@ var requirejsLibs = [];
 (function() {
   var requirejsConfig = fs.readFileSync('public/scripts/requirejs-config.js');
   // creates the require variable used in requirejs config to list all client library paths
-  requirejsConfig = eval(requirejsConfig + " require");
+  requirejsConfig = eval(requirejsConfig + ' require');
   requirejsLibs = Object.keys(requirejsConfig.paths);
 }());
 
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      files: ['gruntfile.js', 'server.js', 'authentication/*.js', 'public/scripts/**/*.js', '!public/scripts/templates/*.js',
+      files: ['server.js', 'authentication/*.js', 'public/scripts/**/*.js', '!public/scripts/templates/*.js',
         '!public/scripts/requirejs-config.js', 'routes/*.js', 'sockets/*.js', 'errors/*.js', 'configuration/*.js'],
       options: {
         jshintrc: '.jshintrc'
