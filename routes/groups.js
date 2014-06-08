@@ -9,7 +9,7 @@ module.exports = function(app, api) {
   app.get('/groups/:slug', renderGroupPage);
 };
 
-function renderCreateGroupsPage(req, res) {
+function renderCreateGroupsPage(req, res, next) {
   if (!req.user) res.redirect('/login');
 
   apiClient.get('/users/' + req.user._id + '/groups', function(err, cReq, cRes, groups) {
