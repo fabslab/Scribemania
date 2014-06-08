@@ -4,6 +4,9 @@ block content
   .content-header
     h2 #{profileUser.displayName}
 
+    if user && user.id == profileUser._id
+      a.user-logout(href='/logout') Log Out
+
   if stories && stories.length > 0
     each story in stories
       include summary
@@ -11,4 +14,4 @@ block content
     section
       h2 No stories yet.
       p
-        a(href="/new") Write your own!
+        a(href='/new') Write your own!

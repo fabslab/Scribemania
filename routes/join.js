@@ -2,7 +2,6 @@ module.exports = function(app, api, passport) {
 
   app.get('/login', joinForm);
   app.get('/join', joinForm);
-  app.get('/logout', logout);
   app.post('/logout', logout);
 
   // the first step in third-party OAuth authentication will involve redirecting
