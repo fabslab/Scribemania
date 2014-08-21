@@ -65,9 +65,7 @@ primus.use('multiplex', primusMultiplex);
 
 // initialize client for api
 var apiClient = restify.createJsonClient({
-  url: nconf.get('apiUrl'),
-  // accept api's certificate for now
-  rejectUnauthorized: false
+  url: nconf.get('apiUrl')
 });
 
 

@@ -1,7 +1,7 @@
 {
   "sessionKey": "scribe.sess",
   "macKey": "secretshhhhhhhhhh",
-  "apiUrl": "https://localhost:3000",
+  "apiUrl": "http://localhost:3000",
   "facebookAppID": "615350011870706",
   "facebookAppSecret": "55c7780d368d03ef3573f4ae31202ff1",
   "facebookCallbackURL": "https://127.0.0.1:8443/auth/facebook/callback",

@@ -18,7 +18,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     exec: {
       jade: {
-        command: 'jade-amd --from views/ --to public/scripts/templates'
+        command: 'jade-amd --from views --to public/scripts/templates'
       },
       amd: {
         command: 'r.js -convert public/scripts public/scripts'
