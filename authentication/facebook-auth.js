@@ -18,9 +18,9 @@ module.exports = {
           providerId: profile.provider + profile.id,
           provider: profile.provider,
           providerProfile: profile.profileUrl || profile._json.link,
+          providerPicture: 'https://graph.facebook.com/' + profile.id + '/picture?type=large',
           displayName: profile.displayName,
           name: profile.name,
-          picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=large',
           email: profile._json.email,
           gender: profile.gender || profile._json.gender,
           location: location.name,
@@ -28,11 +28,11 @@ module.exports = {
         };
 
         apiClient.get('/users/' + user.email, function(err, cReq, cRes, result) {
-          if (cRes.statusCode != 404){
+          if (cRes.statusCode != 404) {
             done(err, result);
           } else {
             // if this is a new user and doesn't exist yet we will add them to our records
-            apiClient.post('/users', { user: user }, function(err, cReq, cRes, result) {
+            apiClient.post('/users', user, function(err, cReq, cRes, result) {
               done(err, result);
             });
           }
