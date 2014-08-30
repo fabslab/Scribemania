@@ -13,7 +13,10 @@ var express = require('express')
   , restify = require('restify')
   , nconf = require('./configuration/init.js')
   , facebookAuth = require('./authentication/facebook-auth.js')
-  , googleAuth = require('./authentication/google-auth.js');
+  , googleAuth = require('./authentication/google-auth.js')
+  , Logger = require('bunyan');
+
+var isProductionEnv = nconf.get('NODE_ENV') == 'production';
 
 // constants for paths
 var routesPath = path.join(__dirname, 'routes')
@@ -27,7 +30,7 @@ var spdyOptions = {
   cert: fs.readFileSync(__dirname + nconf.get('certificate:cert'))
 };
 
-if (nconf.get('NODE_ENV') == 'production' && nconf.get('certificate:ca')) {
+if (isProductionEnv && nconf.get('certificate:ca')) {
   spdyOptions.ca = fs.readFileSync(__dirname + nconf.get('certificate:ca'));
 }
 
@@ -66,7 +69,11 @@ primus.use('multiplex', primusMultiplex);
 // initialize client for api
 var apiClient = restify.createJsonClient({
   url: nconf.get('apiUrl'),
-  // accept api's certificate for now
+  log: Logger.createLogger({
+      name: 'scribe-api-client',
+      level: isProductionEnv ? 'error' : 'trace'
+  }),
+  // accept self-signed cert if given
   rejectUnauthorized: false
 });
 
