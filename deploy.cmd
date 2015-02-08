@@ -98,13 +98,11 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 call :SelectNodeVersion
 
 :: 3. Install jade-amd
-call :ExecuteCmd npm install jade-amd
+call :ExecuteCmd npm install jade-amd -g
 
 :: 4. Run grunt
-if [ -e "$DEPLOYMENT_SOURCE/gruntfile.js" ]; then
-  call :ExecuteCmd npm install grunt-cli
-  ./node_modules/.bin/grunt --no-color build
-fi
+call :ExecuteCmd npm install grunt-cli
+./node_modules/.bin/grunt --no-color build
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
