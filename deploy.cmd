@@ -2,7 +2,7 @@
 
 :: ----------------------
 :: KUDU Deployment Script
-:: Version: 0.1.11
+:: Version: 0.2.0
 :: ----------------------
 
 :: Prerequisites
@@ -88,16 +88,16 @@ goto :EOF
 :Deployment
 echo Handling node.js deployment.
 
-:: 1. Install jade-amd and jade
+:: 1. Select node version
+call :SelectNodeVersion
+
+:: 2. Install jade-amd and jade
 call :ExecuteCmd npm install jade-amd -g
 call :ExecuteCmd npm install jade -g
 
-:: 2. Run grunt
+:: 3. Run grunt
 call :ExecuteCmd npm install grunt-cli
 ./node_modules/.bin/grunt --no-color build
-
-:: 3. Select node version
-call :SelectNodeVersion
 
 :: 4. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
