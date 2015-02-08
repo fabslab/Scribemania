@@ -102,7 +102,7 @@ call :ExecuteCmd $NPM_CMD install jade-amd -g
 
 :: 4. Run grunt
 if [ -e "$DEPLOYMENT_SOURCE/gruntfile.js" ]; then
-  call :ExecuteCmd $NPM_CMD install grunt-cli
+  call :ExecuteCmd npm install grunt-cli
   ./node_modules/.bin/grunt --no-color build
 fi
 
