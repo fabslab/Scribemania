@@ -98,7 +98,7 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 call :SelectNodeVersion
 
 :: 3. Install jade-amd
-call :ExecuteCmd $NPM_CMD install jade-amd -g
+call :ExecuteCmd npm install jade-amd -g
 
 :: 4. Run grunt
 if [ -e "$DEPLOYMENT_SOURCE/gruntfile.js" ]; then
