@@ -88,16 +88,16 @@ goto :EOF
 :Deployment
 echo Handling node.js deployment.
 
-:: 1. Select node version
-call :SelectNodeVersion
-
-:: 2. Install jade-amd and jade
+:: 1. Install jade-amd and jade
 call :ExecuteCmd npm install jade-amd -g
 call :ExecuteCmd npm install jade -g
 
-:: 3. Run grunt
+:: 2. Run grunt
 call :ExecuteCmd npm install grunt-cli
 ./node_modules/.bin/grunt --no-color build
+
+:: 3. Select node version
+call :SelectNodeVersion
 
 :: 4. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
