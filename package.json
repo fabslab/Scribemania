@@ -4,8 +4,7 @@
   "private": true,
   "description": "Scribemania allows people to create and watch stories, fun or serious, evolve in real-time as they contribute to them.",
   "scripts": {
-    "predeploy": "grunt build",
-    "start": "node server.js"
+    "start": "grunt build && node server.js"
   },
   "repository": {
     "type": "git",
