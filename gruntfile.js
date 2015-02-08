@@ -1,12 +1,12 @@
 var fs = require('fs');
 
-var stylesDirectory = './public/styles';
+var stylesDirectory = 'public/styles';
 var requirejsLibs = [];
 
 // this code uses eval which creates a new variable called "require"
 // it is wrapped in a function to avoid overwriting the original node require reference
 (function() {
-  var requirejsConfig = fs.readFileSync('./public/scripts/requirejs-config.js');
+  var requirejsConfig = fs.readFileSync('public/scripts/requirejs-config.js');
   // creates the require variable used in requirejs config to list all client library paths
   requirejsConfig = eval(requirejsConfig + ' require');
   requirejsLibs = Object.keys(requirejsConfig.paths);
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
     'string-replace': {
       dist: {
         files: {
-          'views/layout.jade': './views/layout.jade'
+          'views/layout.jade': 'views/layout.jade'
         },
         options: {
           replacements: [
