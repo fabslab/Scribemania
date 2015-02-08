@@ -12,7 +12,7 @@ module.exports = function(app, api) {
 function renderCreateGroupsPage(req, res, next) {
   if (!req.user) res.redirect('/login');
 
-  apiClient.get('/users/' + req.user._id + '/groups', function(err, cReq, cRes, groups) {
+  apiClient.get('/users/' + req.user.id + '/groups', function(err, cReq, cRes, groups) {
     if (err) return next(err);
     res.render('groups', { groups: groups });
   });
@@ -24,7 +24,7 @@ function createGroup(req, res, next) {
   var group = {
     name: req.body.name,
     description: req.body.description,
-    creatorId: req.user._id,
+    creatorId: req.user.id,
     writePrivate: req.body['write-access'] == 'private',
     members: req.body.members.split(',')
   };

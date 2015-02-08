@@ -22,7 +22,7 @@ module.exports = function(primus, apiClient) {
       return done();
     }
 
-    var userId = socketSession.passport.user._id;
+    var userId = socketSession.passport.user.id;
 
     apiClient.get('/users/' + userId, function authenticateSocketPassword(err, cReq, cRes, user) {
       if (err) {

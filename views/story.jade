@@ -1,7 +1,7 @@
 extends layout
 block content
 
-  section.story(data-story-id="#{story._id}", data-group-id="#{story.groupId}")
+  section.story(data-story-id="#{story.id}", data-group-id=story.groupId == null ? undefined : "#{story.groupId}")
 
     include star
 

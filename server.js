@@ -1,7 +1,6 @@
 var express = require('express')
   , connect = require('connect')
   , http = require('http')
-  , spdy = require('spdy')
   , fs = require('fs')
   , path = require('path')
   , uglify = require('uglify-js')
@@ -23,39 +22,7 @@ var routesPath = path.join(__dirname, 'routes')
   , socketsPath = path.join(__dirname, 'sockets');
 
 var app = express();
-
-// spdy/tls server
-var spdyOptions = {
-  key: fs.readFileSync(__dirname + nconf.get('certificate:key')),
-  cert: fs.readFileSync(__dirname + nconf.get('certificate:cert'))
-};
-
-if (isProductionEnv && nconf.get('certificate:ca')) {
-  spdyOptions.ca = fs.readFileSync(__dirname + nconf.get('certificate:ca'));
-}
-
-var server = spdy.createServer(spdyOptions, app);
-
-// http server that just redirects to https
-var httpServer = http.createServer(function httpRedirect(req, res) {
-  var host = req.headers.host;
-  if (host.indexOf(':')) {
-    // remove port
-    host = host.split(':')[0];
-  }
-  var url = 'https://' + host + req.url;
-  var head = 'HEAD' == req.method;
-  var status = 302;
-  var body = '';
-
-  // Set location header
-  res.setHeader('Location', url);
-
-  // Respond
-  res.statusCode = status;
-  res.setHeader('Content-Length', Buffer.byteLength(body));
-  res.end(head ? null : body);
-});
+var server = http.createServer(app);
 
 // websocket server
 var primus = new Primus(server, {
@@ -71,15 +38,13 @@ var apiClient = restify.createJsonClient({
   url: nconf.get('apiUrl'),
   log: Logger.createLogger({
       name: 'scribe-api-client',
-      level: isProductionEnv ? 'error' : 'trace'
-  }),
-  // accept self-signed cert if given
-  rejectUnauthorized: false
+      level: 'trace'
+  })
 });
 
 
 // middleware for all environments
-app.set('port', process.env.PORT || nconf.get('httpsPort'));
+app.set('port', process.env.PORT || nconf.get('httpPort'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
@@ -109,7 +74,7 @@ app.use(function(req, res, next) {
   // make username available to views
   if (req.user) {
     res.locals.user = {
-      id: req.user._id,
+      id: req.user.id,
       displayName: req.user.displayName,
       groupIds: req.user.groupIds
     };
@@ -177,5 +142,4 @@ fs.writeFileSync(primusClientLocation, uglify.minify(primusClientLocation).code)
 
 // kick things off
 server.listen(app.get('port'));
-httpServer.listen(nconf.get('httpPort'));
 console.log('Listening on port %d in %s mode.', app.get('port'), app.settings.env);

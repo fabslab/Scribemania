@@ -4,7 +4,7 @@ block content
   .content-header
     h2 #{profileUser.displayName}
 
-    if user && user.id == profileUser._id
+    if user && user.id == profileUser.id
       a.user-logout(href='/logout') Log Out
 
   if stories && stories.length > 0

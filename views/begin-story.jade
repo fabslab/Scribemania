@@ -18,7 +18,7 @@ block content
         select#group-select(name='group')
           option(value='') Public
           each group in groups
-            option(value=group._id) #{group.name}
+            option(value=group.id) #{group.name}
 
       label(for='story-genre') Intended Genre
       input#story-genre(name='genre', placeholder='Eg: fantasy', type='text')

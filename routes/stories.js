@@ -18,7 +18,7 @@ function renderStories(req, res, next) {
 
     // provide data for whether a user has starred a story or not if userId is provided
     if (req.user) {
-      var userId = req.user._id;
+      var userId = req.user.id;
       stories.forEach(function(story) {
         story.starred = (story.starredBy.indexOf(userId) >= 0);
       });
@@ -33,11 +33,11 @@ function createStory(req, res, next) {
 
   var story = {
     title: req.body.title,
-    creatorId: req.user._id,
+    creatorId: req.user.id,
     creatorName: req.user.displayName,
     paragraphs: [{
       text: req.body.paragraph,
-      authorId: req.user._id,
+      authorId: req.user.id,
       authorName: req.user.displayName
     }]
   };
@@ -72,7 +72,7 @@ function renderStory(req, res, next) {
 
     // provide data for whether a user has starred a story or not if userId is provided
     if (req.user) {
-      var userId = req.user._id;
+      var userId = req.user.id;
       story.starred = (story.starredBy.indexOf(userId) >= 0);
     }
 
@@ -83,7 +83,7 @@ function renderStory(req, res, next) {
 function newStoryForm(req, res, next) {
   if (!req.user) return res.redirect('/login');
 
-  var url = '/users/' + req.user._id + '/groups';
+  var url = '/users/' + req.user.id + '/groups';
 
   apiClient.get(url, function(err, userReq, userRes, groups) {
     if (err) return next(err);

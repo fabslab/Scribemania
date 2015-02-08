@@ -16,7 +16,7 @@ function latest(req, res, next) {
 
     // provide data for whether a user has starred a story or not if userId is provided
     if (req.user) {
-      var userId = req.user._id;
+      var userId = req.user.id;
       stories.forEach(function(story) {
         story.starred = (story.starredBy.indexOf(userId) >= 0);
       });

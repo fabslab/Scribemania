@@ -60,7 +60,7 @@ $(function documentReady() {
       // check whether user has access to group
       var groupId = $('.story').attr('data-group-id');
       userData = JSON.parse(userData);
-      if (userData.groupIds.indexOf(groupId) < 0) {
+      if (groupId && userData.groupIds.indexOf(groupId) < 0) {
         return renderJoinGroup();
       }
     } else {
