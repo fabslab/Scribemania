@@ -98,15 +98,12 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 call :SelectNodeVersion
 
 :: 3. Install jade-amd
-eval $NPM_CMD install jade-amd -g
-exitWithMessageOnError "installing jade-amd failed"
+call :ExecuteCmd $NPM_CMD install jade-amd -g
 
 :: 4. Run grunt
 if [ -e "$DEPLOYMENT_SOURCE/gruntfile.js" ]; then
-  eval $NPM_CMD install grunt-cli
-  exitWithMessageOnError "installing grunt failed"
+  call :ExecuteCmd $NPM_CMD install grunt-cli
   ./node_modules/.bin/grunt --no-color build
-  exitWithMessageOnError "grunt failed"
 fi
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
