@@ -124,4 +124,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-string-replace');
 
   grunt.registerTask('build', ['exec:jade', 'requirejs', 'string-replace', 'stylus']);
+  grunt.registerTask('default', ['build']);
 };
