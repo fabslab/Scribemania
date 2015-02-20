@@ -88,18 +88,17 @@ goto :EOF
 :Deployment
 echo Handling node.js deployment.
 
-:: 1. Select node version
+:: Select node version
 call :SelectNodeVersion
 
-:: 2. Install jade-amd and jade
-call :ExecuteCmd npm install jade-amd -g
-call :ExecuteCmd npm install jade -g
+:: Install node modules,
+call :ExecuteCmd npm install
 
-:: 3. Run grunt
+:: Run grunt
 call :ExecuteCmd npm install grunt-cli -g
 ./node_modules/.bin/grunt --no-color build
 
-:: 4. KuduSync
+:: KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_SOURCE%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
   IF !ERRORLEVEL! NEQ 0 goto error

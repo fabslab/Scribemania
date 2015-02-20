@@ -16,10 +16,21 @@ var requirejsLibs = [];
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    jade: {
+      amd: {
+        files: {
+          'public/scripts/templates/': ['views/*.jade']
+        },
+        options: {
+          wrap: {
+            amd: true,
+            dependencies: 'jadeRuntime',
+            runtime: false
+          }
+        }
+      }
+    },
     exec: {
-      jade: {
-        command: 'jade-amd --from views --to public/scripts/templates'
-      },
       amd: {
         command: 'r.js -convert public/scripts public/scripts'
       }
@@ -122,7 +133,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-string-replace');
+  grunt.loadNpmTasks('grunt-jade');
 
-  grunt.registerTask('build', ['string-replace', 'stylus', 'exec:jade', 'requirejs']);
+  grunt.registerTask('build', ['string-replace', 'stylus', 'jade', 'requirejs']);
   grunt.registerTask('default', ['build']);
 };
