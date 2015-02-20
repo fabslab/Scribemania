@@ -96,7 +96,7 @@ call :ExecuteCmd npm install jade-amd -g
 call :ExecuteCmd npm install jade -g
 
 :: 3. Run grunt
-call :ExecuteCmd npm install grunt-cli
+call :ExecuteCmd npm install grunt-cli -g
 ./node_modules/.bin/grunt --no-color build
 
 :: 4. KuduSync
