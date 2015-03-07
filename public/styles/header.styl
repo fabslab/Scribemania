@@ -2,7 +2,8 @@ h2
   font-size: 22px
 
 header
-  height: 50px
+  box-sizing: border-box
+  height: 60px
   z-index: 9
   position: fixed
   left: 0
@@ -15,28 +16,31 @@ header
   font-family: $titleFont
   a:hover
     color: lighten($scribemaniaGreen, 90%)
-  .logo
+  .logo, .logo-type
+    float: left
     display: inline-block
-    background: url('/images/sheets/logos.svg') no-repeat -2px -55px
+  .logo-type
+    background: url('/images/sheets/logos.svg') no-repeat -2px -48px
     height: 46px
     width: 196px
   .account-links
     color: rgba(#fafafa, 0.9)
     display: inline-block
     float: right
-    line-height 56px
+    line-height 30px
+    margin-top: 2px
     h2
-      font-size: 19px
+      background-color: lighten($scribemaniaGreen, 15%)
+      padding: 4px 20px
+      border-radius: 2px
+      font-size: 16px
       display: inline-block
-      vertical-align: top
-      margin-top: -3px
-    .fa
-      font-size: 24px
-      margin-left: 15px
+      transition: background-color 0.2s
+      &:hover
+        background-color: lighten($scribemaniaGreen, 20%)
 
 .header-titles
-  width: 90%
-  margin: 0 auto
+  margin: 0 50px 0 80px
 
 .content-header
   position: relative
@@ -61,8 +65,9 @@ header
 
 @media (max-width: 919px)
   header
-    .logo
-      background-position: -2px -2px
-      width: 51px
-      height: 51px
-
+    .logo-type
+      background-position: -2px -7px
+      width: 40px
+      height: 40px
+  .header-titles
+    margin: 0 30px 0 15px

@@ -122,7 +122,7 @@ module.exports = function(grunt) {
       },
       jade: {
         files: ['views/*.jade'],
-        tasks: ['exec:jade']
+        tasks: ['jade']
       }
     }
   });

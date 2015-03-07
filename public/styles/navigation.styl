@@ -1,10 +1,10 @@
 nav
+  width: 66px
   position: fixed
   top: 0
   bottom: 0
   left: 0
   z-index: 1
-  padding: 0 20px
   font-weight: 100
   text-align: center
   text-transform: uppercase
@@ -12,35 +12,16 @@ nav
   box-shadow: 0 0 3px 2px lighten(#e3e3e3, 50%)
   ul
     padding-top: 56px
-  li.button-icon
+    font-size: 18px
+  li
     display: block
-    margin: 50px 0
+    margin: 35px 0
   .about
     font-family: $titleFont
     font-weight: 300
     text-transform: none
     position: absolute
     bottom: 20px
+    padding: 0 10px
     a:hover
       color: lighten($scribemaniaGreen, 15%)
-
-@media (max-width: 919px)
-  nav
-    top: auto
-    right: 0
-    padding: 7px 0
-    background-color: rgba(#f8f8f8, 0.75)
-    border-width: 0
-    border-top: 2px solid #e3e3e3
-    ul
-      padding: 0
-    li.button-icon
-      display: inline-block
-      margin: 0 5%
-  aside
-    display: none
-
-@media (max-width: 485px)
-  nav
-    li.button-icon
-      margin: 0 3%

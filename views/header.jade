@@ -1,5 +1,7 @@
 header
   .header-titles
+    a.logo(href="/")
+    a.logo-type(href="/")
     if user
       a.account-links(href='/users/#{user.id}')
         h2.user-name #{user.displayName}
@@ -7,6 +9,4 @@ header
     else
       a.account-links(href="/join")
         h2.user-join Join
-        i.fa.fa-user
-    a(href="/")
-      h1.logo
+
