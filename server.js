@@ -44,7 +44,7 @@ var apiClient = restify.createJsonClient({
 
 
 // middleware for all environments
-app.set('port', process.env.PORT || nconf.get('httpPort'));
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || nconf.get('httpPort'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
@@ -141,5 +141,6 @@ primus.save(primusClientLocation);
 fs.writeFileSync(primusClientLocation, uglify.minify(primusClientLocation).code);
 
 // kick things off
-server.listen(app.get('port'));
+var host = process.env.OPENSHIFT_NODEJS_IP || undefined;
+server.listen(app.get('port'), host);
 console.log('Listening on port %d in %s mode.', app.get('port'), app.settings.env);
