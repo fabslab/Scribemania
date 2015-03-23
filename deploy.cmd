@@ -92,10 +92,9 @@ echo Handling node.js deployment.
 call :SelectNodeVersion
 
 :: Install node modules,
-call :ExecuteCmd npm install
+call :ExecuteCmd npm install --loglevel verbose
 
 :: Run grunt
-call :ExecuteCmd npm install grunt-cli -g
 grunt --no-color build
 
 :: KuduSync
