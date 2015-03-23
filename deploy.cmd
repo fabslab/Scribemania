@@ -95,6 +95,7 @@ call :SelectNodeVersion
 call :ExecuteCmd npm install
 
 :: Run grunt
+call :ExecuteCmd npm install grunt-cli -g
 grunt --no-color build
 
 :: KuduSync
