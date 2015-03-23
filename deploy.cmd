@@ -92,11 +92,11 @@ echo Handling node.js deployment.
 call :SelectNodeVersion
 
 :: Install node modules,
-call :ExecuteCmd npm install --loglevel info
+call :ExecuteCmd npm install --loglevel verbose
 
 :: Run grunt
 call :ExecuteCmd npm install grunt-cli -g
-call :ExecuteCmd grunt build --no-color
+call :ExecuteCmd ./node_modules/.bin/grunt build --no-color --verbose
 
 :: KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
