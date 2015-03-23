@@ -50,6 +50,7 @@
   ],
   "devDependencies": {
     "grunt": "*",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-requirejs": "*",
     "grunt-contrib-stylus": "*",
