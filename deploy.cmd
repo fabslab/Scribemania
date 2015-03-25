@@ -95,7 +95,7 @@ call :SelectNodeVersion
 call :ExecuteCmd npm install --loglevel verbose
 
 :: Run grunt
-call :ExecuteCmd grunt build --no-color --verbose
+call :ExecuteCmd node_modules/.bin/grunt build --no-color --verbose
 
 :: KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
