@@ -57,9 +57,7 @@
     "grunt-contrib-watch": "*",
     "grunt-exec": "*",
     "grunt-jade": "^0.5.1",
-    "grunt-lodash": "*",
     "grunt-string-replace": "*",
-    "lodash-cli": "*",
     "nib": "*",
     "requirejs": "*",
     "stylus": "*"
