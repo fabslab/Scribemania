@@ -38,7 +38,7 @@ var apiClient = restify.createJsonClient({
   url: nconf.get('apiUrl'),
   log: Logger.createLogger({
       name: 'scribe-api-client',
-      level: 'trace'
+      level: isProductionEnv ? 'error' : 'trace'
   })
 });
 
