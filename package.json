@@ -5,7 +5,8 @@
   "description": "Scribemania allows people to create and watch stories, fun or serious, evolve in real-time as they contribute to them.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "node_modules/.bin/grunt build"
   },
   "engines": {
     "node": ">= 0.10.0"
