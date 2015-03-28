@@ -9,7 +9,7 @@
   "googleClientSecret": "",
   "googleCallbackURL": "http://127.0.0.1:8080/auth/google/callback",
   "httpsPort": 8443,
-  "httpPort": 8080,
+  "httpPort": 8000,
   "certificate": {
     "cert": "/certs/tls-cert.pem",
     "key": "/certs/tls-key.pem",
