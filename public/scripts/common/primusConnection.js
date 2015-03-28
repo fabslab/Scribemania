@@ -8,7 +8,7 @@ var port = location.protocol == "http" ? 8000 : 8443;
 if (!url) {
   url = location.protocol +'//'+ location.hostname;
 }
-url = url.split(':')[0] + port;
+url = url.split(':')[0] + ':' + port;
 
 module.exports = new Primus(url, {
   reconnect: {
