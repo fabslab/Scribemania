@@ -9,6 +9,7 @@ if (!url) {
   url = location.protocol +'//'+ location.hostname;
 }
 url += ":" + location.port || port;
+console.log(url);
 
 module.exports = new Primus(url, {
   reconnect: {
