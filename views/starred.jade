@@ -1,7 +1,5 @@
 extends layout
 block content
-  .content-header
-    h2 Your starred stories
 
   if stories && stories.length > 0
     .summaries
@@ -9,6 +7,6 @@ block content
         include summary
   else
     section
-      h2 No stories starred.
+      h2 No stories starred
       p
         a(href="/latest") Find some you like!

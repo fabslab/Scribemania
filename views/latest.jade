@@ -2,7 +2,6 @@ extends layout
 block content
 
   .content-header
-    h2 Latest stories
     a.box-link.refresh-latest(href="/latest", title="new stories created")
 
   if stories && stories.length > 0
@@ -11,6 +10,6 @@ block content
         include summary
   else
     section
-      h2 No stories yet.
+      h2 No stories yet
       p
         a(href="/new") Write your own!

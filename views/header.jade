@@ -5,7 +5,6 @@ header
     if user
       a.account-links(href='/users/#{user.id}')
         h2.user-name #{user.displayName}
-        i.fa.fa-user
     else
       a.account-links(href="/join")
         h2.user-join Join
