@@ -1,19 +1,16 @@
 button
   cursor: pointer
-  background-color: lighten($scribemaniaGreen, 75%)
-  border: 2px solid darken($scribemaniaGreen, 33%)
-  box-shadow: inset 1px -1px 1px lighten($scribemaniaGreen, 33%)
-  padding: 4px 10px
+  text-transform: uppercase
+  color: white
+  border: none
+  background-color: lighten($scribemaniaGreen, 15%)
+  padding: 10px 18px
   min-width: 90px
-  border-radius: 5px
+  border-radius: 2px
   font: 14px $titleFont
-  transition: background-color 0.2s, box-shadow 0.2s
-  &:hover, &:focus
-    background-color: lighten($scribemaniaGreen, 66%)
-    transition: background-color 0.2s
-  &:active, &:focus
-    box-shadow: none
-    transition: box-shadow 0.2s
+  transition: background-color 0.2s
+  &:hover
+    background-color: lighten($scribemaniaGreen, 20%)
 
 .button-icon
   font-size: 18px

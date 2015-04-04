@@ -10,7 +10,7 @@ $(function documentReady() {
 
     $.get('/starters/generate')
       .done(function insertStarter(data) {
-        $starterInput.text(data.starter);
+        $starterInput.text(data);
       });
   });
 });
