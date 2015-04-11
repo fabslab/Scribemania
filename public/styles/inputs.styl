@@ -1,16 +1,11 @@
 .add-story,
-.add-story h2
 .about-page
-.about-page h2
 .user-groups
-.user-groups h2
 .create-group
-.create-group h2
-.login h2
-  font-family: $titleFont
+  font-family: $titleAltFont
 
 textarea, input, .paragraph-input, .token-input-list
-  font: 15px $storyFont
+  font: 15px $titleAltFont
   box-sizing: border-box
   border-radius: 3px
   width: 100%
@@ -19,9 +14,10 @@ textarea, input, .paragraph-input, .token-input-list
 
 textarea, .paragraph-input
   min-height: 80px
+  font-family: $storyFont
 
 .add-story input
-  font-family: $titleFont
+  font-family: $titleAltFont
 
 label, input, textarea, .token-input-list
   display: block

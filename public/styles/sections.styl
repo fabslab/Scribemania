@@ -14,7 +14,7 @@ section
   margin-bottom: 20px
   padding: 25px
   h2
-    font: 22px Helvetica, Arial, sans-serif
+    font: 22px $titleFont
     font-weight: 200
     line-height: 1.2
     a
@@ -47,15 +47,14 @@ section.story
     right: 40px
     opacity: 0.5
     cursor: pointer
-    transition: opacity 0.1s
+    transition: opacity 0.2s
   .fa-microphone:hover
     opacity: 1
-    transition: opacity 0.1s
   .fa-microphone.recording
     opacity: 1
     color: darkred
   .star
-    font-family: $titleFont
+    font-family: $titleAltFont
     margin-top: -2px
     float: right
     font-size: 11px
@@ -71,7 +70,7 @@ section.story
       color: #E6DA05
       font-size: 1.2em
   .started-info
-    font-family: $titleFont
+    font-family: $titleAltFont
     line-height: 1.6rem
     padding: 0px 4px 15px 4px
     color: $scribemaniaBlue
@@ -79,7 +78,7 @@ section.story
     font-size: 12px
     font-style: italic
   .enter-hints, .read-more
-    font-family: $titleFont
+    font-family: $titleAltFont
     color: $scribemaniaGreen
     font-size: 11px
     font-style: italic
