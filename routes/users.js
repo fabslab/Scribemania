@@ -9,16 +9,16 @@ module.exports = function(app, api) {
 };
 
 function getUsers(req, res, next) {
-  var substring = req.query.q;
+  var partialName = req.query.q;
 
   // ensure the substring is not empty and contains only letters and spaces
-  if (typeof substring != 'string' || !(substring = substring.trim()) || !/^[A-Z ]+$/i.test(substring)) {
+  if (typeof partialName != 'string' || !(partialName = partialName.trim()) || !/^[A-Z ]+$/i.test(partialName)) {
     return res.send(400);
   }
 
-  substring = encodeURIComponent(substring);
+  partialName = encodeURIComponent(partialName);
 
-  apiClient.get('/users?substring=' + substring, function sendUsers(usersErr, usersReq, usersRes, users) {
+  apiClient.get('/users?partialName=' + partialName, function sendUsers(usersErr, usersReq, usersRes, users) {
     if (usersErr) return next(usersErr);
 
     res.send(users);
