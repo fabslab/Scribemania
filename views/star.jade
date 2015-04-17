@@ -1,5 +1,5 @@
 .star
-  span.star-number #{story.stars}
+  span.star-number #{story.starredBy.length}
   - var className = 'star-action';
   - var href = 'javascript:;';
   - if (!user || !user.id) {
