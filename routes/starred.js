@@ -33,7 +33,7 @@ function incrementStar(req, res, next) {
     return res.send(400);
   }
 
-  var apiMethod = method == 'create' ? 'put' : 'delete';
+  var apiMethod = method == 'create' ? 'put' : 'del';
 
   apiClient[apiMethod]('/stories/' + storyId + '/stars/' + userId, function(err, cReq, cRes) {
     if (err) return next(err);
