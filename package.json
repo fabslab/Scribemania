@@ -31,7 +31,6 @@
     "body-parser": "^1.12.3",
     "bunyan": "^1.0.1",
     "compression": "^1.4.3",
-    "connect": "^3.3.5",
     "connect-alerts": "~0.1.1",
     "consolidate": "~0.10.0",
     "cookie": "~0.1.2",

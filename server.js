@@ -1,7 +1,6 @@
 var express = require('express')
   , bodyParser = require('body-parser')
   , compression = require('compression')
-  , connect = require('connect')
   , cookieParser = require('cookie-parser')
   , cookieSession = require('cookie-session')
   , csrf = require('csurf')
