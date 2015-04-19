@@ -1,5 +1,4 @@
-var signature = require('cookie-signature')
-  , Cookies = require('cookies')
+var Cookies = require('cookies')
   , nconf = require('../configuration/init.js')
   , sessionKey = nconf.get('sessionKey')
   , macKey = nconf.get('macKey');
