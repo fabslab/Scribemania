@@ -1,5 +1,5 @@
 var signature = require('cookie-signature')
-  , cookie = require('cookie')
+  , Cookies = require('cookies')
   , nconf = require('../configuration/init.js')
   , sessionKey = nconf.get('sessionKey')
   , macKey = nconf.get('macKey');
@@ -12,17 +12,22 @@ module.exports = function(primus, apiClient) {
       return done();
     }
 
-    var socketSignedSession = cookie.parse(req.headers.cookie)[sessionKey];
-    var socketSessionJson = parseSignedCookie(socketSignedSession, macKey);
-    if (socketSessionJson === socketSignedSession) return done('Invalid cookie.', false);
+    var cookies = new Cookies(req, null, {
+      keys: [macKey]
+    });
+    var cookie = cookies.get(sessionKey);
+    try {
+      cookie = decode(cookie);
+    } catch (e) {
+      return done('Invalid cookie.', false);
+    }
 
-    var socketSession = parseJSONCookie(socketSessionJson);
-    if (!socketSession.passport.user) {
+    if (!cookie.passport.user) {
       // user not logged in but accept connection as read-only (no userId will be set on socket)
       return done();
     }
 
-    var userId = socketSession.passport.user.id;
+    var userId = cookie.passport.user.id;
 
     apiClient.get('/users/' + userId, function authenticateSocketPassword(err, cReq, cRes, user) {
       if (err) {
@@ -45,36 +50,16 @@ module.exports = function(primus, apiClient) {
 
 };
 
-
-// The following functions are taken from connect's utils.js
-
 /**
- * Parse a signed cookie string, return the decoded value
- *
- * @param {String} str signed cookie string
- * @param {String} secret
- * @return {String} decoded value
- * @api private
- */
-
-function parseSignedCookie(str, secret){
-  return 0 === str.indexOf('s:') ? signature.unsign(str.slice(2), secret) : str;
-}
-
-/**
- * Parse JSON cookie string
+ * Decode cookie by removing base64 encoding and parsing as JSON
+ * Taken from cookie-session module
  *
  * @param {String} str
- * @return {Object} Parsed object or null if not json cookie
+ * @return {Object} Parsed cookie object
  * @api private
  */
 
-function parseJSONCookie(str) {
-  if (0 === str.indexOf('j:')) {
-    try {
-      return JSON.parse(str.slice(2));
-    } catch (err) {
-      // no op
-    }
-  }
+function decode(str) {
+  var body = new Buffer(str, 'base64').toString('utf8');
+  return JSON.parse(body);
 }

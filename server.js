@@ -69,7 +69,7 @@ app.use(bodyParser.json());
 // set up session support using cookies
 app.use(cookieParser());
 app.use(cookieSession({
-  keys: [nconf.get('sessionKey')],
+  name: nconf.get('sessionKey'),
   secret: nconf.get('macKey')
 }));
 app.use(passport.initialize());
