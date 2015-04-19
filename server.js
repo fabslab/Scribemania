@@ -1,6 +1,15 @@
 var express = require('express')
+  , bodyParser = require('body-parser')
+  , compression = require('compression')
   , connect = require('connect')
+  , cookieParser = require('cookie-parser')
+  , cookieSession = require('cookie-session')
+  , csrf = require('csurf')
+  , errorHandler = require('errorhandler')
   , http = require('http')
+  , favicon = require('serve-favicon')
+  , serveStatic = require('serve-static')
+  , serverLogger = require('morgan')
   , fs = require('fs')
   , path = require('path')
   , uglify = require('uglify-js')
@@ -49,26 +58,27 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 // gzip responses
-app.use(connect.compress());
+app.use(compression());
 
 // serve static files
-app.use(connect.favicon(path.join(__dirname, 'public/images/scribemania-logo32.png')));
-app.use(connect.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public/images/scribemania-logo32.png')));
+app.use(serveStatic(path.join(__dirname, 'public')));
 
-app.use(connect.urlencoded());
-app.use(connect.json());
-app.use(connect.methodOverride());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // set up session support using cookies
-app.use(connect.cookieParser());
-app.use(connect.cookieSession({
-  key: nconf.get('sessionKey'),
+app.use(cookieParser());
+app.use(cookieSession({
+  keys: [nconf.get('sessionKey')],
   secret: nconf.get('macKey')
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(connect.csrf());
+app.use(csrf({
+  cookie: true
+}));
 
 app.use(function(req, res, next) {
   // make username available to views
@@ -120,8 +130,8 @@ function pageNotFound(req, res) {
 // environment specific middleware
 var envHandlers = {
   development: function() {
-    app.use(connect.logger('dev'));
-    app.use(connect.errorHandler());
+    app.use(serverLogger('dev'));
+    app.use(errorHandler());
   }
 };
 
