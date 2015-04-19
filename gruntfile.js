@@ -76,7 +76,7 @@ module.exports = function(grunt) {
             {
               name: 'story/main',
               exclude: requirejsLibs
-            },a
+            },
             {
               name: 'summaries/main',
               exclude: requirejsLibs
