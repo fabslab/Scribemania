@@ -1,4 +1,5 @@
-var fs = require('fs');
+var fs = require('fs')
+  , loadGruntTasks = require('load-grunt-tasks');
 
 var stylesDirectory = 'public/styles';
 var requirejsLibs = [];
@@ -15,7 +16,17 @@ var requirejsLibs = [];
 
 module.exports = function(grunt) {
 
+  // load npm grunt tasks listed in package.json
+  loadGruntTasks(grunt, {
+    scope: ['devDependencies']
+  });
+
   grunt.initConfig({
+    exec: {
+      amd: {
+        command: 'r.js -convert public/scripts public/scripts'
+      }
+    },
     jade: {
       amd: {
         files: {
@@ -30,31 +41,11 @@ module.exports = function(grunt) {
         }
       }
     },
-    exec: {
-      amd: {
-        command: 'r.js -convert public/scripts public/scripts'
-      }
-    },
     jshint: {
       files: ['server.js', 'authentication/*.js', 'public/scripts/**/*.js', '!public/scripts/templates/*.js',
         '!public/scripts/requirejs-config.js', 'routes/*.js', 'sockets/*.js', 'errors/*.js', 'configuration/*.js'],
       options: {
         jshintrc: '.jshintrc'
-      }
-    },
-    'string-replace': {
-      dist: {
-        files: {
-          'views/layout.jade': 'views/layout.jade'
-        },
-        options: {
-          replacements: [
-            {
-              pattern: /scripts\//gi,
-              replacement: 'scripts-build/'
-            }
-          ]
-        }
       }
     },
     requirejs: {
@@ -85,10 +76,25 @@ module.exports = function(grunt) {
             {
               name: 'story/main',
               exclude: requirejsLibs
-            },
+            },a
             {
               name: 'summaries/main',
               exclude: requirejsLibs
+            }
+          ]
+        }
+      }
+    },
+    'string-replace': {
+      dist: {
+        files: {
+          'views/layout.jade': 'views/layout.jade'
+        },
+        options: {
+          replacements: [
+            {
+              pattern: /scripts\//gi,
+              replacement: 'scripts-build/'
             }
           ]
         }
@@ -126,14 +132,6 @@ module.exports = function(grunt) {
       }
     }
   });
-
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-stylus');
-  grunt.loadNpmTasks('grunt-exec');
-  grunt.loadNpmTasks('grunt-string-replace');
-  grunt.loadNpmTasks('grunt-jade');
 
   grunt.registerTask('build', ['string-replace', 'stylus', 'jade', 'requirejs']);
   grunt.registerTask('default', ['build']);

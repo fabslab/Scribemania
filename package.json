@@ -71,6 +71,7 @@
     "grunt-exec": "*",
     "grunt-jade": "^0.5.1",
     "grunt-string-replace": "*",
+    "load-grunt-tasks": "^3.1.0",
     "nib": "*",
     "requirejs": "*",
     "stylus": "*"
