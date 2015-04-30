@@ -41,13 +41,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    jshint: {
-      files: ['server.js', 'authentication/*.js', 'public/scripts/**/*.js', '!public/scripts/templates/*.js',
-        '!public/scripts/requirejs-config.js', 'routes/*.js', 'sockets/*.js', 'errors/*.js', 'configuration/*.js'],
-      options: {
-        jshintrc: '.jshintrc'
-      }
-    },
     requirejs: {
       compile: {
         options: {
@@ -118,10 +111,6 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      jshint: {
-        files: ['<%= jshint.files %>'],
-        tasks: ['jshint']
-      },
       stylus: {
         files: [stylesDirectory + '/*.styl'],
         tasks: ['stylus']
